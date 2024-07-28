@@ -7,5 +7,5 @@ export const Sub2 = styled.div<FontProps>`
     font-size: ${theme.fontSystem.sub2.fontSize};
     font-weight: ${theme.fontSystem.sub2.fontWeight};
     line-height: ${theme.fontSystem.sub2.lineHeight};
-    text-align: center;
+    text-align: ${(props) => props.textAlign || "center"};;
 `;
