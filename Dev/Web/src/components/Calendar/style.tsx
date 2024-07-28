@@ -21,7 +21,8 @@ export const StyleCalendar = styled(Calendar)`
     align-items: center; /* 수직 정렬 */
     height: 34px; /* 높이를 늘려서 가운데 정렬이 더 명확하게 보이도록 함 */
     margin-bottom: 1em;
-    gap: 0.5em; /* 버튼과 라벨 사이의 간격을 줄임 */
+    // gap: 0.5em; /* 버튼과 라벨 사이의 간격을 줄임 */
+    gap: 34px;
   }
 
   .react-calendar__navigation__label {
@@ -65,10 +66,12 @@ export const StyleCalendar = styled(Calendar)`
     color: #42850d; /* 텍스트 색상 설정 */
     border-top: 1px solid #42850d; /* 요일 테두리 색상 */
     border-bottom: 1px solid #42850d; /* 요일 테두리 색상 */
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
 
   .react-calendar__month-view__days__day--weekend {
-    color: #42850d; /* 주말 텍스트 색상 설정 */
+    color: black; /* 주말 텍스트 색상 설정 */
   }
 
   .react-calendar__tile {
@@ -148,6 +151,17 @@ export const ExButton = styled.button`
 `;
 
 export const ExImg = styled.img`
-  width: auto;
-  height: auto;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 100px;
+  border: 2px solid var(--Grey-Blue-97, #f5f6f7);
+  background: var(--White, #fff);
+
+  /* Shadows/Gray Blue/3%/5b */
+  box-shadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
 `;
