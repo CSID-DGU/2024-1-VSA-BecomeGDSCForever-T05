@@ -1,7 +1,9 @@
 import { useState } from "react";
 import * as S from "./style";
 import { CalendarProps } from "react-calendar";
-// import moment from "moment";
+
+import Next from "@/assets/icons/NextLabelIcon.svg";
+import Prev from "@/assets/icons/PrevLabelIcon.svg";
 
 const MyCalendar = () => {
   // useState 훅의 초기값으로 현재 날짜를 넣어줌
@@ -17,7 +19,14 @@ const MyCalendar = () => {
     return date.toLocaleDateString(locale, { weekday: "long" });
   };
 
-  // 태그 삽입 날짜 리스트
+  const formatMonthYear: CalendarProps["formatMonthYear"] = (locale, date) => {
+    return date.toLocaleDateString("ko-KR", { year: "numeric", month: "long" });
+  };
+
+  const formatYear: CalendarProps["formatYear"] = (locale, date) => {
+    return date.toLocaleDateString("ko-KR", { year: "numeric" });
+  };
+
   const dayList = [
     "2024-07-02",
     "2024-07-05",
@@ -46,7 +55,6 @@ const MyCalendar = () => {
         contents.push(<span className="today-label">오늘</span>);
       }
 
-      // if (dayList.find((day) => day === moment(date).format("YYYY-MM-DD"))) {
       if (dayList.find((day) => isSameDay(date, new Date(day)))) {
         contents.push(<span className="tag">태그</span>);
       }
@@ -63,12 +71,13 @@ const MyCalendar = () => {
         onChange={onChangeToday}
         value={today}
         formatShortWeekday={formatDay}
-        // Icon을 next(prev)Label= 에 컴포넌트 형식으로 할당해주면 됨.
-        nextLabel=">"
-        prevLabel="<"
-        // 이전 달, 다음 달 날짜 숨기기
+        formatMonthYear={formatMonthYear}
+        formatYear={formatYear}
+        nextLabel={<S.ExImg src={Next} />}
+        prevLabel={<S.ExImg src={Prev} />}
+        next2Label={null}
+        prev2Label={null}
         showNeighboringMonth={false}
-        // 오늘 날짜를 "오눌"로 표시
         tileContent={tileContent}
       />
     </S.CalendarBox>

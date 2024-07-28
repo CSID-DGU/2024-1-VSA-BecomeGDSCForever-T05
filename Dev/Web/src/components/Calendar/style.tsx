@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import Next from "@/assets/icons/NextLabelIcon.svg";
 
 export const CalendarBox = styled.div`
   display: flex;
@@ -136,4 +137,18 @@ export const StyleCalendar = styled(Calendar)`
   .react-calendar__month-view__weekdays__weekday abbr {
     text-decoration: none; /* 밑줄 제거 */
   }
+`;
+
+export const ExButton = styled.button`
+  background: url("assets/icons/NextlabelIcon.svg") no-repeat;
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #42850d;
+  cursor: pointer;
+`;
+
+export const ExImg = styled.img`
+  width: auto;
+  height: auto;
 `;
