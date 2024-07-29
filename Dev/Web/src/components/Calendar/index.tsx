@@ -31,10 +31,11 @@ const MyCalendar = () => {
     "2024-07-02",
     "2024-07-05",
     "2024-07-08",
-    "2024-07-11",
+    "2024-07-10",
     "2024-07-14",
     "2024-07-17",
     "2024-07-20",
+    "2024-07-28",
   ];
 
   // 날짜를 비교하는 함수
@@ -46,9 +47,10 @@ const MyCalendar = () => {
     );
   };
 
-  // 요일 이름 길게 만들기 및 태그 추가 기능 결합
+  // 태그 처리 로직
   const tileContent = ({ date, view }: { date: Date; view: string }) => {
     const contents: any[] = [];
+    const tags = ["C#", "java", "C", "OS", "machineLearning"]; // 태그 더미 데이터
 
     if (view === "month") {
       if (date.toDateString() === new Date().toDateString()) {
@@ -56,7 +58,20 @@ const MyCalendar = () => {
       }
 
       if (dayList.find((day) => isSameDay(date, new Date(day)))) {
-        contents.push(<span className="tag">태그</span>);
+        const visibleTags = tags.slice(0, 3);
+        const moreTags =
+          tags.length > 4 ? <span className="more">...</span> : null;
+
+        contents.push(
+          <S.TagList>
+            {visibleTags.map((tag, index) => (
+              <span key={index} className="tag">
+                {tag}
+              </span>
+            ))}
+            {moreTags}
+          </S.TagList>
+        );
       }
     }
 
