@@ -60,8 +60,6 @@ const MyCalendar = () => {
 
   // 날짜를 비교하는 함수
   const isSameDay = (date1: Date, date2: Date) => {
-    // console.log("nonSplit:", date1.toISOString()); -> 2024-07-30T15:00:00.000Z
-    // console.log("split:", date1.toISOString().split("T")[0]); -> 2024-07-30
     const d1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
     const d2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
     return d1.getTime() === d2.getTime();
@@ -74,8 +72,6 @@ const MyCalendar = () => {
 
     if (view === "month") {
       if (date.toDateString() === new Date().toDateString()) {
-        // contents.push(<div className="today-label">오늘</div>);
-        // contents.push(<S.TodayContainer>오늘</S.TodayContainer>);
         return <S.TodayContainer>오늘</S.TodayContainer>;
       }
 

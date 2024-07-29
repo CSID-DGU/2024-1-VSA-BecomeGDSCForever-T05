@@ -117,20 +117,20 @@ export const StyleCalendar = styled(Calendar)`
     background: #dcf8a3; /* 오늘 날짜 호버 시 배경 색상 */
   }
 
-  .react-calendar__tile--now .today-label {
-    color: #42850d; /* 오늘 텍스트 색상 */
-    position: absolute;
-    z-index: 10;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
-    font-size: 1em;
-    width: auto;
-    height: auto;
-    background: #ffffff; /* 오늘 텍스트 배경 색상 */
-  }
+  // .react-calendar__tile--now .today-label {
+  //   color: #42850d; /* 오늘 텍스트 색상 */
+  //   position: absolute;
+  //   z-index: 10;
+  //   text-align: center;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   font-weight: bold;
+  //   font-size: 1em;
+  //   width: auto;
+  //   height: auto;
+  //   background: #ffffff; /* 오늘 텍스트 배경 색상 */
+  // }
 
   .react-calendar__tile--active {
     color: #ffffff; /* 선택된 날짜 텍스트 색상 */
