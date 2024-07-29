@@ -139,7 +139,7 @@ export const StyleCalendar = styled(Calendar)`
 
   .react-calendar__tile--active:enabled:hover,
   .react-calendar__tile--active:enabled:focus {
-    background: #42850d; /* 선택된 날짜 호버 시 배경 색상 */
+    background: #ffffff; /* "오늘"날짜에 대한 호버, 클릭 시 배경 색상 */
   }
 
   .react-calendar__tile--hasActive {
@@ -232,4 +232,19 @@ export const TagList = styled.div`
     font-size: 0.8em;
     color: #42850d;
   }
+`;
+
+export const TodayContainer = styled.div`
+  color: #42850d; /* 오늘 텍스트 색상 */
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 1em;
+  // width: auto;
+  // height: auto;
+  background: #ffffff; /* 오늘 텍스트 배경 색상 */
 `;

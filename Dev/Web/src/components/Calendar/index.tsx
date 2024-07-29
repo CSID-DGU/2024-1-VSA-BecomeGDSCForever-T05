@@ -54,7 +54,9 @@ const MyCalendar = () => {
 
     if (view === "month") {
       if (date.toDateString() === new Date().toDateString()) {
-        contents.push(<span className="today-label">오늘</span>);
+        // contents.push(<div className="today-label">오늘</div>);
+        // contents.push(<S.TodayContainer>오늘</S.TodayContainer>);
+        return <S.TodayContainer>오늘</S.TodayContainer>;
       }
 
       if (dayList.find((day) => isSameDay(date, new Date(day)))) {
