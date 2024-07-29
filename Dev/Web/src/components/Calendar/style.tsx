@@ -80,19 +80,14 @@ export const StyleCalendar = styled(Calendar)`
     color: black; /* 주말 텍스트 색상 설정 */
   }
 
-  // .react-calendar__tile {
-  //   padding: 2em; /* 패딩 조정 */
-  //   font-size: 1.2em; /* 폰트 크기 조정 */
-  //   text-align: center;
-  //   position: relative;
-  // }
-
   .react-calendar__tile {
     padding: 12px; /* 패딩 조정 */
+    min-hight: 350px;
 
     font-size: 1.2em;
     text-align: left; /* 텍스트를 왼쪽 정렬 */
     vertical-align: top; /* 텍스트를 상단 정렬 */
+
     position: relative;
     display: flex;
     flex-direction: column;
@@ -161,6 +156,34 @@ export const StyleCalendar = styled(Calendar)`
   .react-calendar__month-view__weekdays__weekday abbr {
     text-decoration: none; /* 밑줄 제거 */
   }
+
+  .react-calendar__month-view__days {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .react-calendar__month-view__days__day {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 1em;
+    font-size: 1.2em;
+    text-align: left;
+    vertical-align: top;
+    min-height: 150px; /* 각 타일의 최소 높이 */
+    box-sizing: border-box;
+  }
+
+  .react-calendar__tile {
+    flex: 1 1 calc(100% / 7); /* 타일의 너비를 1/7로 설정 */
+  }
+
+  .react-calendar__tile span.date {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+  }
 `;
 
 export const ExButton = styled.button`
@@ -190,13 +213,17 @@ export const ExImg = styled.img`
 
 export const TagList = styled.div`
   margin-top: 0.5em;
-  display: flex;
-  flex-direction: column;
   gap: 0.2em;
+
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 8px 12px;
+  flex-wrap: wrap;
 
   .tag {
     background: #dcf8a3;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 0.2em 0.5em;
     font-size: 0.8em;
   }

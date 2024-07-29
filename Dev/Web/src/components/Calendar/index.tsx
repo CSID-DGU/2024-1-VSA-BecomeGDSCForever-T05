@@ -42,9 +42,9 @@ const MyCalendar = () => {
   const isSameDay = (date1: Date, date2: Date) => {
     // console.log("nonSplit:", date1.toISOString()); -> 2024-07-30T15:00:00.000Z
     // console.log("split:", date1.toISOString().split("T")[0]); -> 2024-07-30
-    return (
-      date1.toISOString().split("T")[0] === date2.toISOString().split("T")[0]
-    );
+    const d1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
+    const d2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+    return d1.getTime() === d2.getTime();
   };
 
   // 태그 처리 로직
