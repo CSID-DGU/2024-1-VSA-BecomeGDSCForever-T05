@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as S from "./style";
 import { CalendarProps } from "react-calendar";
 
@@ -8,11 +8,22 @@ import Prev from "@/assets/icons/PrevLabelIcon.svg";
 const MyCalendar = () => {
   // useState 훅의 초기값으로 현재 날짜를 넣어줌
   const [today, setToday] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | string | null>();
 
   // onChange 이벤트에 넣어줘서 날짜가 지날 때마다 today값이 업데이트 되도록 구현
   const onChangeToday = (): void => {
     setToday(today);
   };
+
+  const onClickDate = (value: Date): void => {
+    setSelectedDate(formatDate(value));
+  };
+  // 선택 날짜 적용을 위한 useEffect
+  useEffect(() => {
+    if (selectedDate) {
+      console.log("selectedDate:", selectedDate);
+    }
+  }, [selectedDate]);
 
   // 요일 이름 길게 만들기(ex. mon, tue, ... -> Monday, Tuesday, ...)
   const formatDay: CalendarProps["formatShortWeekday"] = (locale, date) => {
@@ -27,6 +38,15 @@ const MyCalendar = () => {
     return date.toLocaleDateString("ko-KR", { year: "numeric" });
   };
 
+  // 날짜 형식을 yyyy-mm-dd로 변환
+  const formatDate = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // 목데이터
   const dayList = [
     "2024-07-02",
     "2024-07-05",
@@ -86,6 +106,7 @@ const MyCalendar = () => {
         locale="en"
         calendarType="gregory"
         onChange={onChangeToday}
+        onClickDay={onClickDate}
         value={today}
         formatShortWeekday={formatDay}
         formatMonthYear={formatMonthYear}
