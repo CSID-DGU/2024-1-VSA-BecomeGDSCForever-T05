@@ -1,9 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import * as S from "./style";
 import H1 from "../Common/Font/Heading/H1";
 import Sub1 from "../Common/Font/Body/Sub1";
 import Sub2 from "../Common/Font/Body/Sub2";
-import SizedBox from "../Common/SizedBox";
 import ModalButton from "./ModalButton";
 import theme from "@/shared/theme";
 
@@ -12,6 +12,7 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ onClose }) => {
+  const userRole = useSelector((state: any) => state.userRole);
   return (
     <S.ModalBackground>
       <S.ModalContainer>
@@ -39,7 +40,14 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
           <Sub1 text="사용 언어" textAlign="start" />
           <S.Input type="text" placeholder="#Java #C++ #OOP" />
         </div>
-
+        {userRole === "student" && (
+          <Sub2
+            text="참여자들이 현재의 대화와 토론에 집중하고 충실하게 참여할 수 있도록 하기 위해
+          모들락에 참여하게 되면, 관리자가 해당 모들락을 종료하거나 정해진 시간이 끝날 때까지는 다른 모들락에 접속할 수 없습니다."
+            textAlign="start"
+            color={theme.colorSystem.red["500"]}
+          />
+        )}
         <ModalButton onClick={onClose} color={theme.colorSystem.neutral["200"]}>
           취소하기
         </ModalButton>
