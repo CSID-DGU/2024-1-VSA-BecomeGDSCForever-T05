@@ -4,21 +4,24 @@ export const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(146, 146, 165, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 export const ModalContainer = styled.div`
-  background: #fff;
+  display: flex;
+  width: 480px;
   padding: 20px;
-  border-radius: 8px;
-  width: 400px;
-  max-width: 90%;
-  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  background: #fff;
+  border-radius: 20px;
 `;
 
 export const Button = styled.button`
