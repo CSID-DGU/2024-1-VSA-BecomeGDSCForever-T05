@@ -6,7 +6,7 @@ import QuestionItem from "@/components/Question/QuestionItem";
 export default function Question() {
 
     const handleClick = () => {
-        console.log('응기잇');
+        console.log('click');
     }
 
     return (
