@@ -3,6 +3,7 @@ import * as S from "./style";
 import H1 from "../Common/Font/Heading/H1";
 import Sub1 from "../Common/Font/Body/Sub1";
 import Sub2 from "../Common/Font/Body/Sub2";
+import SizedBox from "../Common/SizedBox";
 import ModalButton from "./ModalButton";
 import theme from "@/shared/theme";
 
@@ -35,7 +36,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
           </div>
         </div>
         <div>
-          <S.Label>사용 언어</S.Label>
+          <Sub1 text="사용 언어" textAlign="start" />
           <S.Input type="text" placeholder="#Java #C++ #OOP" />
         </div>
 
