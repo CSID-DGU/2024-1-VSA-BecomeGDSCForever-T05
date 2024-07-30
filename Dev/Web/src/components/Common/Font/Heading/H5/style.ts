@@ -8,4 +8,5 @@ export const H5 = styled.div<FontProps>`
     font-weight: ${theme.fontSystem.h5.fontWeight};
     line-height: ${theme.fontSystem.h5.lineHeight};
     text-align: ${(props) => props.textAlign || "center"};
+    white-space: pre-wrap;
 `;
