@@ -8,4 +8,5 @@ export const Sub3 = styled.div<FontProps>`
     font-weight: ${theme.fontSystem.sub3.fontWeight};
     line-height: ${theme.fontSystem.sub3.lineHeight};
     text-align: ${(props) => props.textAlign || "center"};
+    white-space: pre-wrap;
 `;
