@@ -4,6 +4,12 @@ interface PaddingProps {
     horizontal?: string;
     vertical?: string;
     all?: string;
+    width?: string;
+    height?: string;
+    backgroundColor?: string;
+    borderRadius?: string;
+    border?: string;
+    borderColor?: string;
 }
 
 const calculatePadding = (props: PaddingProps) => {
@@ -22,5 +28,10 @@ const calculatePadding = (props: PaddingProps) => {
 
 export const Padding = styled.div<PaddingProps>`
     padding: ${(props) => calculatePadding(props)};
-    width: 100%;
+    width: ${(props) => props.width || "100%"};
+    height: ${(props) => props.height || "100%"};
+    background-color: ${(props) => props.backgroundColor || "transparent"};
+    border-radius: ${(props) => props.borderRadius || "0"};
+    border: ${(props) => props.border || "none"};
+    border-color: ${(props) => props.borderColor || "transparent"};
 `;
