@@ -7,7 +7,6 @@ import Sub2 from "../Common/Font/Body/Sub2";
 import Row from "../Common/Row";
 import ModalButton from "./ModalButton";
 import theme from "@/shared/theme";
-import SizedBox from "../Common/SizedBox";
 import Column from "../Common/Column";
 
 interface ModalProps {
@@ -93,9 +92,9 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                 })
               }
             />
-            <S.RowCon>
-              <Sub1 text="시간" textAlign="start" />
-            </S.RowCon>
+
+            <Sub1 text="시간" textAlign="start" />
+
             <S.Input
               type="number"
               placeholder="30"
