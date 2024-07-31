@@ -49,3 +49,23 @@ export const Label = styled.label`
   display: block;
   margin: 10px 0 5px;
 `;
+
+export const ModalButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;
+
+export const RowCon = styled.div`
+  display: wrap;
+  justify-content: center;
+  align-items: center;
+`;
