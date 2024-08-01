@@ -4,7 +4,6 @@ import theme from "@/shared/theme.ts";
 
 export const NavBarContainer = styled.div`
     box-sizing: border-box;
-    
     display: flex;
     width: 100vw;
     height: 128px;
@@ -14,8 +13,6 @@ export const NavBarContainer = styled.div`
     flex-shrink: 0;
     border-bottom: 1.333px solid rgba(195, 212, 233, 0.40);
     background: ${theme.colorSystem.white};
-    
-    //background: blanchedalmond;
 `
 export const NavBarLeftSection = styled.div`
     display: flex;
@@ -27,7 +24,6 @@ export const NavBarRightSection = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
-    border: 1px solid black;
 `
 
 // Icon
@@ -59,21 +55,3 @@ export const NavMenuButton = styled.div`
     border-bottom: 2px solid ${theme.colorSystem.secondary["700"]};
 `
 
-export const ParticipatingGroup = styled.div`
-    display: flex;
-    padding: 10.5px 20px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 12px;
-    background: ${theme.colorSystem.secondary["500"]};
-    color: #ffffff;
-`
-
-export const Profile = styled.div`
-    display: flex;
-    width: 60px;
-    height: 60px;
-    justify-content: flex-end;
-    align-items: center;
-    background: aqua;
-`
