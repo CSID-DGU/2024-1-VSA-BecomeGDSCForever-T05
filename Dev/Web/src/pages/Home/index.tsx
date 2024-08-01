@@ -5,6 +5,7 @@ import SizedBox from "@/components/Common/SizedBox";
 import {useSelector} from "react-redux";
 import {RootState} from "@/stores/store.ts";
 import Answer from "@/components/Answer";
+import Search from "@/components/Search";
 
 export default function Home() {
 
@@ -12,9 +13,16 @@ export default function Home() {
 
     return (
         <Styled.Container>
-            {isOpen ? <Answer/> : <MyCalendar/>}
-            <SizedBox width={"64px"}/>
-            <Question/>
+            {/* menu bar를 위한 Sized Box */}
+            <SizedBox height={"128px"}/>
+            <SizedBox height={"40px"}/>
+            <Search/>
+            <SizedBox height={"40px"}/>
+            <Styled.CalendarAndQuestion>
+                {isOpen ? <Answer/> : <MyCalendar/>}
+                <SizedBox width={"64px"}/>
+                <Question/>
+            </Styled.CalendarAndQuestion>
         </Styled.Container>
     )
 }
