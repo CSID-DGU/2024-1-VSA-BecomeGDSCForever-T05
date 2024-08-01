@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import theme from "@/shared/theme.ts";
 
+
 export const NavBarContainer = styled.div`
     box-sizing: border-box;
     
@@ -11,8 +12,10 @@ export const NavBarContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
+    border-bottom: 1.333px solid rgba(195, 212, 233, 0.40);
+    background: ${theme.colorSystem.white};
     
-    background: blanchedalmond;
+    //background: blanchedalmond;
 `
 export const NavBarLeftSection = styled.div`
     display: flex;
@@ -27,15 +30,24 @@ export const NavBarRightSection = styled.div`
     border: 1px solid black;
 `
 
-export const Icon = styled.div`
-    display: flex;
-    height: 80px;
-    width: 195px;
-    padding: 10px 0px;
-    align-items: center;
-    gap: 12px;
-    background: black;
-`
+// Icon
+export interface IconProps {
+    src: string;
+    alt?: string;
+    height?: string;
+    width?: string;
+    padding?: string;
+}
+
+export const Icon = styled.img<IconProps>`
+  display: flex;
+  height: ${(props) => props.height || "auto"};
+  width: ${(props) => props.width || "auto"};
+  padding: ${(props) => props.padding || "10px 0px"};
+  align-items: center;
+  gap: 12px;
+    flex-shrink: 0;
+`;
 
 export const NavMenuButton = styled.div`
     display: flex;
@@ -44,7 +56,7 @@ export const NavMenuButton = styled.div`
     justify-content: center;
     align-items: center;
     gap: 12px;
-    background: darkred;
+    border-bottom: 2px solid ${theme.colorSystem.secondary["700"]};
 `
 
 export const ParticipatingGroup = styled.div`
