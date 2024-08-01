@@ -6,6 +6,8 @@ import {useSelector} from "react-redux";
 import {RootState} from "@/stores/store.ts";
 import Answer from "@/components/Answer";
 import Search from "@/components/Search";
+import NavBar from "@/components/NavBar";
+import Row from "@/components/Common/Row";
 
 export default function Home() {
 
@@ -13,16 +15,15 @@ export default function Home() {
 
     return (
         <Styled.Container>
-            {/* menu bar를 위한 Sized Box */}
-            <SizedBox height={"128px"}/>
+            <NavBar/>
             <SizedBox height={"40px"}/>
             <Search/>
             <SizedBox height={"40px"}/>
-            <Styled.CalendarAndQuestion>
+            <Row>
                 {isOpen ? <Answer/> : <MyCalendar/>}
                 <SizedBox width={"64px"}/>
                 <Question/>
-            </Styled.CalendarAndQuestion>
+            </Row>
         </Styled.Container>
     )
 }
