@@ -5,6 +5,7 @@ import SizedBox from "@/components/Common/SizedBox";
 import {useSelector} from "react-redux";
 import {RootState} from "@/stores/store.ts";
 import Answer from "@/components/Answer";
+import Search from "@/components/Search";
 import NavBar from "@/components/NavBar";
 import Row from "@/components/Common/Row";
 
@@ -15,6 +16,9 @@ export default function Home() {
     return (
         <Styled.Container>
             <NavBar/>
+            <SizedBox height={"40px"}/>
+            <Search/>
+            <SizedBox height={"40px"}/>
             <Row>
                 {isOpen ? <Answer/> : <MyCalendar/>}
                 <SizedBox width={"64px"}/>
