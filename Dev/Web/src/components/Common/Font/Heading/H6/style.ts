@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "@/shared/theme.ts";
-import FontProps from "@/interfaces/Common/Font/FontProps.ts";
+import FontProps from "@/interfaces/props/FontProps.ts";
 
 export const H6 = styled.div<FontProps>`
     color: ${(props) => props.color || theme.colorSystem.black};

@@ -19,7 +19,7 @@ export default function Home() {
             <SizedBox height={"40px"}/>
             <Search/>
             <SizedBox height={"40px"}/>
-            <Row>
+            <Row justifyContent={"center"}>
                 {isOpen ? <Answer/> : <MyCalendar/>}
                 <SizedBox width={"64px"}/>
                 <Question/>

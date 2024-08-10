@@ -1,5 +1,5 @@
 import * as Styled from "./style.ts";
-import FontProps from "@/interfaces/Common/Font/FontProps.ts";
+import FontProps from "@/interfaces/props/FontProps.ts";
 
 export default function H2(props: FontProps) {
     return (
