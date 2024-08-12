@@ -1,11 +1,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {SelectedDateState} from "@/interfaces/states/SelectedDateState.ts";
 
-interface DateState {
-    date: Date;
-}
-
-const initialState: DateState = {
-    date: new Date(),
+const initialState: SelectedDateState = {
+    selectedDate: new Date(),
 };
 
 const dateSlice = createSlice({
@@ -13,7 +10,7 @@ const dateSlice = createSlice({
     initialState,
     reducers: {
         updateDate: (state, action: PayloadAction<Date>) => {
-            state.date = action.payload;
+            state.selectedDate = action.payload;
         },
     },
 });

@@ -1,8 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-
-interface AnswerModalState {
-    isOpen: boolean;
-}
+import {AnswerModalState} from "@/interfaces/states/AnswerModalState.ts";
 
 const initialState: AnswerModalState = {
     isOpen: false,

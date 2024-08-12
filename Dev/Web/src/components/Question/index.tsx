@@ -2,14 +2,18 @@ import * as Styled from './style';
 import QuestionHeader from "@/components/Question/QuestionHeader";
 import SizedBox from "@/components/Common/SizedBox";
 import QuestionItem from "@/components/Question/QuestionItem";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "@/stores/store.ts";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "@/stores/store.ts";
 import {updateAnswerModalState} from "@/stores/slices/answerModal.slice.ts";
 import Column from "@/components/Common/Column";
+import {useQuestionSummaries} from "@/hooks/useQuestionSummaries.ts";
 
 export default function Question() {
 
     const dispatch = useDispatch<AppDispatch>();
+    const selectedDate = useSelector((state: RootState) => state.dateState.selectedDate);
+
+    const questionSummaries = useQuestionSummaries(selectedDate);
 
     const handleClick = () => {
         dispatch(updateAnswerModalState(true))
@@ -20,15 +24,20 @@ export default function Question() {
             <Column>
                 <QuestionHeader/>
                 <SizedBox height={"20px"}/>
-                {[...Array(10)].map((_, i) => {
-                    if (i === 0) {
-                        return <QuestionItem key={i} isFirst={true} onClick={() => handleClick()}/>;
-                    } else if (i === 9) {
-                        return <QuestionItem key={i} isLast={true} onClick={() => handleClick()}/>;
-                    } else {
-                        return <QuestionItem key={i} onClick={() => handleClick()}/>;
-                    }
-                })}
+                {
+                    questionSummaries.map((questionSummary, index) => {
+                        if (index === 0) {
+                            return <QuestionItem key={index} isFirst={true} onClick={() => handleClick()}
+                                                 questionSummary={questionSummary}/>;
+                        } else if (index === questionSummaries.length - 1) {
+                            return <QuestionItem key={index} isLast={true} onClick={() => handleClick()}
+                                                 questionSummary={questionSummary}/>;
+                        } else {
+                            return <QuestionItem key={index} onClick={() => handleClick()}
+                                                 questionSummary={questionSummary}/>;
+                        }
+                    })
+                }
             </Column>
         </Styled.Container>
     );

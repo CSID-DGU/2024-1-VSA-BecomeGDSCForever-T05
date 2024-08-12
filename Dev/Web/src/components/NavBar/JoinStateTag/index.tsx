@@ -4,11 +4,17 @@ import theme from "@/shared/theme.ts";
 
 interface joinStateProps {
     text?: string;
+    id?: number;
 }
 
 export default function JoinStateTag(props: joinStateProps) {
+
+    const handleOnClick = () => {
+        alert(`${props.id} clicked!`);
+    }
+
     return (
-        <Styled.Container>
+        <Styled.Container onClick={handleOnClick}>
             <H3 text={props.text} color={theme.colorSystem.white}/>
         </Styled.Container>
 
