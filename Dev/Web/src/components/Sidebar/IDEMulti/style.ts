@@ -1,10 +1,40 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    height: 100vh;
-    width: 10vw;
     display: flex;
-    justify-content: flex-start;
+    width: 80px;
+    height: 910px;
+    padding: 12px 0px;
+    flex-direction: column;
     align-items: center;
-    background: chartreuse;
+    gap: 12px;
+    background: ${({theme}) => theme.colorSystem.primary["900"]};
 `;
+
+export const MyProfile = styled.div`
+    height: 56px;
+    flex-shrink: 0;
+    align-self: stretch;
+    position: relative;
+    padding-left: 10px; /* 컨텐츠와 border 사이의 간격 조정 */
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 4px;
+        border-radius: 0px 2px 2px 0px;
+        background: ${({theme}) => theme.colorSystem.primary["500"]};
+    }
+`;
+
+export const Hr = styled.hr`
+    width: 48px;
+    height: 2px;
+    flex-shrink: 0;
+    background: ${({theme}) => theme.colorSystem.primary["500"]};
+    border: none;
+    border-radius: 1px;
+`
