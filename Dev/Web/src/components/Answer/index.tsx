@@ -12,8 +12,8 @@ import Spacer from "@/components/Common/Spacer";
 import AnswerTagItem from "@/components/Answer/AnswerTagItem";
 import Row from "@/components/Common/Row";
 import CloseButton from "@/assets/icons/CloseButton.svg";
-import BriefQuestion from "@/components/Answer/BriefQuestion";
-import BriefAnswer from "@/components/Answer/BriefAnswer";
+import UserQuestionChunk from "@/components/Answer/UserQuestionChunk";
+import QuestionKeywordChunk from "@/components/Answer/QuestionKeywordChunk";
 
 export default function Answer() {
 
@@ -55,17 +55,9 @@ export default function Answer() {
                 <SizedBox height={"20px"}/>
                 <Styled.Line color={theme.colorSystem.secondary["400"]}/>
                 <SizedBox height={"20px"}/>
-                <BriefQuestion/>
+                <UserQuestionChunk/>
                 <SizedBox height={"20px"}/>
-                <BriefAnswer/>
-                <SizedBox height={"20px"}/>
-                <BriefQuestion/>
-                <SizedBox height={"20px"}/>
-                <BriefAnswer isAdmin={true}/>
-                <SizedBox height={"20px"}/>
-                <BriefQuestion/>
-                <SizedBox height={"20px"}/>
-                <BriefAnswer/>
+                <QuestionKeywordChunk/>
             </Styled.Container>
         </Padding>
     )

@@ -11,6 +11,7 @@ export const useParticipatingModeul = () => {
 
     dispatch(updateParticipatingModeulState(
         {
+            id: 1,
             isParticipating: true,
             name: "자료구조 12강 실습",
         }

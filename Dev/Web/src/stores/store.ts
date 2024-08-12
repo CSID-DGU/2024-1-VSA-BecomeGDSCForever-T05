@@ -3,6 +3,8 @@ import dateSlice from "@/stores/slices/date.slice.ts";
 import answerModalSlice from "@/stores/slices/answerModal.slice.ts";
 import participatingModeulSlice from "@/stores/slices/participatingModeul.slice.ts";
 import questionSummariesSlice from "@/stores/slices/questionSummaries.slice.ts";
+import userQuestionChunkSlice from "@/stores/slices/userQuestionChunk.slice.ts";
+import questionKeywordChunkSlice from "@/stores/slices/questionKeywordChunk.slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
         answerModalState: answerModalSlice,
         participatingModeulState: participatingModeulSlice,
         questionSummariesState: questionSummariesSlice,
+        userQuestionChunkState: userQuestionChunkSlice,
+        questionKeywordChunkState: questionKeywordChunkSlice,
     },
 });
 
