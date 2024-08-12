@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: Modeul_Monolithic_API
+  profiles:
+    active: local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---

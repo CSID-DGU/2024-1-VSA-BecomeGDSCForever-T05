@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.2'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'org.dongguk.vsa'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+bootJar {
+    archiveFileName.set "application.jar"
+}
+
+jar {
+    enabled = false
+}
+
+dependencies {
+    // Spring Boot Default
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Spring Boot Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Spring Boot JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // MYSQL
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // Testing Dependencies
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+def generatedFiles = layout.buildDirectory.dir('generated/querydsl').get().asFile
+
+tasks.withType(JavaCompile).configureEach {
+    options.getGeneratedSourceOutputDirectory().set(file(generatedFiles))
+}
+
+sourceSets {
+    main.java.srcDirs += [ generatedFiles ]
+}
+
+clean {
+    delete file(generatedFiles)
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
