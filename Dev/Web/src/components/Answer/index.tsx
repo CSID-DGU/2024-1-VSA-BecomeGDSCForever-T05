@@ -26,8 +26,11 @@ export default function Answer() {
     return (
         <Padding all={"20px"} width={"1080px"}>
             <Styled.Container>
-                <Styled.SvgButton src={CloseButton} width={"24px"} height={"24px"} onClick={handleClose}
-                />
+                <Row>
+                    <Spacer flex={1} direction={"horizontal"}/>
+                    <Styled.SvgButton src={CloseButton} width={"24px"} height={"24px"} onClick={handleClose}
+                    />
+                </Row>
                 <SizedBox height={"20px"}/>
                 <H1 color={theme.colorSystem.black} textAlign={"left"} text={"자료구조 12강 실습"}/>
                 <SizedBox height={"20px"}/>
