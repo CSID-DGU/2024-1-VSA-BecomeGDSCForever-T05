@@ -6,7 +6,7 @@ import {convertDateToKoreanString} from "@/utils/dateTimeUtil.ts";
 
 export default function QuestionHeader() {
 
-    const date = useSelector((state: RootState) => state.dateState.date);
+    const date = useSelector((state: RootState) => state.dateState.selectedDate);
 
     return (
         <H1 color={theme.colorSystem.primary["800"]} text={`${convertDateToKoreanString(date)}의 질문 요약본`}

@@ -6,18 +6,19 @@ import FilledLeaf from "@/assets/icons/FilledLeaf.svg"
 import DefaultProfile from "@/assets/icons/Profile/DefaultProfile.svg"
 import H3 from "@/components/Common/Font/Heading/H3";
 import JoinStateTag from "@/components/NavBar/JoinStateTag";
+import {useParticipatingModeul} from "@/hooks/useParticipatingModeul.ts";
 
 const NavBar: React.FC = () => {
-    const onLogoClick = ():void => {
+
+    const participatingModeulState = useParticipatingModeul();
+
+    const onLogoClick = (): void => {
         alert("logo clicked!");
     }
 
-    const onProfileCLick = ():void => {
+    const onProfileCLick = (): void => {
         alert("profile clicked!");
     }
-
-    const isJoined:boolean = true;
-    const joinedSpace:string = '자료구조 13강 실습';
 
     return (
         <Styled.NavBarContainer>
@@ -29,8 +30,9 @@ const NavBar: React.FC = () => {
                 </Styled.NavMenuButton>
             </Styled.NavBarLeftSection>
             <Styled.NavBarRightSection>
-                {isJoined?
-                    <JoinStateTag text={`${joinedSpace} 모들락 참여 중`}/> : null
+                {participatingModeulState.isParticipating ?
+                    <JoinStateTag text={`${participatingModeulState.name} 참여 중`}
+                                  id={participatingModeulState.id}/> : null
                 }
                 <Styled.Icon src={DefaultProfile} onClick={onProfileCLick} width={"58.667px"} height={"58.667px"}/>
             </Styled.NavBarRightSection>
