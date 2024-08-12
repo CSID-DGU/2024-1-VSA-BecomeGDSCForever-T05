@@ -6,12 +6,15 @@ import theme from "@/shared/theme.ts";
 import Button from "@/components/Search/Button";
 import Modal from "@/components/Modal";
 import {useState} from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "@/stores/store.ts";
 
 
 export default function Search() {
 
     const [isOpen, setIsOpen] = useState(false);
     const [modalType, setModalType] = useState<"create" | "join">("create");
+    const participatingModeulState = useSelector((state: RootState) => state.participatingModeulState);
 
     const handleClose = () => {
         setIsOpen(false);
@@ -37,15 +40,17 @@ export default function Search() {
                     <Sub1 color={theme.colorSystem.neutral["400"]} text={"개설된 모들락이 없나요?"}/>
                     <SizedBox width={"20px"} height={"20px"}/>
                     <Styled.RoomMaker onClick={handleCreateOpen}>
-                        <Sub1 color={theme.colorSystem.neutral["700"]} text={"개설하기"}/>
+                        <Sub1
+                            color={participatingModeulState.isParticipating ? theme.colorSystem.neutral[400] : theme.colorSystem.neutral["700"]}
+                            text={"개설하기"}/>
                     </Styled.RoomMaker>
                     <SizedBox width={"30px"} height={"20px"}/>
                 </Styled.Label>
             </Styled.Input>
             <SizedBox width={"80px"} height={"88px"}/>
-            <Button onClick={handleJoinOpen}/>
+            <Button onClick={handleJoinOpen} isParticipated={participatingModeulState.isParticipating}/>
             {
-                isOpen && <Modal onClose={handleClose} type={modalType}/>
+                isOpen && !participatingModeulState.isParticipating && <Modal onClose={handleClose} type={modalType}/>
             }
         </Styled.Container>
     );
