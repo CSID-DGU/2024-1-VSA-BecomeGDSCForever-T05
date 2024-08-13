@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import * as S from "./style";
 import {CalendarProps} from "react-calendar";
 
@@ -121,6 +121,8 @@ const MyCalendar = () => {
                 prev2Label={null}
                 showNeighboringMonth={false}
                 tileContent={tileContent}
+                minDate={new Date(2024, 0, 1)} // 2024년 1월 1일부터
+                maxDate={new Date(2030, 11, 31)} // 2030년 12월 31일까지
             />
         </S.CalendarBox>
     );
