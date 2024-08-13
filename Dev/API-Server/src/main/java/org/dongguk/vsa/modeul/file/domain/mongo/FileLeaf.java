@@ -26,9 +26,13 @@ public class FileLeaf implements Component {
     @Field("content")
     private String content;
 
+    @Field("extension")
+    private String extension;
+
     @Builder
     public FileLeaf(String name, String content) {
         this.name = name;
         this.content = content;
+        this.extension = name.substring(name.lastIndexOf(".")+1);
     }
 }
