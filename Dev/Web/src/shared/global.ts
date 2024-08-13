@@ -14,5 +14,12 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         font-family: 'SUIT', sans-serif;
+
+        ::-webkit-scrollbar {
+            display: none; /* 크롬, 사파리, 엣지에서 스크롤바 숨기기 */
+        }
+
+        -ms-overflow-style: none; /* IE에서 스크롤바 숨기기 */
+        scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
     }
 `;

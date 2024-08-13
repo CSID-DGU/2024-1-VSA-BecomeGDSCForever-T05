@@ -8,10 +8,12 @@ import Answer from "@/components/Answer";
 import Search from "@/components/Search";
 import NavBar from "@/components/NavBar";
 import Row from "@/components/Common/Row";
+import KeywordModal from "@/components/Answer/KeywordModal";
 
 export default function Home() {
 
     const isOpen = useSelector((state: RootState) => state.answerModalState.isOpen);
+    const keywordModalState = useSelector((state: RootState) => state.keywordModalState.isOpen);
 
     return (
         <Styled.Container>
@@ -24,6 +26,9 @@ export default function Home() {
                 <SizedBox width={"64px"}/>
                 <Question/>
             </Row>
+            {
+                keywordModalState && <KeywordModal/>
+            }
         </Styled.Container>
     )
 }

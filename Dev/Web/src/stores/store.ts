@@ -5,6 +5,7 @@ import participatingModeulSlice from "@/stores/slices/participatingModeul.slice.
 import questionSummariesSlice from "@/stores/slices/questionSummaries.slice.ts";
 import userQuestionChunkSlice from "@/stores/slices/userQuestionChunk.slice.ts";
 import questionKeywordChunkSlice from "@/stores/slices/questionKeywordChunk.slice.ts";
+import keywordModalSlice from "@/stores/slices/keywordModal.slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
         questionSummariesState: questionSummariesSlice,
         userQuestionChunkState: userQuestionChunkSlice,
         questionKeywordChunkState: questionKeywordChunkSlice,
+        keywordModalState: keywordModalSlice,
     },
 });
 
