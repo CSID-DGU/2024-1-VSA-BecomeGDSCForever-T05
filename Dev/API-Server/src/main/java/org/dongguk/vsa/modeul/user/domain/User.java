@@ -5,11 +5,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.dongguk.vsa.modeul.dialogue.domain.Dialogue;
 import org.dongguk.vsa.modeul.user.domain.type.ESecurityProvider;
 import org.dongguk.vsa.modeul.user.domain.type.ESecurityRole;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -61,6 +64,16 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDate createdAt;
 
+
+    /* -------------------------------------------- */
+    /* One To Many Mapping ------------------------ */
+    /* -------------------------------------------- */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<UserModeullak> userModeullaks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Dialogue> dialogues = new ArrayList<>();
+
     @Builder
     public User(
             ESecurityProvider provider,
@@ -94,4 +107,14 @@ public class User {
     public void updateProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
+
+    public void addDialogues(Dialogue dialogue) {
+        this.dialogues.add(dialogue);
+    }
+
+    public void addUserModeullaks(UserModeullak userModeullak) {
+        this.userModeullaks.add(userModeullak);
+    }
+
+
 }
