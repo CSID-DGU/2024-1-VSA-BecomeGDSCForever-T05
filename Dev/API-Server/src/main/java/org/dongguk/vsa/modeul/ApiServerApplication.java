@@ -5,14 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-@EnableJpaRepositories(basePackages = {
-        "org.dongguk.vsa.modeul.dialogue",
-        "org.dongguk.vsa.modeul.keyword",
-        "org.dongguk.vsa.modeul.modeullak",
-        "org.dongguk.vsa.modeul.tag",
-        "org.dongguk.vsa.modeul.user"
-})
-@EnableMongoRepositories(basePackages = "org.dongguk.vsa.modeul.file")
+@EnableJpaRepositories(basePackages = "org.dongguk.vsa.modeul.*.domain.mysql")
+@EnableMongoRepositories(basePackages = "org.dongguk.vsa.modeul.*.domain.mongo")
 @SpringBootApplication
 public class ApiServerApplication {
 

@@ -1,4 +1,4 @@
-package org.dongguk.vsa.modeul.file.domain;
+package org.dongguk.vsa.modeul.file.domain.mongo;
 
 import lombok.AccessLevel;
 import lombok.Builder;

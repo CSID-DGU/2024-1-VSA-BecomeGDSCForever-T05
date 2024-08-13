@@ -1,12 +1,12 @@
-package org.dongguk.vsa.modeul.keyword.domain;
+package org.dongguk.vsa.modeul.keyword.domain.mysql;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dongguk.vsa.modeul.dialogue.domain.Dialogue;
-import org.dongguk.vsa.modeul.modeullak.domain.ModeullakKeyword;
+import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
+import org.dongguk.vsa.modeul.modeullak.domain.mysql.ModeullakKeyword;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

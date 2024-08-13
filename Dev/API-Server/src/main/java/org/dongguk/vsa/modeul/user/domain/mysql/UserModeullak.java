@@ -1,11 +1,11 @@
-package org.dongguk.vsa.modeul.user.domain;
+package org.dongguk.vsa.modeul.user.domain.mysql;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dongguk.vsa.modeul.modeullak.domain.Modeullak;
+import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.user.domain.type.EModuellakRole;
 
 @Entity

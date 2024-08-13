@@ -1,17 +1,18 @@
-package org.dongguk.vsa.modeul.modeullak.domain;
+package org.dongguk.vsa.modeul.modeullak.domain.mysql;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dongguk.vsa.modeul.keyword.domain.Keyword;
+import org.dongguk.vsa.modeul.tag.domain.mysql.Tag;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "modeullak_keywords")
-public class ModeullakKeyword {
+@Table(name = "modeullak_tags")
+public class ModeullakTag {
+
     /* -------------------------------------------- */
     /* Default Column ----------------------------- */
     /* -------------------------------------------- */
@@ -21,13 +22,6 @@ public class ModeullakKeyword {
     private Long id;
 
     /* -------------------------------------------- */
-    /* Information Attribute ---------------------- */
-    /* -------------------------------------------- */
-    @Column(name = "content", length = 20, nullable = false)
-    private String content;
-
-
-    /* -------------------------------------------- */
     /* Many To One Mapping ------------------------ */
     /* -------------------------------------------- */
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -35,18 +29,15 @@ public class ModeullakKeyword {
     private Modeullak modeullak;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "keyword_id", nullable = false)
-    private Keyword keyword;
-
+    @JoinColumn(name = "tag_id", nullable = false)
+    private Tag tag;
 
     @Builder
-    public ModeullakKeyword(String content, Modeullak modeullak, Keyword keyword) {
-        this.content = content;
+    public ModeullakTag(Modeullak modeullak, Tag tag) {
         this.modeullak = modeullak;
-        this.keyword = keyword;
+        this.tag = tag;
 
-        modeullak.addModeullakKeywords(this);
-        keyword.addModeullakKeywords(this);
+        modeullak.addModeullakTags(this);
+        tag.addModuellakTags(this);
     }
-
 }

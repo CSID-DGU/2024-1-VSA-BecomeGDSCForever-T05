@@ -1,6 +1,6 @@
 package org.dongguk.vsa.modeul.tag.repository;
 
-import org.dongguk.vsa.modeul.tag.domain.Tag;
+import org.dongguk.vsa.modeul.tag.domain.mysql.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

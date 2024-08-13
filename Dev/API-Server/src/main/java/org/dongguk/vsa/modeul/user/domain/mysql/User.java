@@ -1,11 +1,11 @@
-package org.dongguk.vsa.modeul.user.domain;
+package org.dongguk.vsa.modeul.user.domain.mysql;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dongguk.vsa.modeul.dialogue.domain.Dialogue;
+import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
 import org.dongguk.vsa.modeul.user.domain.type.ESecurityProvider;
 import org.dongguk.vsa.modeul.user.domain.type.ESecurityRole;
 import org.hibernate.annotations.DynamicUpdate;
