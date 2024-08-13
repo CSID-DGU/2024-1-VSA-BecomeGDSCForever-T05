@@ -13,15 +13,15 @@ import org.springframework.data.redis.core.RedisHash;
 @RedisHash(value = "authentication_code", timeToLive = 60 * 3)
 public class AuthenticationCode {
     @Id
-    @Column(name = "serial_email")
-    private String serialEmail;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "value")
     private String value;
 
     @Builder
-    public AuthenticationCode(String serialEmail, String value) {
-        this.serialEmail = serialEmail;
+    public AuthenticationCode(String email, String value) {
+        this.email = email;
         this.value = value;
     }
 }

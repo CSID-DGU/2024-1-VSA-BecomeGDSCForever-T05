@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @RedisHash(value = "authentication_code_history", timeToLive = 60 * 30)
 public class AuthenticationCodeHistory {
     @Id
-    @Column(name = "serial_email")
-    private String serialEmail;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "count")
     private Integer count;
@@ -26,10 +26,10 @@ public class AuthenticationCodeHistory {
 
     @Builder
     public AuthenticationCodeHistory(
-            String serialEmail,
+            String email,
             Integer count
     ) {
-        this.serialEmail = serialEmail;
+        this.email = email;
         this.count = count;
 
         this.lastSentAt = LocalDateTime.now();
@@ -37,7 +37,7 @@ public class AuthenticationCodeHistory {
 
     public AuthenticationCodeHistory copyWith(Integer count) {
         return AuthenticationCodeHistory.builder()
-                .serialEmail(this.serialEmail)
+                .email(this.email)
                 .count(count)
                 .build();
     }

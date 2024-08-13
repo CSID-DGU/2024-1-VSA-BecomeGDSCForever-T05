@@ -13,15 +13,15 @@ import org.springframework.data.redis.core.RedisHash;
 @RedisHash(value = "temporary_token", timeToLive = 60 * 15)
 public class TemporaryToken {
     @Id
-    @Column(name = "serial_email")
-    private String serialEmail;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "value")
     private String value;
 
     @Builder
-    public TemporaryToken(String serialEmail, String value) {
-        this.serialEmail = serialEmail;
+    public TemporaryToken(String email, String value) {
+        this.email = email;
         this.value = value;
     }
 }
