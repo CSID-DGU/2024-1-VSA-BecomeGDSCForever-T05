@@ -19,7 +19,7 @@ public class SwaggerConfig {
     private static final String VERSION = "0.0.1";
     private static final String AUTHORIZATION_HEADER = "Authorization";
 
-    @Value("${spring.host-url}")
+    @Value("${web-engine.server-url}")
     private String hostUrl;
 
     @Bean
