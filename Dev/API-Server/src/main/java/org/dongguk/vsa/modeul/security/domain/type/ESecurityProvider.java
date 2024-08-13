@@ -1,4 +1,4 @@
-package org.dongguk.vsa.modeul.user.domain.type;
+package org.dongguk.vsa.modeul.security.domain.type;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

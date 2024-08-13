@@ -5,9 +5,9 @@ import java.util.List;
 public class Constants {
 
     // JWT
-    public static String USER_ID_ATTRIBUTE_NAME = "USER_ID";
-    public static String USER_ID_CLAIM_NAME = "uid";
-    public static String USER_ROLE_CLAIM_NAME = "rol";
+    public static String ACCOUNT_ID_ATTRIBUTE_NAME = "USER_ID";
+    public static String ACCOUNT_ID_CLAIM_NAME = "aid";
+    public static String ACCOUNT_ROLE_CLAIM_NAME = "rol";
 
     // HEADER
     public static String BEARER_PREFIX = "Bearer ";

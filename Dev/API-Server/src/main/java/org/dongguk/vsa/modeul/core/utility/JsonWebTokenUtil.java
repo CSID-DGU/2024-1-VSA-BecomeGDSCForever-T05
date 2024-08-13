@@ -10,7 +10,7 @@ import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
 import org.dongguk.vsa.modeul.core.exception.type.HttpJsonWebTokenException;
 import org.dongguk.vsa.modeul.security.dto.response.DefaultJsonWebTokenDto;
 import org.dongguk.vsa.modeul.security.dto.response.TemporaryJsonWebTokenDto;
-import org.dongguk.vsa.modeul.user.domain.type.ESecurityRole;
+import org.dongguk.vsa.modeul.security.domain.type.ESecurityRole;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -80,10 +80,10 @@ public class JsonWebTokenUtil implements InitializingBean {
     private String generateToken(String identifier, ESecurityRole role, Long expirePeriod) {
         Claims claims = Jwts.claims();
 
-        claims.put(Constants.USER_ID_CLAIM_NAME, identifier);
+        claims.put(Constants.ACCOUNT_ID_CLAIM_NAME, identifier);
 
         if (role != null)
-            claims.put(Constants.USER_ROLE_CLAIM_NAME, role);
+            claims.put(Constants.ACCOUNT_ROLE_CLAIM_NAME, role);
 
         return Jwts.builder()
                 .setHeaderParam(Header.JWT_TYPE, Header.JWT_TYPE)

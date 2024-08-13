@@ -1,6 +1,6 @@
 package org.dongguk.vsa.modeul.core.resolver;
 
-import org.dongguk.vsa.modeul.core.annotation.UserID;
+import org.dongguk.vsa.modeul.core.annotation.AccountID;
 import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
@@ -15,12 +15,12 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import java.util.UUID;
 
 @Component
-public class HttpUserIDArgumentResolver implements HandlerMethodArgumentResolver {
+public class HttpAccountIDArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.getParameterType().equals(UUID.class)
-                && parameter.hasParameterAnnotation(UserID.class);
+                && parameter.hasParameterAnnotation(AccountID.class);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class HttpUserIDArgumentResolver implements HandlerMethodArgumentResolver
             WebDataBinderFactory binderFactory
     ) {
         String userAccountId = (String) webRequest.getAttribute(
-                Constants.USER_ID_ATTRIBUTE_NAME,
+                Constants.ACCOUNT_ID_ATTRIBUTE_NAME,
                 WebRequest.SCOPE_REQUEST
         );
 

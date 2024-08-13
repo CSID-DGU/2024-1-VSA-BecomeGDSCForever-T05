@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
-public class HttpUserIDInterceptor implements HandlerInterceptor {
+public class HttpAccountIDInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(
@@ -19,7 +19,7 @@ public class HttpUserIDInterceptor implements HandlerInterceptor {
     ) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        request.setAttribute(Constants.USER_ID_ATTRIBUTE_NAME, authentication.getName());
+        request.setAttribute(Constants.ACCOUNT_ID_ATTRIBUTE_NAME, authentication.getName());
 
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
