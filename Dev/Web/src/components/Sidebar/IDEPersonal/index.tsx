@@ -56,8 +56,8 @@ export default function IDEPersonal() {
                 <>
                     <Styled.MiddleMenuBar>
                         <Column>
-                            <H3 text={"My Profile"} color={"white"} textAlign={"left"}/>
-                            <H3 text={"My Profile"} color={"white"} textAlign={"left"}/>
+                            <H3 text={"무능한 하마님의"} color={"white"} textAlign={"left"}/>
+                            <H3 text={"개인공간"} color={"white"} textAlign={"left"}/>
                         </Column>
                         <ProfileImage src={questionIcon} width={"48px"} height={"48px"}/>
                     </Styled.MiddleMenuBar>
