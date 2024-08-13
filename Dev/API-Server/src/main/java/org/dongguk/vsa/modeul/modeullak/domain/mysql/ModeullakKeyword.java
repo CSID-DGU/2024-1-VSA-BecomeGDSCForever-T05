@@ -10,7 +10,15 @@ import org.dongguk.vsa.modeul.keyword.domain.mysql.Keyword;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "modeullak_keywords")
+@Table(
+        name = "modeullak_keywords",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "modeullak_keyword_unique",
+                        columnNames = {"modeullak_id", "keyword_id"}
+                )
+        }
+)
 public class ModeullakKeyword {
     /* -------------------------------------------- */
     /* Default Column ----------------------------- */
@@ -30,13 +38,16 @@ public class ModeullakKeyword {
     /* Many To One Mapping ------------------------ */
     /* -------------------------------------------- */
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "modeullak_id", nullable = false)
+    @JoinColumn(name = "modeullak_id", nullable = false, updatable = false)
     private Modeullak modeullak;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "keyword_id", nullable = false)
+    @JoinColumn(name = "keyword_id", nullable = false, updatable = false)
     private Keyword keyword;
 
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
     public ModeullakKeyword(String content, Modeullak modeullak, Keyword keyword) {
         this.content = content;

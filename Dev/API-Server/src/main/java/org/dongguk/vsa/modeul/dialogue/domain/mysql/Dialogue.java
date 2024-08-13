@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.dongguk.vsa.modeul.keyword.domain.mysql.Keyword;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
@@ -31,14 +32,17 @@ public class Dialogue {
     @Column(name = "question", length = 3000, nullable = false)
     private String question;
 
-    @Column(name = "asked_at", nullable = false, updatable = false)
-    private LocalDateTime askedAt;
-
     @Column(name = "answer", length = 3000)
     private String answer;
 
     @Column(name = "is_answered_by_llm")
     private Boolean isAnsweredByLlm;
+
+    /* -------------------------------------------- */
+    /* Timestamp Column --------------------------- */
+    /* -------------------------------------------- */
+    @Column(name = "asked_at", nullable = false, updatable = false)
+    private LocalDateTime askedAt;
 
     @Column(name = "replied_at", updatable = false)
     private LocalDateTime repliedAt;
@@ -58,6 +62,9 @@ public class Dialogue {
     @JoinColumn(name = "keyword_id", nullable = false)
     private Keyword keyword;
 
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
     public Dialogue(String question, User user, Modeullak modeullak, Keyword keyWord) {
         this.question = question;

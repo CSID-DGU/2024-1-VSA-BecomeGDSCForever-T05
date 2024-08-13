@@ -15,7 +15,15 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "keywords")
+@Table(
+        name = "keywords",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_keywords_name",
+                        columnNames = {"name"}
+                )
+        }
+)
 public class Keyword {
 
     /* -------------------------------------------- */
@@ -29,9 +37,12 @@ public class Keyword {
     /* -------------------------------------------- */
     /* Information Attribute ---------------------- */
     /* -------------------------------------------- */
-    @Column(name = "name", length = 32, nullable = false)
+    @Column(name = "name", length = 32, nullable = false, updatable = false)
     private String name;
 
+    /* -------------------------------------------- */
+    /* Timestamp Column --------------------------- */
+    /* -------------------------------------------- */
     @Column(name="created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -44,6 +55,9 @@ public class Keyword {
     @OneToMany(mappedBy = "keyword", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Dialogue> dialogues = new ArrayList<>();
 
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
     public Keyword(String name) {
         this.name = name;
