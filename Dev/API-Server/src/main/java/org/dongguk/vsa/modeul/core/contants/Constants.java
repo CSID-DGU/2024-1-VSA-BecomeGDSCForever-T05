@@ -5,7 +5,7 @@ import java.util.List;
 public class Constants {
 
     // JWT
-    public static String ACCOUNT_ID_ATTRIBUTE_NAME = "USER_ID";
+    public static String ACCOUNT_ID_ATTRIBUTE_NAME = "ACCOUNT_ID";
     public static String ACCOUNT_ID_CLAIM_NAME = "aid";
     public static String ACCOUNT_ROLE_CLAIM_NAME = "rol";
 
