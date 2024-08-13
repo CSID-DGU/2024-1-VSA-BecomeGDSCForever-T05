@@ -1,4 +1,4 @@
-package org.dongguk.vsa.modeul.modeullak.repository;
+package org.dongguk.vsa.modeul.modeullak.repository.mysql;
 
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.ModeullakKeyword;
 import org.springframework.data.jpa.repository.JpaRepository;

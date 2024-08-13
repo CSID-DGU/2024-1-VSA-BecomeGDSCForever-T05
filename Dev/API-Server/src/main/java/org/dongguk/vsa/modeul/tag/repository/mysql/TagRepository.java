@@ -1,4 +1,4 @@
-package org.dongguk.vsa.modeul.tag.repository;
+package org.dongguk.vsa.modeul.tag.repository.mysql;
 
 import org.dongguk.vsa.modeul.tag.domain.mysql.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
