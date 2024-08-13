@@ -14,7 +14,12 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "tags")
+@Table(name = "tags", uniqueConstraints = {
+        @UniqueConstraint(
+                name = "uk_tags_name",
+                columnNames = {"name"}
+        )
+})
 public class Tag {
 
     /* -------------------------------------------- */
@@ -28,7 +33,7 @@ public class Tag {
     /* -------------------------------------------- */
     /* Information Attribute ---------------------- */
     /* -------------------------------------------- */
-    @Column(name = "name", length = 32, nullable = false)
+    @Column(name = "name", length = 32, nullable = false, updatable = false)
     private String name;
 
     @Column(name="created_at", nullable = false, updatable = false)
@@ -40,6 +45,9 @@ public class Tag {
     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ModeullakTag> modeullaks = new ArrayList<>();
 
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
     public Tag(String name) {
         this.name = name;

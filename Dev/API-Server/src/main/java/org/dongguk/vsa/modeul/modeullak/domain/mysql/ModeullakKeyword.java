@@ -37,6 +37,9 @@ public class ModeullakKeyword {
     @JoinColumn(name = "keyword_id", nullable = false)
     private Keyword keyword;
 
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
     public ModeullakKeyword(String content, Modeullak modeullak, Keyword keyword) {
         this.content = content;

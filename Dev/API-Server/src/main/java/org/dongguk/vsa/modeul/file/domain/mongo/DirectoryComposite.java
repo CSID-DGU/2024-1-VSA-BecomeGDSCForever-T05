@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,29 +18,47 @@ import java.util.List;
 @Document(collection = "`directories`")
 public class DirectoryComposite implements Component {
 
+    /* -------------------------------------------- */
+    /* Default Column ----------------------------- */
+    /* -------------------------------------------- */
     @Id
     private String id;
 
+    /* -------------------------------------------- */
+    /* Information Column ------------------------- */
+    /* -------------------------------------------- */
     @Field("user_modeullak_id")
     private Long userModeullakId;
 
     @Field("name")
     private String name;
 
-    @Field("type")
-    private final EType type = EType.DIRECTORY;
-
     @Field("children")
     private List<Component> children = new ArrayList<>();
 
+    /* -------------------------------------------- */
+    /* Timestamp Column --------------------------- */
+    /* -------------------------------------------- */
+    @Field("created_at")
+    private LocalDateTime createdAt;
+
+    @Field("updated_at")
+    private LocalDateTime updatedAt;
+
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
     public DirectoryComposite(String name, Long userModeullakId) {
         this.userModeullakId = userModeullakId;
         this.name = name;
+
+        this.createdAt = LocalDateTime.now();
     }
 
-    public void saveFile(Component component) {
-        children.add(component);
+    @Override
+    public EType getType() {
+        return EType.DIRECTORY;
     }
 }
 

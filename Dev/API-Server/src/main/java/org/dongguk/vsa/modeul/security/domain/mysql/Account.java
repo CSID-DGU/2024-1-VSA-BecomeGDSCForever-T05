@@ -8,6 +8,7 @@ import org.dongguk.vsa.modeul.security.domain.type.ESecurityProvider;
 import org.dongguk.vsa.modeul.security.domain.type.ESecurityRole;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -46,6 +47,12 @@ public abstract class Account {
     private String password;
 
     /* -------------------------------------------- */
+    /* Timestamp Column --------------------------- */
+    /* -------------------------------------------- */
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDate createdAt;
+
+    /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     public Account(
@@ -56,6 +63,8 @@ public abstract class Account {
         this.provider = provider;
         this.serialId = serialId;
         this.password = password;
+
+        this.createdAt = LocalDate.now();
     }
 
     public void updatePassword(String password) {

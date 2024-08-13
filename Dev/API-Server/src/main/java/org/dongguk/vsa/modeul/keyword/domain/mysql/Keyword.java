@@ -32,6 +32,9 @@ public class Keyword {
     @Column(name = "name", length = 32, nullable = false)
     private String name;
 
+    /* -------------------------------------------- */
+    /* Timestamp Column --------------------------- */
+    /* -------------------------------------------- */
     @Column(name="created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -44,6 +47,9 @@ public class Keyword {
     @OneToMany(mappedBy = "keyword", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Dialogue> dialogues = new ArrayList<>();
 
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
     public Keyword(String name) {
         this.name = name;

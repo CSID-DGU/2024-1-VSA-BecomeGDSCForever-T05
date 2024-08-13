@@ -9,19 +9,24 @@ import org.dongguk.vsa.modeul.file.domain.type.EType;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Document(collection = "`files`")
 public class FileLeaf implements Component {
 
+    /* -------------------------------------------- */
+    /* Default Column ----------------------------- */
+    /* -------------------------------------------- */
     @Id
     private String id;
 
+    /* -------------------------------------------- */
+    /* Information Column ------------------------- */
+    /* -------------------------------------------- */
     @Field("name")
     private String name;
-
-    @Field("type")
-    private final EType type = EType.FILE;
 
     @Field("content")
     private String content;
@@ -29,10 +34,29 @@ public class FileLeaf implements Component {
     @Field("extension")
     private String extension;
 
+    /* -------------------------------------------- */
+    /* Timestamp Column --------------------------- */
+    /* -------------------------------------------- */
+    @Field("created_at")
+    private LocalDateTime createdAt;
+
+    @Field("updated_at")
+    private LocalDateTime updatedAt;
+
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
     public FileLeaf(String name, String content) {
         this.name = name;
         this.content = content;
         this.extension = name.substring(name.lastIndexOf(".")+1);
+
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @Override
+    public EType getType() {
+        return EType.FILE;
     }
 }

@@ -11,7 +11,6 @@ import org.dongguk.vsa.modeul.security.domain.type.ESecurityProvider;
 import org.dongguk.vsa.modeul.security.domain.type.ESecurityRole;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,12 +34,6 @@ public class User extends Account {
 
     @Column(name = "profile_image_url", length = 320, nullable = false)
     private String profileImageUrl;
-
-    /* -------------------------------------------- */
-    /* Timestamp Column --------------------------- */
-    /* -------------------------------------------- */
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDate createdAt;
 
     /* -------------------------------------------- */
     /* One To Many Mapping ------------------------ */
@@ -70,7 +63,6 @@ public class User extends Account {
 
         this.nickname = nickname;
         this.profileImageUrl = profileImageUrl;
-        this.createdAt = LocalDate.now();
     }
 
     @Override

@@ -39,6 +39,9 @@ public class Modeullak {
     @Column(name = "llm_status", nullable = false)
     private ELLmStatus llmStatus;
 
+    /* -------------------------------------------- */
+    /* Timestamp Column --------------------------- */
+    /* -------------------------------------------- */
     @Column(name = "started_at", nullable = false)
     private LocalDateTime startedAt;
 
@@ -60,6 +63,9 @@ public class Modeullak {
     @OneToMany(mappedBy = "modeullak", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Dialogue> dialogues = new ArrayList<>();
 
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
     public Modeullak(String title, String content, ELLmStatus llmStatus, LocalDateTime startedAt, LocalDateTime endedAt) {
         this.title = title;

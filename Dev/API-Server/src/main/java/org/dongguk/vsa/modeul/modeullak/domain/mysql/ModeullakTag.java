@@ -32,6 +32,9 @@ public class ModeullakTag {
     @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
 
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
     public ModeullakTag(Modeullak modeullak, Tag tag) {
         this.modeullak = modeullak;

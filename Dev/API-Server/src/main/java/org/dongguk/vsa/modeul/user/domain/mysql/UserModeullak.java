@@ -27,7 +27,7 @@ public class UserModeullak {
     /* -------------------------------------------- */
     @Enumerated(EnumType.STRING)
     @Column(name="role", nullable = false)
-    private EModeullakRole moduellakRole;
+    private EModeullakRole modeullakRole;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -37,9 +37,12 @@ public class UserModeullak {
     @JoinColumn(name = "modeullak_id", nullable = false)
     private Modeullak modeullak;
 
+    /* -------------------------------------------- */
+    /* Methods ------------------------------------ */
+    /* -------------------------------------------- */
     @Builder
-    public UserModeullak(EModeullakRole moduellakRole, User user, Modeullak modeullak) {
-        this.moduellakRole = moduellakRole;
+    public UserModeullak(EModeullakRole modeullakRole, User user, Modeullak modeullak) {
+        this.modeullakRole = modeullakRole;
         this.user = user;
         this.modeullak = modeullak;
     }
