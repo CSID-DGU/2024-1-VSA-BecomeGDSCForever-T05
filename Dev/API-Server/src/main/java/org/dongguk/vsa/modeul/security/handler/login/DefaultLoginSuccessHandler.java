@@ -28,6 +28,9 @@ public class DefaultLoginSuccessHandler implements AuthenticationSuccessHandler 
     @Value("${web-engine.client-url}")
     private String clientUrl;
 
+    @Value("${web-engine.cookie-domain}")
+    private String cookieDomain;
+
     private final LoginByDefaultUseCase loginByDefaultUseCase;
 
     private final ObjectMapper objectMapper;
@@ -67,13 +70,13 @@ public class DefaultLoginSuccessHandler implements AuthenticationSuccessHandler 
 
         CookieUtil.addCookie(
                 response,
-                clientUrl,
+                cookieDomain,
                 Constants.ACCESS_TOKEN,
                 tokenDto.getAccessToken()
         );
         CookieUtil.addSecureCookie(
                 response,
-                clientUrl,
+                cookieDomain,
                 Constants.REFRESH_TOKEN,
                 tokenDto.getRefreshToken(),
                 (int) (jwtUtil.getRefreshTokenExpirePeriod() / 1000L)
@@ -88,23 +91,18 @@ public class DefaultLoginSuccessHandler implements AuthenticationSuccessHandler 
     ) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpStatus.CREATED.value());
 
-        if (tokenDto == null) {
-            response.setStatus(HttpStatus.NO_CONTENT.value());
-        } else {
-            response.setStatus(HttpStatus.CREATED.value());
+        Map<String, Object> result = new HashMap<>();
 
-            Map<String, Object> result = new HashMap<>();
+        result.put("success", true);
+        result.put("data", Map.of(
+                        "access_token", tokenDto.getAccessToken(),
+                        "refresh_token", tokenDto.getRefreshToken()
+                )
+        );
+        result.put("error", null);
 
-            result.put("success", true);
-            result.put("data", Map.of(
-                            "access_token", tokenDto.getAccessToken(),
-                            "refresh_token", tokenDto.getRefreshToken()
-                    )
-            );
-            result.put("error", null);
-
-            response.getWriter().write(objectMapper.writeValueAsString(result));
-        }
+        response.getWriter().write(objectMapper.writeValueAsString(result));
     }
 }

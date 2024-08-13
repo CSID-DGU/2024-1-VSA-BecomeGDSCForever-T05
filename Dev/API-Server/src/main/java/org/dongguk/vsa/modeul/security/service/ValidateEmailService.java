@@ -53,10 +53,11 @@ public class ValidateEmailService implements ValidateEmailUseCase {
         }
 
         // 새로운 인증코드 생성
+        String code = PasswordUtil.generateAuthCode(6);
         AuthenticationCode authenticationCode = authenticationCodeRepository.save(
                 AuthenticationCode.builder()
                         .email(requestDto.email())
-                        .value(bCryptPasswordEncoder.encode(PasswordUtil.generateAuthCode(6)))
+                        .value(bCryptPasswordEncoder.encode(code))
                         .build()
         );
 
@@ -75,7 +76,7 @@ public class ValidateEmailService implements ValidateEmailUseCase {
         // 메일 전송(비동기)
         applicationEventPublisher.publishEvent(CompleteEmailValidationEvent.builder()
                 .receiverAddress(requestDto.email())
-                .authenticationCode(authenticationCode.getValue())
+                .authenticationCode(code)
                 .build());
 
         return ValidateEmailResponseDto.fromEntity(history);

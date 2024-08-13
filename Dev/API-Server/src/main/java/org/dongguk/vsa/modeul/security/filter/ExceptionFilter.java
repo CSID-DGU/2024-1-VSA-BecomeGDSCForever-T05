@@ -37,11 +37,6 @@ public class ExceptionFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             log.error("FilterException throw Exception : {}", e.getMessage());
-
-            if (System.getProperty("spring.profiles.active").equals("local")) {
-                e.printStackTrace();
-            }
-
             request.setAttribute("exception", ErrorCode.INTERNAL_SERVER_ERROR);
             filterChain.doFilter(request, response);
         }

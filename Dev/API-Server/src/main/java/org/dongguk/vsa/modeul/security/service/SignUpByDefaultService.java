@@ -6,6 +6,7 @@ import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
 import org.dongguk.vsa.modeul.core.utility.JsonWebTokenUtil;
+import org.dongguk.vsa.modeul.security.domain.mysql.Account;
 import org.dongguk.vsa.modeul.security.domain.redis.RefreshToken;
 import org.dongguk.vsa.modeul.security.domain.redis.TemporaryToken;
 import org.dongguk.vsa.modeul.security.domain.type.ESecurityProvider;
@@ -17,7 +18,6 @@ import org.dongguk.vsa.modeul.security.repository.redis.RefreshTokenRepository;
 import org.dongguk.vsa.modeul.security.repository.redis.TemporaryTokenRepository;
 import org.dongguk.vsa.modeul.security.usecase.SignUpByDefaultUseCase;
 import org.dongguk.vsa.modeul.user.domain.User;
-import org.dongguk.vsa.modeul.user.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,6 @@ import org.springframework.stereotype.Service;
 public class SignUpByDefaultService implements SignUpByDefaultUseCase {
 
     private final AccountRepository accountRepository;
-    private final UserRepository userRepository;
 
     private final TemporaryTokenRepository temporaryTokenRepository;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -54,7 +53,7 @@ public class SignUpByDefaultService implements SignUpByDefaultUseCase {
 
         // TODO: 이후 프로필 이미지 실제 주소로 변경
         // 유저 생성 및 저장
-        User user = User.builder()
+        Account account = User.builder()
                 .provider(ESecurityProvider.DEFAULT)
                 .serialId(email)
                 .password(bCryptPasswordEncoder.encode(requestDto.password()))
@@ -63,18 +62,18 @@ public class SignUpByDefaultService implements SignUpByDefaultUseCase {
                 .build();
 
 
-        userRepository.save(user);
+        accountRepository.save(account);
 
         // Default Json Web Token 생성
         DefaultJsonWebTokenDto defaultJsonWebTokenDto = jsonWebTokenUtil.generateDefaultJsonWebTokens(
-                user.getId(),
+                account.getId(),
                 ESecurityRole.USER
         );
 
         // Refresh Token 저장
         refreshTokenRepository.save(
                 RefreshToken.builder()
-                        .accountId(user.getId())
+                        .accountId(account.getId())
                         .value(defaultJsonWebTokenDto.getRefreshToken())
                         .build()
         );

@@ -110,7 +110,7 @@ public class HttpGlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     public ResponseDto<?> handleException(Exception e) {
         log.error("ExceptionHandler catch Exception : {}", e.getMessage());
-
+        e.printStackTrace();
         return ResponseDto.fail(new HttpCommonException(ErrorCode.INTERNAL_SERVER_ERROR));
     }
 }

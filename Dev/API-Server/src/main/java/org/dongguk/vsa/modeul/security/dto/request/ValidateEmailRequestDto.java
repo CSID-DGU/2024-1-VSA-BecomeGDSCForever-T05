@@ -13,6 +13,6 @@ public record ValidateEmailRequestDto(
 
         @JsonProperty("is_duplicate_check")
         @NotNull
-        boolean isDuplicateCheck
+        Boolean isDuplicateCheck
 ) {
 }

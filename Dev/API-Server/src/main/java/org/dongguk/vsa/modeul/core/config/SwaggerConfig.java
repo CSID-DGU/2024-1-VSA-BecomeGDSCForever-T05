@@ -20,7 +20,7 @@ public class SwaggerConfig {
     private static final String AUTHORIZATION_HEADER = "Authorization";
 
     @Value("${web-engine.server-url}")
-    private String hostUrl;
+    private String serverUrl;
 
     @Bean
     public GroupedOpenApi publicApi() {
@@ -49,6 +49,6 @@ public class SwaggerConfig {
                 .addSecurityItem(new SecurityRequirement().addList(JWT_SCHEMA_NAME))
                 .servers(List.of(
                         new io.swagger.v3.oas.models.servers.Server()
-                                .url(hostUrl)));
+                                .url(serverUrl)));
     }
 }
