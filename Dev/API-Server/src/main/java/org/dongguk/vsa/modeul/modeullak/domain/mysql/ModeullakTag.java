@@ -10,7 +10,15 @@ import org.dongguk.vsa.modeul.tag.domain.mysql.Tag;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "modeullak_tags")
+@Table(
+        name = "modeullak_tags",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "modeullak_tag_unique",
+                        columnNames = {"modeullak_id", "tag_id"}
+                )
+        }
+)
 public class ModeullakTag {
 
     /* -------------------------------------------- */
@@ -25,11 +33,11 @@ public class ModeullakTag {
     /* Many To One Mapping ------------------------ */
     /* -------------------------------------------- */
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "modeullak_id", nullable = false)
+    @JoinColumn(name = "modeullak_id", nullable = false, updatable = false)
     private Modeullak modeullak;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "tag_id", nullable = false)
+    @JoinColumn(name = "tag_id", nullable = false, updatable = false)
     private Tag tag;
 
     /* -------------------------------------------- */

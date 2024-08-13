@@ -42,7 +42,7 @@ public class Modeullak {
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
     /* -------------------------------------------- */
-    @Column(name = "started_at", nullable = false)
+    @Column(name = "started_at", nullable = false, updatable = false)
     private LocalDateTime startedAt;
 
     @Column(name = "ended_at", nullable = false, updatable = false)
@@ -77,9 +77,5 @@ public class Modeullak {
 
     public void updateLLmStatus(ELLmStatus llmStatus) {
         this.llmStatus = llmStatus;
-    }
-
-    public void addDialogues(Dialogue dialogue) {
-        this.dialogues.add(dialogue);
     }
 }

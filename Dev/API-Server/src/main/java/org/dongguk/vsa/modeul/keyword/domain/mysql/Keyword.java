@@ -15,7 +15,15 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "keywords")
+@Table(
+        name = "keywords",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_keywords_name",
+                        columnNames = {"name"}
+                )
+        }
+)
 public class Keyword {
 
     /* -------------------------------------------- */
@@ -29,7 +37,7 @@ public class Keyword {
     /* -------------------------------------------- */
     /* Information Attribute ---------------------- */
     /* -------------------------------------------- */
-    @Column(name = "name", length = 32, nullable = false)
+    @Column(name = "name", length = 32, nullable = false, updatable = false)
     private String name;
 
     /* -------------------------------------------- */

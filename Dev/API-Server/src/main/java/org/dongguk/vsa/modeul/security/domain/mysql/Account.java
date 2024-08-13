@@ -14,12 +14,15 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "accounts", uniqueConstraints = {
-        @UniqueConstraint(
-                name = "uk_accounts_serial_id",
-                columnNames = {"serial_id"}
-        )
-})
+@Table(
+        name = "accounts",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_accounts_serial_id",
+                        columnNames = {"serial_id"}
+                )
+        }
+)
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype")
 @DynamicUpdate

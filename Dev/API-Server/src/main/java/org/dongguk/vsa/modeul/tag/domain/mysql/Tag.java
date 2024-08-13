@@ -14,12 +14,15 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "tags", uniqueConstraints = {
-        @UniqueConstraint(
-                name = "uk_tags_name",
-                columnNames = {"name"}
-        )
-})
+@Table(
+        name = "tags",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_tags_name",
+                        columnNames = {"name"}
+                )
+        }
+)
 public class Tag {
 
     /* -------------------------------------------- */

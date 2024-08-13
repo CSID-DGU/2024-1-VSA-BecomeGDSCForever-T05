@@ -11,7 +11,15 @@ import org.dongguk.vsa.modeul.user.domain.type.EModeullakRole;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "user_modeullaks")
+@Table(
+        name = "user_modeullaks",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_user_modeullak",
+                        columnNames = {"user_id", "modeullak_id"}
+                )
+        }
+)
 public class UserModeullak {
 
     /* -------------------------------------------- */
@@ -30,11 +38,11 @@ public class UserModeullak {
     private EModeullakRole modeullakRole;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "modeullak_id", nullable = false)
+    @JoinColumn(name = "modeullak_id", nullable = false, updatable = false)
     private Modeullak modeullak;
 
     /* -------------------------------------------- */
