@@ -30,7 +30,7 @@ public class ValidateAuthenticationCodeService implements ValidateAuthentication
 
     @Override
     public TemporaryJsonWebTokenDto execute(ValidateAuthenticationCodeRequestDto requestDto) {
-        AuthenticationCode authenticationCode = authenticationCodeRepository.findById(requestDto.serialEmail())
+        AuthenticationCode authenticationCode = authenticationCodeRepository.findById(requestDto.email())
                 .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         AuthenticationCodeHistory authenticationCodeHistory = authenticationCodeHistoryRepository.findById(requestDto.email())
