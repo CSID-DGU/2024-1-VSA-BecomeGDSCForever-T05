@@ -29,7 +29,7 @@ export const MiddleMenuBar = styled.div`
 
 export const BottomMenuBar = styled.div`
     display: flex;
-    width: 240px;
+    width: 224px;
     padding: 8px;
     flex-direction: row;
     justify-content: flex-end;
