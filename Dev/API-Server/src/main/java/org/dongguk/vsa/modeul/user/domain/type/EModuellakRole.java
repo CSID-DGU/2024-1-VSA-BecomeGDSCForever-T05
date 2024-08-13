@@ -8,18 +8,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum EModuellakRole {
 
-    HOST("ROLE_HOST", "관리자"),
-    PARTICIPANT("ROLE_PARTICIPANT", "참가자");
 
-    private final String key;
-    private final String title;
+    HOST("관리자", "Host"),
+    PARTICIPANT("참가자", "Participant")
+    ;
 
-    public static EModuellakRole of(String key) {
-        for (EModuellakRole role : values()) {
-            if (role.getKey().equals(key)) {
-                return role;
-            }
-        }
-        throw new IllegalArgumentException("Invalid key: " + key);
-    }
+    private final String koName;
+    private final String enName;
+    ;
+
 }

@@ -7,10 +7,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ELLmStatus {
 
-    BEFORE("처리전"),
-    AFTER("처리후")
-
+    BEFORE("처리전", "Before"),
+    AFTER("처리후", "After")
     ;
 
-    private final String description;
+    private final String koName;
+    private final String enName;
+    ;
+
 }

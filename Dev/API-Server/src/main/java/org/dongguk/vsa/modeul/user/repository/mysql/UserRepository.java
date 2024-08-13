@@ -1,4 +1,4 @@
-package org.dongguk.vsa.modeul.user.repository;
+package org.dongguk.vsa.modeul.user.repository.mysql;
 
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
 import org.springframework.data.jpa.repository.JpaRepository;

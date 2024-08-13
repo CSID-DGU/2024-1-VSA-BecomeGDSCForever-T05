@@ -36,8 +36,5 @@ public class ModeullakTag {
     public ModeullakTag(Modeullak modeullak, Tag tag) {
         this.modeullak = modeullak;
         this.tag = tag;
-
-        modeullak.addModeullakTags(this);
-        tag.addModuellakTags(this);
     }
 }

@@ -29,19 +29,17 @@ public class Keyword {
     /* -------------------------------------------- */
     /* Information Attribute ---------------------- */
     /* -------------------------------------------- */
-
     @Column(name = "name", length = 32, nullable = false)
     private String name;
 
-    @Column(name="created_at", nullable = false)
+    @Column(name="created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
 
     /* -------------------------------------------- */
     /* One To Many Mapping ------------------------ */
     /* -------------------------------------------- */
     @OneToMany(mappedBy = "keyword", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ModeullakKeyword> modeullakKeywords = new ArrayList<>();
+    private List<ModeullakKeyword> modeullaks = new ArrayList<>();
 
     @OneToMany(mappedBy = "keyword", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Dialogue> dialogues = new ArrayList<>();
@@ -50,21 +48,5 @@ public class Keyword {
     public Keyword(String name) {
         this.name = name;
         this.createdAt = LocalDateTime.now();
-    }
-
-    public void addModeullakKeywords(ModeullakKeyword modeullakKeyword) {
-        this.modeullakKeywords.add(modeullakKeyword);
-    }
-
-    public void addDialogues(Dialogue dialogue) {
-        this.dialogues.add(dialogue);
-    }
-
-    public void deleteDialogues(Dialogue dialogue) {
-        this.dialogues.remove(dialogue);
-    }
-
-    public void deleteModeulKeywords(ModeullakKeyword modeullakKeyword) {
-        this.modeullakKeywords.remove(modeullakKeyword);
     }
 }

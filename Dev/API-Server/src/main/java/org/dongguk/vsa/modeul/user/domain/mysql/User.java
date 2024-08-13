@@ -69,7 +69,7 @@ public class User {
     /* One To Many Mapping ------------------------ */
     /* -------------------------------------------- */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UserModeullak> userModeullaks = new ArrayList<>();
+    private List<UserModeullak> modeullaks = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Dialogue> dialogues = new ArrayList<>();
@@ -107,14 +107,4 @@ public class User {
     public void updateProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
-
-    public void addDialogues(Dialogue dialogue) {
-        this.dialogues.add(dialogue);
-    }
-
-    public void addUserModeullaks(UserModeullak userModeullak) {
-        this.userModeullaks.add(userModeullak);
-    }
-
-
 }

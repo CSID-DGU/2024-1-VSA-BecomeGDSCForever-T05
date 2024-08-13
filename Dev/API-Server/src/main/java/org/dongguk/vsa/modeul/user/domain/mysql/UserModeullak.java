@@ -42,8 +42,5 @@ public class UserModeullak {
         this.moduellakRole = moduellakRole;
         this.user = user;
         this.modeullak = modeullak;
-
-        user.addUserModeullaks(this);
-        modeullak.addUserModeullaks(this);
     }
 }

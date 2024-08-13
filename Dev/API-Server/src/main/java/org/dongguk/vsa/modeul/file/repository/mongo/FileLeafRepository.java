@@ -1,4 +1,4 @@
-package org.dongguk.vsa.modeul.file.repository;
+package org.dongguk.vsa.modeul.file.repository.mongo;
 
 import org.dongguk.vsa.modeul.file.domain.mongo.FileLeaf;
 import org.springframework.data.mongodb.repository.MongoRepository;

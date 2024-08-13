@@ -31,22 +31,18 @@ public class Tag {
     @Column(name = "name", length = 32, nullable = false)
     private String name;
 
-    @Column(name="created_at", nullable = false)
+    @Column(name="created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     /* -------------------------------------------- */
     /* One To Many Mapping ------------------------ */
     /* -------------------------------------------- */
     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ModeullakTag> modeullakTags = new ArrayList<>();
+    private List<ModeullakTag> modeullaks = new ArrayList<>();
 
     @Builder
     public Tag(String name) {
         this.name = name;
         this.createdAt = LocalDateTime.now();
-    }
-
-    public void addModuellakTags(ModeullakTag modeullakTag) {
-        this.modeullakTags.add(modeullakTag);
     }
 }

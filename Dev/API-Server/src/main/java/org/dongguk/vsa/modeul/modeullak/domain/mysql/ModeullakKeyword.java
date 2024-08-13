@@ -26,7 +26,6 @@ public class ModeullakKeyword {
     @Column(name = "content", length = 20, nullable = false)
     private String content;
 
-
     /* -------------------------------------------- */
     /* Many To One Mapping ------------------------ */
     /* -------------------------------------------- */
@@ -38,15 +37,11 @@ public class ModeullakKeyword {
     @JoinColumn(name = "keyword_id", nullable = false)
     private Keyword keyword;
 
-
     @Builder
     public ModeullakKeyword(String content, Modeullak modeullak, Keyword keyword) {
         this.content = content;
         this.modeullak = modeullak;
         this.keyword = keyword;
-
-        modeullak.addModeullakKeywords(this);
-        keyword.addModeullakKeywords(this);
     }
 
 }

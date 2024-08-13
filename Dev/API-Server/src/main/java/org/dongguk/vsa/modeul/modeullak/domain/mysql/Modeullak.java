@@ -42,24 +42,23 @@ public class Modeullak {
     @Column(name = "started_at", nullable = false)
     private LocalDateTime startedAt;
 
-    @Column(name = "ended_at", nullable = false)
+    @Column(name = "ended_at", nullable = false, updatable = false)
     private LocalDateTime endedAt;
 
     /* -------------------------------------------- */
     /* One to Many Mapping ------------------------ */
     /* -------------------------------------------- */
     @OneToMany(mappedBy = "modeullak", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ModeullakTag> modeullakTags = new ArrayList<>();
+    private List<ModeullakTag> tags = new ArrayList<>();
 
     @OneToMany(mappedBy = "modeullak", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ModeullakKeyword> modeullakKeywords = new ArrayList<>();
+    private List<ModeullakKeyword> keywords = new ArrayList<>();
 
     @OneToMany(mappedBy = "modeullak", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UserModeullak> userModeullaks = new ArrayList<>();
+    private List<UserModeullak> users = new ArrayList<>();
 
     @OneToMany(mappedBy = "modeullak", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Dialogue> dialogues = new ArrayList<>();
-
 
     @Builder
     public Modeullak(String title, String content, ELLmStatus llmStatus, LocalDateTime startedAt, LocalDateTime endedAt) {
@@ -72,18 +71,6 @@ public class Modeullak {
 
     public void updateLLmStatus(ELLmStatus llmStatus) {
         this.llmStatus = llmStatus;
-    }
-
-    public void addModeullakTags(ModeullakTag modeullakTag) {
-        this.modeullakTags.add(modeullakTag);
-    }
-
-    public void addModeullakKeywords(ModeullakKeyword modeullakKeyword) {
-        this.modeullakKeywords.add(modeullakKeyword);
-    }
-
-    public void addUserModeullaks(UserModeullak userModeullak) {
-        this.userModeullaks.add(userModeullak);
     }
 
     public void addDialogues(Dialogue dialogue) {
