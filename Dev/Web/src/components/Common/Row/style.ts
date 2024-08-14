@@ -5,6 +5,7 @@ interface RowProps {
     children: React.ReactNode;
     justifyContent?: string;
     alignItems?: string;
+    width?: string;
 }
 
 export const Row = styled.div<RowProps>`
@@ -12,5 +13,5 @@ export const Row = styled.div<RowProps>`
     flex-direction: row;
     justify-content: ${(props) => props.justifyContent || "flex-start"};
     align-items: ${(props) => props.alignItems || "flex-start"};
-    width: 100%;
+    width: ${(props) => props.width || "100%"};
 `;

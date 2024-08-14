@@ -131,7 +131,7 @@ const Modal: React.FC<ModalProps> = (props) => {
 
                     <Sub1 text="분" textAlign="start"/>
                 </Row>
-                <Sub1 text="사용 언어" textAlign="start"/>
+                <Sub1 text="해시태그" textAlign="start"/>
                 <S.Input
                     type="text"
                     placeholder="#Java #C++ #OOP"

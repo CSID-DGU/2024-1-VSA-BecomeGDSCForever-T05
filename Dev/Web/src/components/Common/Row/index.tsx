@@ -5,12 +5,13 @@ interface RowProps {
     children: React.ReactNode;
     justifyContent?: string;
     alignItems?: string;
+    width?: string;
     onClick?: () => void;
 }
 
 export default function Row(props: RowProps) {
     return (
-        <Styled.Row justifyContent={props.justifyContent} alignItems={props.alignItems} onClick={props.onClick}>
+        <Styled.Row justifyContent={props.justifyContent} alignItems={props.alignItems} width={props.width} onClick={props.onClick}>
             {props.children}
         </Styled.Row>
     )
