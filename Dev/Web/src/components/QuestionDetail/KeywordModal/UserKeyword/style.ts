@@ -1,25 +1,27 @@
 import styled from "styled-components";
+import {SvgButtonProps} from "@/interfaces/props/SvgButtonProps.ts";
 
 export const Container = styled.div`
-    z-index: 9999; /* 높은 z-index로 설정 */
     display: flex;
-    align-items: start;
-    justify-content: start;
+    width: 1120px;
+    height: 80vh;
+    padding: 20px;
     flex-direction: column;
+    justify-content: start;
+
+    background: #fff;
+    border-radius: 20px;
 `;
 
-// Svg Button
-interface SvgButtonProps {
-    src: string;
-    width?: string;
-    height?: string;
-    color?: string;
-    top?: string;
-    right?: string;
-    bottom?: string;
-    left?: string;
-    position?: string;
-}
+export const Wrapper = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: start;
+
+    overflow: scroll;
+`;
 
 export const SvgButton = styled.button<SvgButtonProps>`
     background-image: url(${(props) => props.src});
@@ -32,14 +34,4 @@ export const SvgButton = styled.button<SvgButtonProps>`
     bottom: ${(props) => props.bottom || "0"};
     left: ${(props) => props.left || "0"};
     border: none;
-`;
-
-interface props {
-    color?: string;
-}
-
-export const Line = styled.div<props>`
-    width: 100%;
-    height: 1px;
-    background-color: ${(props) => props.color || "#f1f1f1"};
 `;

@@ -9,13 +9,13 @@ import theme from "@/shared/theme.ts";
 import Sub2 from "@/components/Common/Font/Body/Sub2";
 import H4 from "@/components/Common/Font/Heading/H4";
 import Spacer from "@/components/Common/Spacer";
-import AnswerTagItem from "@/components/Answer/AnswerTagItem";
+import AnswerTagItem from "@/components/QuestionDetail/AnswerTagItem";
 import Row from "@/components/Common/Row";
 import CloseButton from "@/assets/icons/CloseButton.svg";
-import BriefQuestion from "@/components/Answer/BriefQuestion";
-import BriefAnswer from "@/components/Answer/BriefAnswer";
+import UserQuestionChunk from "@/components/QuestionDetail/UserQuestionChunk";
+import QuestionKeywordChunk from "@/components/QuestionDetail/QuestionKeywordChunk";
 
-export default function Answer() {
+export default function QuestionDetail() {
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -55,17 +55,9 @@ export default function Answer() {
                 <SizedBox height={"20px"}/>
                 <Styled.Line color={theme.colorSystem.secondary["400"]}/>
                 <SizedBox height={"20px"}/>
-                <BriefQuestion/>
+                <UserQuestionChunk/>
                 <SizedBox height={"20px"}/>
-                <BriefAnswer/>
-                <SizedBox height={"20px"}/>
-                <BriefQuestion/>
-                <SizedBox height={"20px"}/>
-                <BriefAnswer isAdmin={true}/>
-                <SizedBox height={"20px"}/>
-                <BriefQuestion/>
-                <SizedBox height={"20px"}/>
-                <BriefAnswer/>
+                <QuestionKeywordChunk/>
             </Styled.Container>
         </Padding>
     )

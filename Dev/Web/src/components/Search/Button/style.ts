@@ -7,8 +7,8 @@ interface ContainerProps {
 export const Container = styled.button<ContainerProps>`
     width: 160px;
     height: 60px;
-    background-color: ${({ theme, isParticipated }) =>
-            isParticipated ? theme.colorSystem.primary["700"] : theme.colorSystem.primary["500"]};
+    background-color: ${({theme, isParticipated}) =>
+            isParticipated ? theme.colorSystem.neutral["200"] : theme.colorSystem.primary["500"]};
     border-radius: 34px;
     border: none;
 
@@ -21,7 +21,7 @@ export const Container = styled.button<ContainerProps>`
     gap: 10px;
 
     &:hover {
-        background-color: ${({ theme, isParticipated }) =>
+        background-color: ${({theme, isParticipated}) =>
                 !isParticipated && theme.colorSystem.primary["400"]};
     }
 `;
