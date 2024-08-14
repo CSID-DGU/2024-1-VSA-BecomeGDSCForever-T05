@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.utility.CookieUtil;
+import org.dongguk.vsa.modeul.core.utility.HttpServletUtil;
 import org.dongguk.vsa.modeul.security.handler.common.AbstractFailureHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class DefaultLogoutSuccessHandler
         extends AbstractFailureHandler implements LogoutSuccessHandler {
 
+    private final HttpServletUtil httpServletUtil;
     private final ObjectMapper objectMapper;
 
     @Override
@@ -45,7 +47,7 @@ public class DefaultLogoutSuccessHandler
             CookieUtil.deleteCookie(request, response, "JSESSIONID");
         }
 
-        setSuccessResponse(response);
+        httpServletUtil.onSuccessJsonResponse(response);
     }
 
     private ErrorCode refineErrorCode(HttpServletRequest request) {
@@ -54,18 +56,5 @@ public class DefaultLogoutSuccessHandler
         }
 
         return (ErrorCode) request.getAttribute("exception");
-    }
-
-    private void setSuccessResponse(HttpServletResponse response) throws IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpStatus.OK.value());
-
-        Map<String, Object> result = new HashMap<>();
-        result.put("success", true);
-        result.put("data", null);
-        result.put("error", null);
-
-        response.getWriter().write(objectMapper.writeValueAsString(result));
     }
 }

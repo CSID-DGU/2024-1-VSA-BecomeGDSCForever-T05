@@ -13,6 +13,7 @@ import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
 import org.dongguk.vsa.modeul.core.utility.CookieUtil;
 import org.dongguk.vsa.modeul.core.utility.HeaderUtil;
+import org.dongguk.vsa.modeul.core.utility.HttpServletUtil;
 import org.dongguk.vsa.modeul.core.utility.JsonWebTokenUtil;
 import org.dongguk.vsa.modeul.security.dto.request.SignUpByDefaultRequestDto;
 import org.dongguk.vsa.modeul.security.dto.request.ValidateAuthenticationCodeRequestDto;
@@ -37,12 +38,6 @@ import java.util.UUID;
 @Hidden
 public class AuthController {
 
-    @Value("${web-engine.client-url}")
-    private String clientUrl;
-
-    @Value("${web-engine.cookie-domain}")
-    private String cookieDomain;
-
     private final SignUpByDefaultUseCase signUpByDefaultUseCase;
     private final WithdrawalUseCase withdrawalUseCase;
     private final ReissuePasswordUseCase reissuePasswordUseCase;
@@ -51,8 +46,7 @@ public class AuthController {
     private final ValidateEmailUseCase validateEmailUseCase;
     private final ValidateAuthenticationCodeUseCase validateAuthenticationCodeUseCase;
 
-    private final ObjectMapper objectMapper;
-    private final JsonWebTokenUtil jsonWebTokenUtil;
+    private final HttpServletUtil httpServletUtil;
 
     @PostMapping("/sign-up")
     public void signUp(
@@ -70,9 +64,9 @@ public class AuthController {
 
         // 브라우저에서 온 요청인 경우 쿠키에 토큰을 저장하고 아닌 경우 토큰을 반환
         if (userAgent != null && userAgent.contains("Mozilla")) {
-            onSuccessWebResponse(response, tokenDto);
+            httpServletUtil.onSuccessRedirectResponseWithJWTCookie(response, tokenDto);
         } else {
-            onSuccessAppResponse(response, tokenDto);
+            httpServletUtil.onSuccessJsonResponseWithJWTBody(response, tokenDto);
         }
     }
 
@@ -111,10 +105,10 @@ public class AuthController {
     }
 
     @PostMapping("/reissue/token")
-    public ResponseDto<?> reissueDefaultJsonWebToken(
+    public void reissueDefaultJsonWebToken(
             HttpServletRequest request,
             HttpServletResponse response
-    ) {
+    ) throws IOException {
         // User-Agent 헤더를 통해 요청이 브라우저에서 온 것인지 확인
         String userAgent = request.getHeader("User-Agent");
         String refreshToken;
@@ -132,23 +126,9 @@ public class AuthController {
 
         // 브라우저에서 온 요청인 경우 쿠키에 토큰을 저장하고 아닌 경우 토큰을 반환
         if (userAgent != null && userAgent.contains("Mozilla")) {
-            CookieUtil.addCookie(
-                    response,
-                    cookieDomain,
-                    Constants.ACCESS_TOKEN,
-                    tokenDto.getAccessToken()
-            );
-            CookieUtil.addSecureCookie(
-                    response,
-                    cookieDomain,
-                    Constants.REFRESH_TOKEN,
-                    tokenDto.getRefreshToken(),
-                    (int) (jsonWebTokenUtil.getRefreshTokenExpirePeriod() / 1000L)
-            );
-
-            return ResponseDto.ok(null);
+            httpServletUtil.onSuccessJsonResponseWithJWTCookie(response, tokenDto);
         } else {
-            return ResponseDto.ok(tokenDto);
+            httpServletUtil.onSuccessJsonResponseWithJWTBody(response, tokenDto);
         }
     }
 
@@ -164,51 +144,5 @@ public class AuthController {
             @RequestBody @Valid ValidateAuthenticationCodeRequestDto requestDto
     ) {
         return ResponseDto.created(validateAuthenticationCodeUseCase.execute(requestDto));
-    }
-
-    private void onSuccessWebResponse(
-            HttpServletResponse response,
-            DefaultJsonWebTokenDto tokenDto
-    ) throws IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpStatus.OK.value());
-
-        CookieUtil.addCookie(
-                response,
-                cookieDomain,
-                Constants.ACCESS_TOKEN,
-                tokenDto.getAccessToken()
-        );
-        CookieUtil.addSecureCookie(
-                response,
-                cookieDomain,
-                Constants.REFRESH_TOKEN,
-                tokenDto.getRefreshToken(),
-                (int) (jsonWebTokenUtil.getRefreshTokenExpirePeriod() / 1000L)
-        );
-
-        response.sendRedirect(String.format("%s/%s", clientUrl, "profile"));
-    }
-
-    private void onSuccessAppResponse(
-            HttpServletResponse response,
-            DefaultJsonWebTokenDto tokenDto
-    ) throws IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpStatus.CREATED.value());
-
-        Map<String, Object> result = new HashMap<>();
-
-        result.put("success", true);
-        result.put("data", Map.of(
-                        "access_token", tokenDto.getAccessToken(),
-                        "refresh_token", tokenDto.getRefreshToken()
-                )
-        );
-        result.put("error", null);
-
-        response.getWriter().write(objectMapper.writeValueAsString(result));
     }
 }
