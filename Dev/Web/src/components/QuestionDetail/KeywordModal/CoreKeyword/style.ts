@@ -4,8 +4,8 @@ import {SvgButtonProps} from "@/interfaces/props/SvgButtonProps.ts";
 export const SvgButton = styled.button<SvgButtonProps>`
     background-image: url(${(props) => props.src});
     background-size: cover;
-    width: ${(props) => props.width || "24px"};
-    height: ${(props) => props.height || "24px"};
+    width: ${(props) => props.width || "16px"};
+    height: ${(props) => props.height || "16px"};
     background-color: ${(props) => props.color || "transparent"};
     top: ${(props) => props.top || "0"};
     right: ${(props) => props.right || "0"};
@@ -34,8 +34,15 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
     display: flex;
     width: 100%;
+    height: 100%;
     flex-direction: column;
     justify-content: start;
 
     overflow: scroll;
+`;
+
+export const GridView = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
 `;

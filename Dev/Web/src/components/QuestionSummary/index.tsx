@@ -1,14 +1,14 @@
 import * as Styled from './style';
-import QuestionHeader from "@/components/Question/QuestionHeader";
+import QuestionHeader from "@/components/QuestionSummary/QuestionHeader";
 import SizedBox from "@/components/Common/SizedBox";
-import QuestionItem from "@/components/Question/QuestionItem";
+import QuestionItem from "@/components/QuestionSummary/QuestionItem";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/stores/store.ts";
 import {updateAnswerModalState} from "@/stores/slices/answerModal.slice.ts";
 import Column from "@/components/Common/Column";
 import {useQuestionSummaries} from "@/hooks/useQuestionSummaries.ts";
 
-export default function Question() {
+export default function QuestionSummary() {
 
     const dispatch = useDispatch<AppDispatch>();
     const selectedDate = useSelector((state: RootState) => state.dateState.selectedDate);

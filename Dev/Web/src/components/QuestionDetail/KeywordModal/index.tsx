@@ -2,8 +2,8 @@ import * as Styled from "./style.ts";
 import {useEffect} from "react";
 import {RootState} from "@/stores/store.ts";
 import {useSelector} from "react-redux";
-import UserKeyword from "@/components/Answer/KeywordModal/UserKeyword";
-import CoreKeyword from "@/components/Answer/KeywordModal/CoreKeyword";
+import UserKeyword from "@/components/QuestionDetail/KeywordModal/UserKeyword";
+import CoreKeyword from "@/components/QuestionDetail/KeywordModal/CoreKeyword";
 
 export default function KeywordModal() {
 

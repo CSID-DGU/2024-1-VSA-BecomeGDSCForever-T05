@@ -1,12 +1,12 @@
 import * as Styled from './style';
 import Row from "@/components/Common/Row";
-import QuestionTitle from "@/components/Question/QuestionItem/QuestionTitle";
+import QuestionTitle from "@/components/QuestionSummary/QuestionItem/QuestionTitle";
 import Spacer from "@/components/Common/Spacer";
-import QuestionTime from "@/components/Question/QuestionItem/QuestionTime";
+import QuestionTime from "@/components/QuestionSummary/QuestionItem/QuestionTime";
 import SizedBox from "@/components/Common/SizedBox";
 import theme from "@/shared/theme.ts";
-import QuestionTag from "@/components/Question/QuestionItem/QuestionTag";
-import QuestionContent from "@/components/Question/QuestionItem/QuestionContent";
+import QuestionTag from "@/components/QuestionSummary/QuestionItem/QuestionTag";
+import QuestionContent from "@/components/QuestionSummary/QuestionItem/QuestionContent";
 import {QuestionSummaryState} from "@/interfaces/states/QuestionSummaryState.ts";
 
 interface props {

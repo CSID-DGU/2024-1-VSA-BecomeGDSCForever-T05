@@ -2,7 +2,7 @@ import * as Styled from "./style.ts";
 import theme from "@/shared/theme.ts";
 import H1 from "@/components/Common/Font/Heading/H1";
 import SizedBox from "@/components/Common/SizedBox";
-import QuestionChunk from "@/components/Answer/UserQuestionChunk/QuestionChunk";
+import QuestionChunk from "@/components/QuestionDetail/UserQuestionChunk/QuestionChunk";
 import {useUserQuestionChunk} from "@/hooks/useQuestionChunks.ts";
 
 export default function UserQuestionChunk() {

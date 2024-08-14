@@ -9,13 +9,13 @@ import theme from "@/shared/theme.ts";
 import Sub2 from "@/components/Common/Font/Body/Sub2";
 import H4 from "@/components/Common/Font/Heading/H4";
 import Spacer from "@/components/Common/Spacer";
-import AnswerTagItem from "@/components/Answer/AnswerTagItem";
+import AnswerTagItem from "@/components/QuestionDetail/AnswerTagItem";
 import Row from "@/components/Common/Row";
 import CloseButton from "@/assets/icons/CloseButton.svg";
-import UserQuestionChunk from "@/components/Answer/UserQuestionChunk";
-import QuestionKeywordChunk from "@/components/Answer/QuestionKeywordChunk";
+import UserQuestionChunk from "@/components/QuestionDetail/UserQuestionChunk";
+import QuestionKeywordChunk from "@/components/QuestionDetail/QuestionKeywordChunk";
 
-export default function Answer() {
+export default function QuestionDetail() {
 
     const dispatch = useDispatch<AppDispatch>();
 
