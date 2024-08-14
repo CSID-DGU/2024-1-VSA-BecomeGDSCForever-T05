@@ -1,0 +1,123 @@
+package org.dongguk.vsa.modeul.core.utility;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.dongguk.vsa.modeul.core.contants.Constants;
+import org.dongguk.vsa.modeul.security.dto.response.DefaultJsonWebTokenDto;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+@Component
+@RequiredArgsConstructor
+public class HttpServletUtil {
+
+    @Value("${web-engine.client-url}")
+    private String clientUrl;
+
+    @Value("${web-engine.cookie-domain}")
+    private String cookieDomain;
+
+    @Value("${json-web-token.refresh-token-expire-period}")
+    private Long refreshTokenExpirePeriod;
+
+    private final ObjectMapper objectMapper;
+
+    public void onSuccessRedirectResponseWithJWTCookie(
+            HttpServletResponse response,
+            DefaultJsonWebTokenDto tokenDto
+    ) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpStatus.OK.value());
+
+        CookieUtil.addCookie(
+                response,
+                cookieDomain,
+                Constants.ACCESS_TOKEN,
+                tokenDto.getAccessToken()
+        );
+        CookieUtil.addSecureCookie(
+                response,
+                cookieDomain,
+                Constants.REFRESH_TOKEN,
+                tokenDto.getRefreshToken(),
+                (int) (refreshTokenExpirePeriod / 1000L)
+        );
+
+        response.sendRedirect(String.format("%s/%s", clientUrl, "profile"));
+    }
+
+    public void onSuccessJsonResponseWithJWTCookie(
+            HttpServletResponse response,
+            DefaultJsonWebTokenDto tokenDto
+    ) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpStatus.CREATED.value());
+
+        CookieUtil.addCookie(
+                response,
+                cookieDomain,
+                Constants.ACCESS_TOKEN,
+                tokenDto.getAccessToken()
+        );
+        CookieUtil.addSecureCookie(
+                response,
+                cookieDomain,
+                Constants.REFRESH_TOKEN,
+                tokenDto.getRefreshToken(),
+                (int) (refreshTokenExpirePeriod / 1000L)
+        );
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("success", true);
+        result.put("data", null);
+        result.put("error", null);
+
+        response.getWriter().write(objectMapper.writeValueAsString(result));
+    }
+
+    public void onSuccessJsonResponseWithJWTBody(
+            HttpServletResponse response,
+            DefaultJsonWebTokenDto tokenDto
+    ) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpStatus.CREATED.value());
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("success", true);
+        result.put("data", Map.of(
+                        "access_token", tokenDto.getAccessToken(),
+                        "refresh_token", tokenDto.getRefreshToken()
+                )
+        );
+        result.put("error", null);
+
+        response.getWriter().write(objectMapper.writeValueAsString(result));
+    }
+
+    public void onSuccessJsonResponse(
+            HttpServletResponse response
+    ) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpStatus.OK.value());
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("success", true);
+        result.put("data", null);
+        result.put("error", null);
+
+        response.getWriter().write(objectMapper.writeValueAsString(result));
+    }
+}
