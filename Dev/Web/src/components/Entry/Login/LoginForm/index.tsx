@@ -15,8 +15,6 @@ export default function LoginForm({toggleForm}: SignUpProps) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
     const [isValid, setIsValid] = useState(false);
 
     // useNavigate
@@ -33,6 +31,8 @@ export default function LoginForm({toggleForm}: SignUpProps) {
     const handleLogin = () => {
         console.log(email, password);
 
+        // Todo: 로그인 로직 구현
+
         if (isValid) {
             navigate(CONSTANT.ROUTER.HOME);
         }
@@ -40,7 +40,7 @@ export default function LoginForm({toggleForm}: SignUpProps) {
 
 
     useEffect(() => {
-        if (emailRegex.test(email) && passwordRegex.test(password)) {
+        if (CONSTANT.REGEX.EMAIL.test(email) && CONSTANT.REGEX.PASSWORD.test(password)) {
             setIsValid(true);
         } else {
             setIsValid(false);
