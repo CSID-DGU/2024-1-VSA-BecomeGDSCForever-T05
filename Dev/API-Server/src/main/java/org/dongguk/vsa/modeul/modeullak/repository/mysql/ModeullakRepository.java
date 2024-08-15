@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,4 +32,16 @@ public interface ModeullakRepository extends JpaRepository<Modeullak, Long> {
 
     @EntityGraph(attributePaths = {"tags", "tags.tag"})
     Optional<Modeullak> findByParticipationCode(String participationCode);
+
+    @Query(
+            "SELECT m " +
+            "FROM Modeullak m JOIN FETCH m.users mu JOIN FETCH mu.user u " +
+            "WHERE u.id = :accountId AND m.status = :status AND m.startedAt BETWEEN :startedAt AND :endedAt"
+    )
+    List<Modeullak> findAllModeullaksByAccountIdAndStatusAndWhichAt(
+            UUID accountId,
+            EModeullakStatus status,
+            LocalDateTime startedAt,
+            LocalDateTime endedAt
+    );
 }

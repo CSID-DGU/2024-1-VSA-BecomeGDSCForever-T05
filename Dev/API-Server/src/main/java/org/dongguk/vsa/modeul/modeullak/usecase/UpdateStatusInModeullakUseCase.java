@@ -8,9 +8,9 @@ import java.util.UUID;
 public interface UpdateStatusInModeullakUseCase {
 
     /**
-     * 모듈락의 상태를 종료로 변경합니다.
+     * 모들락의 상태를 종료로 변경합니다.
      * @param accountId 계정 ID
-     * @param modeullakId 모듈락 ID
+     * @param modeullakId 모들락 ID
      */
     void execute(
             UUID accountId,

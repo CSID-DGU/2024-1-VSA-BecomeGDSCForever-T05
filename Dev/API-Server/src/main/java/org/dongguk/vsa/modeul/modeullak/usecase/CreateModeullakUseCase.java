@@ -10,9 +10,9 @@ import java.util.UUID;
 public interface CreateModeullakUseCase {
 
     /**
-     * 모듈락을 생성합니다.
-     * @param requestDto 모듈락 생성 요청 DTO
-     * @return 모듈락 생성 응답 DTO
+     * 모들락을 생성합니다.
+     * @param requestDto 모들락 생성 요청 DTO
+     * @return 모들락 생성 응답 DTO
      */
     CreateModeullakResponseDto execute(
             UUID accountId,
