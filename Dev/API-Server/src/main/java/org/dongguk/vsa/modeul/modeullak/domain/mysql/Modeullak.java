@@ -88,7 +88,7 @@ public class Modeullak {
         this.content = content;
     }
 
-    public void updateLLmStatus(EModeullakStatus llmStatus) {
-        this.status = llmStatus;
+    public void updateStatus(EModeullakStatus status) {
+        this.status = status;
     }
 }

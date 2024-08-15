@@ -3,6 +3,7 @@ package org.dongguk.vsa.modeul.modeullak.service;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.scheduler.UpdaterScheduler;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.ModeullakTag;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
@@ -18,13 +19,16 @@ import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 import org.dongguk.vsa.modeul.user.domain.type.EModeullakRole;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserModeullakRepository;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserRepository;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -40,6 +44,8 @@ public class CreateModeullakService implements CreateModeullakUseCase {
     private final UserModeullakRepository userModeullakRepository;
 
     private final TagRepository tagRepository;
+
+    private final UpdaterScheduler updaterScheduler;
 
     @Override
     @Transactional
@@ -92,7 +98,17 @@ public class CreateModeullakService implements CreateModeullakUseCase {
 
         userModeullakRepository.save(userModeullak);
 
-        // 6. 반환
+        // 6. Scheduler 등록
+        updaterScheduler.addModeullakTask(
+                modeullak.getId(),
+                () -> {
+                    modeullak.updateStatus(EModeullakStatus.ENDED);
+                    modeullakRepository.save(modeullak);
+                    },
+                endedAt.atZone(ZoneId.systemDefault()).toInstant()
+        );
+
+        // 7. 반환
         return CreateModeullakResponseDto.fromEntity(modeullak, tags);
     }
 

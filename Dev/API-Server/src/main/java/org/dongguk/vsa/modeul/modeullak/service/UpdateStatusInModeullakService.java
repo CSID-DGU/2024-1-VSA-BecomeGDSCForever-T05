@@ -3,6 +3,7 @@ package org.dongguk.vsa.modeul.modeullak.service;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.scheduler.UpdaterScheduler;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
@@ -26,24 +27,36 @@ public class UpdateStatusInModeullakService implements UpdateStatusInModeullakUs
     private final UserRepository userRepository;
     private final UserModeullakRepository userModeullakRepository;
 
+    private final UpdaterScheduler updaterScheduler;
+
     @Override
     @Transactional
     public void execute(UUID accountId, Long modeullakId) {
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_USER));
 
-        Modeullak modeullak = modeullakRepository.findByIdAndStatus(modeullakId, EModeullakStatus.STARTED)
+        Modeullak modeullak = modeullakRepository.findById(modeullakId)
                 .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_RESOURCE));
+
+        if (isStartedModeullak(modeullak)) {
+            throw new HttpCommonException(ErrorCode.ALREADY_ENDED_MODEULLAK);
+        }
 
         if (isNotHost(user, modeullak)) {
             throw new HttpCommonException(ErrorCode.ACCESS_DENIED);
         }
 
-        modeullak.updateLLmStatus(EModeullakStatus.ENDED);
+        modeullak.updateStatus(EModeullakStatus.ENDED);
+
+        updaterScheduler.removeModeullakTask(modeullakId);
 
         // TODO: Kafka로 모들락 종료 Event 전송(비동기)
 
         // TODO: 현재 모들락에 접속되어 있는 유저 모두 종료 처리(비동기)
+    }
+
+    private Boolean isStartedModeullak(Modeullak modeullak) {
+        return modeullak.getStatus() != EModeullakStatus.STARTED;
     }
 
     /**

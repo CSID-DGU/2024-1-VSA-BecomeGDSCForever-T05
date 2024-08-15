@@ -1,12 +1,12 @@
 package org.dongguk.vsa.modeul.modeullak.usecase;
 
 import org.dongguk.vsa.modeul.core.annotation.UseCase;
-import org.dongguk.vsa.modeul.modeullak.dto.response.ReadModeullakSummaryResponseDto;
+import org.dongguk.vsa.modeul.modeullak.dto.response.ModeullakSummaryResponseDto;
 
 import java.util.UUID;
 
 @UseCase
 public interface ReadModeullakSummaryUseCase {
 
-    ReadModeullakSummaryResponseDto execute(UUID accountId, Long modeullakId);
+    ModeullakSummaryResponseDto execute(UUID accountId, Long modeullakId);
 }

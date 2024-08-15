@@ -32,8 +32,12 @@ public class DeleteModeullakService implements DeleteModeullakUseCase {
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_USER));
 
-        Modeullak modeullak = modeullakRepository.findByIdAndStatusNot(modeullakId, EModeullakStatus.STARTED)
+        Modeullak modeullak = modeullakRepository.findById(modeullakId)
                 .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_RESOURCE));
+
+        if (isLLMEnded(modeullak)) {
+            throw new HttpCommonException(ErrorCode.NOT_COMPLETED_LLM_PROCESSING);
+        }
 
         if (isNotHost(user, modeullak)) {
             throw new HttpCommonException(ErrorCode.ACCESS_DENIED);
@@ -44,6 +48,10 @@ public class DeleteModeullakService implements DeleteModeullakUseCase {
         // TODO: Kafka로 모들락 종료 Event 전송(비동기)
 
         // TODO: 현재 모들락에 접속되어 있는 유저 모두 종료 처리(비동기)
+    }
+
+    private Boolean isLLMEnded(Modeullak modeullak) {
+        return modeullak.getStatus() != EModeullakStatus.LLM_ENDED;
     }
 
     /**

@@ -5,9 +5,9 @@ import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
-import org.dongguk.vsa.modeul.modeullak.dto.response.ModeullakSummaryResponseDto;
+import org.dongguk.vsa.modeul.modeullak.dto.response.ModeullakDetailResponseDto;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
-import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakSummaryUseCase;
+import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakDetailUseCase;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserModeullakRepository;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserRepository;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ReadModeullakSummaryService implements ReadModeullakSummaryUseCase {
+public class ReadModeullakDetailService implements ReadModeullakDetailUseCase {
 
     private final ModeullakRepository modeullakRepository;
 
@@ -25,7 +25,7 @@ public class ReadModeullakSummaryService implements ReadModeullakSummaryUseCase 
     private final UserModeullakRepository userModeullakRepository;
 
     @Override
-    public ModeullakSummaryResponseDto execute(UUID accountId, Long modeullakId) {
+    public ModeullakDetailResponseDto execute(UUID accountId, Long modeullakId) {
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_USER));
 
@@ -36,7 +36,15 @@ public class ReadModeullakSummaryService implements ReadModeullakSummaryUseCase 
             throw new HttpCommonException(ErrorCode.ACCESS_DENIED);
         }
 
-        return ModeullakSummaryResponseDto.fromEntity(modeullak);
+        if (isNotCompletedLLMProcessing(modeullak)) {
+            throw new HttpCommonException(ErrorCode.NOT_COMPLETED_LLM_PROCESSING);
+        }
+
+        return ModeullakDetailResponseDto.fromEntity(modeullak);
+    }
+
+    private Boolean isNotCompletedLLMProcessing(Modeullak modeullak) {
+        return modeullak.getStatus() != EModeullakStatus.LLM_ENDED;
     }
 
     /**

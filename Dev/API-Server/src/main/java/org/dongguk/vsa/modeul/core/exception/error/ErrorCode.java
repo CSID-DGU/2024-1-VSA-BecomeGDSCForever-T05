@@ -29,6 +29,9 @@ public enum ErrorCode {
     DUPLICATED_RESOURCE(40007, HttpStatus.BAD_REQUEST, "중복된 리소스입니다."),
     EXISTING_RESOURCE(40008, HttpStatus.BAD_REQUEST, "이미 존재하는 리소스입니다."),
 
+    NOT_COMPLETED_LLM_PROCESSING(40009, HttpStatus.BAD_REQUEST, "아직 정리되지 않은 모들락 처리입니다."),
+    ALREADY_ENDED_MODEULLAK(40010, HttpStatus.BAD_REQUEST, "이미 종료된 모들락입니다."),
+
     // Access Denied Error
     ACCESS_DENIED(40300, HttpStatus.FORBIDDEN, "접근 권한이 없습니다."),
     NOT_LOGIN_USER(40301, HttpStatus.FORBIDDEN, "로그인하지 않은 사용자입니다."),

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-public class ReadModeullakSummaryResponseDto extends SelfValidating<ReadModeullakSummaryResponseDto> {
+public class ModeullakSummaryResponseDto extends SelfValidating<ModeullakSummaryResponseDto> {
     @JsonProperty("id")
     @NotNull
     private final Long id;
@@ -43,7 +43,7 @@ public class ReadModeullakSummaryResponseDto extends SelfValidating<ReadModeulla
     private final String remainedTime;
 
     @Builder
-    public ReadModeullakSummaryResponseDto(
+    public ModeullakSummaryResponseDto(
             Long id,
             String title,
             List<String> tags,
@@ -55,11 +55,14 @@ public class ReadModeullakSummaryResponseDto extends SelfValidating<ReadModeulla
         this.title = title;
         this.tags = tags;
         this.participationCode = participationCode;
+
         this.totalTime = totalTime;
         this.remainedTime = remainedTime;
+
+        validateSelf();
     }
 
-    public static ReadModeullakSummaryResponseDto fromEntity(Modeullak modeullak) {
+    public static ModeullakSummaryResponseDto fromEntity(Modeullak modeullak) {
         LocalDateTime startedAt = modeullak.getStartedAt();
         LocalDateTime endedAt = modeullak.getEndedAt();
         LocalDateTime now = LocalDateTime.now();
@@ -67,7 +70,7 @@ public class ReadModeullakSummaryResponseDto extends SelfValidating<ReadModeulla
         Duration totalDuration = Duration.between(startedAt, endedAt);
         Duration remainedDuration = Duration.between(now, endedAt).isNegative() ? Duration.ZERO : Duration.between(now, endedAt);
 
-        return ReadModeullakSummaryResponseDto.builder()
+        return ModeullakSummaryResponseDto.builder()
                 .id(modeullak.getId())
                 .title(modeullak.getTitle())
                 .tags(modeullak.getTags().stream().map(tag -> tag.getTag().getName()).toList())
