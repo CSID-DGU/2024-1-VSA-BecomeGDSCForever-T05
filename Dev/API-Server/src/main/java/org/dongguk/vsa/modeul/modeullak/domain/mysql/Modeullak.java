@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
-import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class Modeullak {
     private List<ModeullakKeyword> keywords = new ArrayList<>();
 
     @OneToMany(mappedBy = "modeullak", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UserModeullak> users = new ArrayList<>();
+    private List<ModeullakUser> users = new ArrayList<>();
 
     @OneToMany(mappedBy = "modeullak", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Dialogue> dialogues = new ArrayList<>();

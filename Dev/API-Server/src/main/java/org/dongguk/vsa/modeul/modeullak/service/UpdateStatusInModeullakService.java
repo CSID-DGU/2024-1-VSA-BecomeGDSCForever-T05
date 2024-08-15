@@ -9,8 +9,8 @@ import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
 import org.dongguk.vsa.modeul.modeullak.usecase.UpdateStatusInModeullakUseCase;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
-import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
-import org.dongguk.vsa.modeul.user.domain.type.EModeullakRole;
+import org.dongguk.vsa.modeul.modeullak.domain.mysql.ModeullakUser;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakRole;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserModeullakRepository;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserRepository;
 import org.springframework.stereotype.Service;
@@ -66,9 +66,9 @@ public class UpdateStatusInModeullakService implements UpdateStatusInModeullakUs
      * @return 해당 유저가 모들락의 Host인지 여부
      */
     private Boolean isNotHost(User user, Modeullak modeullak) {
-        UserModeullak userModeullak = userModeullakRepository.findByUserAndModeullak(user, modeullak)
+        ModeullakUser modeullakUser = userModeullakRepository.findByUserAndModeullak(user, modeullak)
                 .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        return userModeullak.getRole() != EModeullakRole.HOST;
+        return modeullakUser.getRole() != EModeullakRole.HOST;
     }
 }

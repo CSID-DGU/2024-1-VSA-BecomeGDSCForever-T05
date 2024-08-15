@@ -1,4 +1,4 @@
-package org.dongguk.vsa.modeul.user.domain.type;
+package org.dongguk.vsa.modeul.modeullak.domain.type;
 
 
 import lombok.Getter;
@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum EModeullakRole {
 
-    HOST("관리자", "Host"),
-    PARTICIPANT("참가자", "Participant"),
+    HOST("관리자", "HOST"),
+    PARTICIPANT("참가자", "PARTICIPANT")
 
     ;
 

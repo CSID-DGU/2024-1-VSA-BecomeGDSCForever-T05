@@ -3,6 +3,7 @@ package org.dongguk.vsa.modeul.core.scheduler;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.annotation.TaskScheduler;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import java.time.Instant;
@@ -14,6 +15,7 @@ import java.util.concurrent.ScheduledFuture;
 @RequiredArgsConstructor
 public class UpdaterScheduler implements InitializingBean {
 
+    private final ApplicationEventPublisher applicationEventPublisher;
     private final ThreadPoolTaskScheduler threadPoolTaskScheduler;
 
     private static Map<Long, ScheduledFuture<?>> modeullakTasks;

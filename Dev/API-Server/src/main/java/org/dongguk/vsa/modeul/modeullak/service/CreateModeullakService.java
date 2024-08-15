@@ -15,18 +15,16 @@ import org.dongguk.vsa.modeul.modeullak.usecase.CreateModeullakUseCase;
 import org.dongguk.vsa.modeul.tag.domain.mysql.Tag;
 import org.dongguk.vsa.modeul.tag.repository.mysql.TagRepository;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
-import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
-import org.dongguk.vsa.modeul.user.domain.type.EModeullakRole;
+import org.dongguk.vsa.modeul.modeullak.domain.mysql.ModeullakUser;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakRole;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserModeullakRepository;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserRepository;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -90,13 +88,13 @@ public class CreateModeullakService implements CreateModeullakUseCase {
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_USER));
 
-        UserModeullak userModeullak = UserModeullak.builder()
+        ModeullakUser modeullakUser = ModeullakUser.builder()
                 .modeullakRole(EModeullakRole.HOST)
                 .user(user)
                 .modeullak(modeullak)
                 .build();
 
-        userModeullakRepository.save(userModeullak);
+        userModeullakRepository.save(modeullakUser);
 
         // 6. Scheduler 등록
         updaterScheduler.addModeullakTask(

@@ -28,7 +28,6 @@ public interface ModeullakRepository extends JpaRepository<Modeullak, Long> {
     @EntityGraph(attributePaths = {"tags", "tags.tag"})
     Optional<Modeullak> findWithTagsById(Long modeullakId);
 
-    Optional<Modeullak> findByIdAndStatus(Long modeullakId, EModeullakStatus status);
-
-    Optional<Modeullak> findByIdAndStatusNot(Long modeullakId, EModeullakStatus status);
+    @EntityGraph(attributePaths = {"tags", "tags.tag"})
+    Optional<Modeullak> findByParticipationCode(String participationCode);
 }

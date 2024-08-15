@@ -3,12 +3,10 @@ package org.dongguk.vsa.modeul.modeullak.controller;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.annotation.AccountID;
 import org.dongguk.vsa.modeul.core.dto.ResponseDto;
+import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakBriefUseCase;
 import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakDetailUseCase;
 import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakSummaryUseCase;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -17,8 +15,16 @@ import java.util.UUID;
 @RequestMapping("/v1")
 public class ModeullakQueryV1Controller {
 
+    private final ReadModeullakBriefUseCase readModeullakBriefUseCase;
     private final ReadModeullakSummaryUseCase readModeullakSummaryUseCase;
     private final ReadModeullakDetailUseCase readModeullakDetailUseCase;
+
+    @GetMapping("/modeullaks/briefs")
+    public ResponseDto<?> readModeullakSummary(
+            @RequestParam(value = "code") String participationCode
+    ) {
+        return ResponseDto.ok(readModeullakBriefUseCase.execute(participationCode));
+    }
 
     @GetMapping("/modeullaks/{modeullakId}/summaries")
     public ResponseDto<?> readModeullakSummary(

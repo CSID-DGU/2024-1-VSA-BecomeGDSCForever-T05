@@ -1,26 +1,26 @@
-package org.dongguk.vsa.modeul.user.domain.mysql;
+package org.dongguk.vsa.modeul.modeullak.domain.mysql;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
-import org.dongguk.vsa.modeul.user.domain.type.EModeullakRole;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakRole;
+import org.dongguk.vsa.modeul.user.domain.mysql.User;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(
-        name = "user_modeullaks",
+        name = "modeullak_users",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "uk_user_modeullak",
-                        columnNames = {"user_id", "modeullak_id"}
+                        name = "uk_modeullak_user",
+                        columnNames = {"modeullak_id", "user_id"}
                 )
         }
 )
-public class UserModeullak {
+public class ModeullakUser {
 
     /* -------------------------------------------- */
     /* Default Column ----------------------------- */
@@ -41,24 +41,25 @@ public class UserModeullak {
     /* Many To One Mapping ------------------------ */
     /* -------------------------------------------- */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "modeullak_id", nullable = false, updatable = false)
     private Modeullak modeullak;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
+    private User user;
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public UserModeullak(
+    public ModeullakUser(
             EModeullakRole modeullakRole,
             User user,
             Modeullak modeullak
     ) {
         this.role = modeullakRole;
         this.user = user;
+
         this.modeullak = modeullak;
     }
 }
