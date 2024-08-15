@@ -5,6 +5,7 @@ import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -22,9 +23,9 @@ public interface ModeullakRepository extends JpaRepository<Modeullak, Long> {
             "WHERE u.id = :accountId AND m.status = :status AND :currentAt BETWEEN m.startedAt AND m.endedAt"
     )
     Optional<Modeullak> findCurrentModeullakByAccountIdAndStatusAndCurrentAtContentBetween(
-            UUID accountId,
-            EModeullakStatus status,
-            LocalDateTime currentAt
+            @Param("accountId") UUID accountId,
+            @Param("status") EModeullakStatus status,
+            @Param("currentAt") LocalDateTime currentAt
     );
 
     @EntityGraph(attributePaths = {"tags", "tags.tag"})
@@ -39,9 +40,9 @@ public interface ModeullakRepository extends JpaRepository<Modeullak, Long> {
             "WHERE u.id = :accountId AND m.status = :status AND m.startedAt BETWEEN :startedAt AND :endedAt"
     )
     List<Modeullak> findAllModeullaksByAccountIdAndStatusAndWhichAt(
-            UUID accountId,
-            EModeullakStatus status,
-            LocalDateTime startedAt,
-            LocalDateTime endedAt
+            @Param("accountId") UUID accountId,
+            @Param("status") EModeullakStatus status,
+            @Param("startedAt") LocalDateTime startedAt,
+            @Param("endedAt") LocalDateTime endedAt
     );
 }
