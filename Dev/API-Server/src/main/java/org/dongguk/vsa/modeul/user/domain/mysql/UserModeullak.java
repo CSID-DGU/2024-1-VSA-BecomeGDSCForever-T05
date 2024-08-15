@@ -37,6 +37,9 @@ public class UserModeullak {
     @Column(name="role", nullable = false)
     private EModeullakRole role;
 
+    /* -------------------------------------------- */
+    /* Many To One Mapping ------------------------ */
+    /* -------------------------------------------- */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;

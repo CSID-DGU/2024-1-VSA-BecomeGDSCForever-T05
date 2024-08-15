@@ -6,7 +6,7 @@ import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
-import org.dongguk.vsa.modeul.modeullak.usecase.UpdateStatusInModeullakUseCase;
+import org.dongguk.vsa.modeul.modeullak.usecase.DeleteModeullakUseCase;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
 import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 import org.dongguk.vsa.modeul.user.domain.type.EModeullakRole;
@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateStatusInModeullakService implements UpdateStatusInModeullakUseCase {
+public class DeleteModeullakService implements DeleteModeullakUseCase {
 
     private final ModeullakRepository modeullakRepository;
 
@@ -28,18 +28,18 @@ public class UpdateStatusInModeullakService implements UpdateStatusInModeullakUs
 
     @Override
     @Transactional
-    public void execute(UUID accountId, Long modeullakId) {
+    public void deleteModeullak(UUID accountId, Long modeullakId) {
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_USER));
 
-        Modeullak modeullak = modeullakRepository.findByIdAndStatus(modeullakId, EModeullakStatus.STARTED)
+        Modeullak modeullak = modeullakRepository.findByIdAndStatusNot(modeullakId, EModeullakStatus.STARTED)
                 .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         if (isNotHost(user, modeullak)) {
             throw new HttpCommonException(ErrorCode.ACCESS_DENIED);
         }
 
-        modeullak.updateLLmStatus(EModeullakStatus.ENDED);
+        modeullakRepository.delete(modeullak);
 
         // TODO: Kafka로 모들락 종료 Event 전송(비동기)
 

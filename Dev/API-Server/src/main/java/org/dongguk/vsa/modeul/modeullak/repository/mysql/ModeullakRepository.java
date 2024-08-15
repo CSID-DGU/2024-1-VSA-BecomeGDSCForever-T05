@@ -25,4 +25,6 @@ public interface ModeullakRepository extends JpaRepository<Modeullak, Long> {
     );
 
     Optional<Modeullak> findByIdAndStatus(Long modeullakId, EModeullakStatus status);
+
+    Optional<Modeullak> findByIdAndStatusNot(Long modeullakId, EModeullakStatus status);
 }

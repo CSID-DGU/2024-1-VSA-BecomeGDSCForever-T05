@@ -9,6 +9,7 @@ import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
 import org.dongguk.vsa.modeul.modeullak.dto.request.CreateModeullakRequestDto;
 import org.dongguk.vsa.modeul.modeullak.dto.response.CreateModeullakResponseDto;
 import org.dongguk.vsa.modeul.modeullak.usecase.CreateModeullakUseCase;
+import org.dongguk.vsa.modeul.modeullak.usecase.DeleteModeullakUseCase;
 import org.dongguk.vsa.modeul.modeullak.usecase.UpdateStatusInModeullakUseCase;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,10 @@ import java.util.UUID;
 public class ModeullakCommandV1Controller {
 
     private final CreateModeullakUseCase createModeullakUseCase;
+    private final DeleteModeullakUseCase deleteModeullakUseCase;
+
     private final UpdateStatusInModeullakUseCase updateStatusInModeullakUseCase;
+
 
     @PostMapping("/modeullaks")
     public ResponseDto<?> create(
@@ -40,7 +44,7 @@ public class ModeullakCommandV1Controller {
     }
 
     @PatchMapping("/modeullaks/{modeullakId}")
-    public ResponseDto<?> updateModeullakStatus(
+    public ResponseDto<?> updateStatusInModeullak(
             @AccountID UUID accountId,
             @PathVariable("modeullakId") Long modeullakId
     ) {
@@ -48,5 +52,16 @@ public class ModeullakCommandV1Controller {
         updateStatusInModeullakUseCase.execute(accountId, modeullakId);
 
         return ResponseDto.ok(null);
+    }
+
+    @DeleteMapping("/modeullaks/{modeullakId}")
+    public ResponseDto<?> deleteModeullak(
+            @AccountID UUID accountId,
+            @PathVariable("modeullakId") Long modeullakId
+    ) {
+
+        deleteModeullakUseCase.deleteModeullak(accountId, modeullakId);
+
+        return ResponseDto.noContent();
     }
 }
