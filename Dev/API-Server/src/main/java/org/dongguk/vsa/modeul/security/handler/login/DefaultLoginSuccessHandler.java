@@ -41,9 +41,9 @@ public class DefaultLoginSuccessHandler implements AuthenticationSuccessHandler 
         String userAgent = request.getHeader("User-Agent");
 
         if (userAgent != null && userAgent.contains("Mozilla")) {
-            httpServletUtil.onSuccessJsonResponseWithJWTCookie(response, jsonWebTokenDto);
+            httpServletUtil.onSuccessBodyResponseWithJWTCookie(response, jsonWebTokenDto);
         } else {
-            httpServletUtil.onSuccessJsonResponseWithJWTBody(response, jsonWebTokenDto);
+            httpServletUtil.onSuccessBodyResponseWithJWTBody(response, jsonWebTokenDto);
         }
     }
 }
