@@ -5,6 +5,7 @@ import InputField from "@/components/Entry/FormItem/Input";
 import RadiusButton from "@/components/Entry/FormItem/Button/RadiusButton";
 import {useNavigate} from "react-router-dom";
 import {CONSTANT} from "@/constants/Constant.ts";
+import React, {useState} from "react";
 
 interface SignUpProps {
     toggleForm: () => void;
@@ -12,10 +13,22 @@ interface SignUpProps {
 
 export default function LoginForm({toggleForm}: SignUpProps) {
 
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     // useNavigate
     const navigate = useNavigate();
 
+    const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+    }
+
+    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    }
+
     const handleLogin = () => {
+        console.log(email, password);
         navigate(CONSTANT.ROUTER.HOME);
     }
 
@@ -27,11 +40,11 @@ export default function LoginForm({toggleForm}: SignUpProps) {
                 <SizedBox width={"600px"} height={"60px"}/>
                 <Label text={"이메일"}/>
                 <SizedBox width={"600px"} height={"8px"}/>
-                <InputField placeholder={"이메일을 입력하세요."} width={"600px"}/>
+                <InputField placeholder={"이메일을 입력하세요."} width={"600px"} onChange={handleEmail}/>
                 <SizedBox width={"600px"} height={"48px"}/>
                 <Label text={"비밀번호"}/>
                 <SizedBox width={"600px"} height={"8px"}/>
-                <InputField placeholder={"비밀번호를 입력하세요."} width={"600px"} type={"password"}/>
+                <InputField placeholder={"비밀번호를 입력하세요."} width={"600px"} type={"password"} onChange={handlePassword}/>
                 <SizedBox width={"600px"} height={"48px"}/>
                 <RadiusButton content={"로그인"} onClick={handleLogin}/>
                 <SizedBox width={"600px"} height={"24px"}/>
