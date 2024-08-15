@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.dongguk.vsa.modeul.keyword.domain.mysql.Keyword;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
@@ -29,8 +28,14 @@ public class Dialogue {
     /* -------------------------------------------- */
     /* Information Attribute ---------------------- */
     /* -------------------------------------------- */
-    @Column(name = "question", length = 3000, nullable = false)
-    private String question;
+    @Column(name="question_short_code", length = 3000, nullable = false)
+    private String questionShortCode;
+
+    @Column(name="question_long_code", length = 10000, nullable = false)
+    private String questionLongCode;
+
+    @Column(name="question_content", length = 3000, nullable = false)
+    private String questionContent;
 
     @Column(name = "answer", length = 3000)
     private String answer;
@@ -66,8 +71,17 @@ public class Dialogue {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Dialogue(String question, User user, Modeullak modeullak, Keyword keyWord) {
-        this.question = question;
+    public Dialogue(
+            String questionShortCode,
+            String questionLongCode,
+            String questionContent,
+            User user,
+            Modeullak modeullak,
+            Keyword keyWord
+    ) {
+        this.questionShortCode = questionShortCode;
+        this.questionLongCode = questionLongCode;
+        this.questionContent = questionContent;
         this.user = user;
         this.modeullak = modeullak;
         this.keyword = keyWord;

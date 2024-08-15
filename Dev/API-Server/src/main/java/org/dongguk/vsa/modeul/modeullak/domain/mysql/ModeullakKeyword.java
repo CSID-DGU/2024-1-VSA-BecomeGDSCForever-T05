@@ -31,8 +31,8 @@ public class ModeullakKeyword {
     /* -------------------------------------------- */
     /* Information Attribute ---------------------- */
     /* -------------------------------------------- */
-    @Column(name = "content", length = 20, nullable = false)
-    private String content;
+    @Column(name = "description", length = 200, nullable = false)
+    private String description;
 
     /* -------------------------------------------- */
     /* Many To One Mapping ------------------------ */
@@ -49,8 +49,12 @@ public class ModeullakKeyword {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public ModeullakKeyword(String content, Modeullak modeullak, Keyword keyword) {
-        this.content = content;
+    public ModeullakKeyword(
+            String description,
+            Modeullak modeullak,
+            Keyword keyword
+    ) {
+        this.description = description;
         this.modeullak = modeullak;
         this.keyword = keyword;
     }
