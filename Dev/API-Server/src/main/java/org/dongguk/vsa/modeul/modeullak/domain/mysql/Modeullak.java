@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
-import org.dongguk.vsa.modeul.modeullak.domain.type.ELLmStatus;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 
 import java.time.LocalDateTime;
@@ -36,8 +36,8 @@ public class Modeullak {
     private String content;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "llm_status", nullable = false)
-    private ELLmStatus llmStatus;
+    @Column(name = "status", nullable = false)
+    private EModeullakStatus status;
 
     @Column(name="participation_code", length = 10, nullable = false, updatable = false)
     private String participationCode;
@@ -78,7 +78,7 @@ public class Modeullak {
     ) {
         this.title = title;
         this.participationCode = participationCode;
-        this.llmStatus = ELLmStatus.BEFORE;
+        this.status = EModeullakStatus.STARTED;
 
         this.startedAt = startedAt;
         this.endedAt = endedAt;
@@ -88,7 +88,7 @@ public class Modeullak {
         this.content = content;
     }
 
-    public void updateLLmStatus(ELLmStatus llmStatus) {
-        this.llmStatus = llmStatus;
+    public void updateLLmStatus(EModeullakStatus llmStatus) {
+        this.status = llmStatus;
     }
 }

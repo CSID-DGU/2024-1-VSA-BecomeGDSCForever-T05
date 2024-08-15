@@ -5,6 +5,7 @@ import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.ModeullakTag;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.modeullak.dto.request.CreateModeullakRequestDto;
 import org.dongguk.vsa.modeul.modeullak.dto.response.CreateModeullakResponseDto;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
@@ -96,8 +97,9 @@ public class CreateModeullakService implements CreateModeullakUseCase {
     }
 
     private Boolean isExistCurrentModeullak(UUID accountId) {
-        return modeullakRepository.findCurrentModeullakByAccountIdAndCurrentAtContentBetween(
+        return modeullakRepository.findCurrentModeullakByAccountIdAndStatusAndCurrentAtContentBetween(
                 accountId,
+                EModeullakStatus.STARTED,
                 LocalDateTime.now()
         ).isPresent();
     }
