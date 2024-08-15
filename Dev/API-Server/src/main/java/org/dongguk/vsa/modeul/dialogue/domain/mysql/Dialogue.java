@@ -71,7 +71,14 @@ public class Dialogue {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Dialogue(String questionShortCode, String questionLongCode, String questionContent, User user, Modeullak modeullak, Keyword keyWord) {
+    public Dialogue(
+            String questionShortCode,
+            String questionLongCode,
+            String questionContent,
+            User user,
+            Modeullak modeullak,
+            Keyword keyWord
+    ) {
         this.questionShortCode = questionShortCode;
         this.questionLongCode = questionLongCode;
         this.questionContent = questionContent;
