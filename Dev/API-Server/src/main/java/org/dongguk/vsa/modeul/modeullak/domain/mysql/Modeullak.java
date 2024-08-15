@@ -36,7 +36,7 @@ public class Modeullak {
     private String content;
 
     @Column(name="participation_code", length = 10, nullable = false)
-    private String participation_code;
+    private String participationCode;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "llm_status", nullable = false)
@@ -73,14 +73,14 @@ public class Modeullak {
     public Modeullak(
             String title,
             String content,
-            String participation_code,
+            String participationCode,
             ELLmStatus llmStatus,
             LocalDateTime startedAt,
             LocalDateTime endedAt
     ) {
         this.title = title;
         this.content = content;
-        this.participation_code = participation_code;
+        this.participationCode = participationCode;
         this.llmStatus = llmStatus;
         this.startedAt = startedAt;
         this.endedAt = endedAt;
