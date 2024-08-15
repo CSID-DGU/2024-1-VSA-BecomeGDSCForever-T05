@@ -39,6 +39,9 @@ public class Modeullak {
     @Column(name = "llm_status", nullable = false)
     private ELLmStatus llmStatus;
 
+    @Column(name="code", length = 10, nullable = false)
+    private String code;
+
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
     /* -------------------------------------------- */
@@ -67,10 +70,11 @@ public class Modeullak {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Modeullak(String title, String content, ELLmStatus llmStatus, LocalDateTime startedAt, LocalDateTime endedAt) {
+    public Modeullak(String title, String content, ELLmStatus llmStatus, String code, LocalDateTime startedAt, LocalDateTime endedAt) {
         this.title = title;
         this.content = content;
         this.llmStatus = llmStatus;
+        this.code = code;
         this.startedAt = startedAt;
         this.endedAt = endedAt;
     }
