@@ -2,6 +2,7 @@ package org.dongguk.vsa.modeul.modeullak.repository.mysql;
 
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,9 @@ public interface ModeullakRepository extends JpaRepository<Modeullak, Long> {
             EModeullakStatus status,
             LocalDateTime currentAt
     );
+
+    @EntityGraph(attributePaths = {"tags", "tags.tag"})
+    Optional<Modeullak> findWithTagsById(Long modeullakId);
 
     Optional<Modeullak> findByIdAndStatus(Long modeullakId, EModeullakStatus status);
 
