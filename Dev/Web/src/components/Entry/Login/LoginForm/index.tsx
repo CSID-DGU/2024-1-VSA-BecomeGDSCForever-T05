@@ -5,7 +5,7 @@ import InputField from "@/components/Entry/FormItem/Input";
 import RadiusButton from "@/components/Entry/FormItem/Button/RadiusButton";
 import {useNavigate} from "react-router-dom";
 import {CONSTANT} from "@/constants/Constant.ts";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 interface SignUpProps {
     toggleForm: () => void;
@@ -15,6 +15,9 @@ export default function LoginForm({toggleForm}: SignUpProps) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+    const [isValid, setIsValid] = useState(false);
 
     // useNavigate
     const navigate = useNavigate();
@@ -29,8 +32,20 @@ export default function LoginForm({toggleForm}: SignUpProps) {
 
     const handleLogin = () => {
         console.log(email, password);
-        navigate(CONSTANT.ROUTER.HOME);
+
+        if (isValid) {
+            navigate(CONSTANT.ROUTER.HOME);
+        }
     }
+
+
+    useEffect(() => {
+        if (emailRegex.test(email) && passwordRegex.test(password)) {
+            setIsValid(true);
+        } else {
+            setIsValid(false);
+        }
+    }, [email, password]);
 
     return (
         <Styled.Container>
@@ -46,7 +61,7 @@ export default function LoginForm({toggleForm}: SignUpProps) {
                 <SizedBox width={"600px"} height={"8px"}/>
                 <InputField placeholder={"비밀번호를 입력하세요."} width={"600px"} type={"password"} onChange={handlePassword}/>
                 <SizedBox width={"600px"} height={"48px"}/>
-                <RadiusButton content={"로그인"} onClick={handleLogin}/>
+                <RadiusButton content={"로그인"} onClick={handleLogin} isValid={isValid}/>
                 <SizedBox width={"600px"} height={"24px"}/>
                 <Styled.SignUpTextContainer>
                     계정이 없으신가요? <Styled.SignUpLink onClick={toggleForm}>회원가입</Styled.SignUpLink>

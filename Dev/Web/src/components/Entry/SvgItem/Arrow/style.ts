@@ -9,6 +9,8 @@ export const Container = styled.div`
     justify-content: center;
     position: relative;
     flex-shrink: 0;
+
+    cursor: pointer;
 `;
 
 

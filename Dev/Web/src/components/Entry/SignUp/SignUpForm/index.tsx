@@ -6,14 +6,48 @@ import RectangleButton from "@/components/Entry/FormItem/Button/RectangleButton"
 import RadiusButton from "@/components/Entry/FormItem/Button/RadiusButton";
 import {useNavigate} from "react-router-dom";
 import {CONSTANT} from "@/constants/Constant.ts";
+import React, {useState} from "react";
 
 
 export default function SignUpForm() {
 
     const navigate = useNavigate();
 
+    const [name, setName] = useState<string>("");
+    const [serialId, setSerialId] = useState<string>("");
+    const [domain, setDomain] = useState<string>("");
+    const [authCode, setAuthCode] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [passwordCheck, setPasswordCheck] = useState<string>("");
+    const [tempToken, setTempToken] = useState<string>("");
+    const [isIssued, setIsIssued] = useState<boolean>(false);
+
     const handleSignUp = () => {
         navigate(CONSTANT.ROUTER.HOME);
+    }
+
+    const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
+    }
+
+    const handleSerialId = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSerialId(e.target.value);
+    }
+
+    const handleDomain = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDomain(e.target.value);
+    }
+
+    const handleAuthCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAuthCode(e.target.value);
+    }
+
+    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    }
+
+    const handlePasswordCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordCheck(e.target.value);
     }
 
     return (
@@ -33,7 +67,7 @@ export default function SignUpForm() {
                     <Styled.AtMark>@</Styled.AtMark>
                     <InputField placeholder={"이메일을 입력하세요."} width={"458px"}/>
                     <SizedBox width={"20px"} height={"60px"}/>
-                    <RectangleButton content={"인증번호 받기"}/>
+                    <RectangleButton content={"인증번호 받기"} isIssued={isIssued}/>
                 </Styled.Email>
                 <SizedBox width={"600px"} height={"32px"}/>
                 <Label text={"인증번호"}/>
@@ -41,7 +75,7 @@ export default function SignUpForm() {
                 <Styled.AuthCode>
                     <InputField placeholder={"인증번호를 입력하세요."} width={"800px"}/>
                     <SizedBox width={"20px"} height={"60px"}/>
-                    <RectangleButton content={"인증하기"}/>
+                    <RectangleButton content={"인증하기"} isIssued={tempToken !== ""}/>
                 </Styled.AuthCode>
                 <SizedBox width={"600px"} height={"32px"}/>
                 <Label text={"비밀번호"}/>
