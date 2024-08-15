@@ -1,6 +1,5 @@
 package org.dongguk.vsa.modeul.security.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,22 +13,17 @@ import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
 import org.dongguk.vsa.modeul.core.utility.CookieUtil;
 import org.dongguk.vsa.modeul.core.utility.HeaderUtil;
 import org.dongguk.vsa.modeul.core.utility.HttpServletUtil;
-import org.dongguk.vsa.modeul.core.utility.JsonWebTokenUtil;
 import org.dongguk.vsa.modeul.security.dto.request.SignUpByDefaultRequestDto;
 import org.dongguk.vsa.modeul.security.dto.request.ValidateAuthenticationCodeRequestDto;
 import org.dongguk.vsa.modeul.security.dto.request.ValidateEmailRequestDto;
 import org.dongguk.vsa.modeul.security.dto.response.DefaultJsonWebTokenDto;
 import org.dongguk.vsa.modeul.security.usecase.*;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -64,9 +58,9 @@ public class AuthController {
 
         // 브라우저에서 온 요청인 경우 쿠키에 토큰을 저장하고 아닌 경우 토큰을 반환
         if (userAgent != null && userAgent.contains("Mozilla")) {
-            httpServletUtil.onSuccessRedirectResponseWithJWTCookie(response, tokenDto);
+            httpServletUtil.onSuccessBodyResponseWithJWTCookie(response, tokenDto);
         } else {
-            httpServletUtil.onSuccessJsonResponseWithJWTBody(response, tokenDto);
+            httpServletUtil.onSuccessBodyResponseWithJWTBody(response, tokenDto);
         }
     }
 
@@ -126,9 +120,9 @@ public class AuthController {
 
         // 브라우저에서 온 요청인 경우 쿠키에 토큰을 저장하고 아닌 경우 토큰을 반환
         if (userAgent != null && userAgent.contains("Mozilla")) {
-            httpServletUtil.onSuccessJsonResponseWithJWTCookie(response, tokenDto);
+            httpServletUtil.onSuccessBodyResponseWithJWTCookie(response, tokenDto);
         } else {
-            httpServletUtil.onSuccessJsonResponseWithJWTBody(response, tokenDto);
+            httpServletUtil.onSuccessBodyResponseWithJWTBody(response, tokenDto);
         }
     }
 
