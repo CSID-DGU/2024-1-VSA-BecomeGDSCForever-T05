@@ -8,4 +8,5 @@ export interface SvgButtonProps {
     bottom?: string;
     left?: string;
     position?: string;
+    onClick?: () => void;
 }

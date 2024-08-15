@@ -3,6 +3,7 @@ import * as Styled from "./style.ts";
 import ProfileImage from "@/components/Common/ProfileImage";
 import DefaultProfile from "@/assets/icons/Profile/DefaultProfile.svg"
 import axios, {AxiosResponse} from "axios";
+import SizedBox from "@/components/Common/SizedBox";
 
 export interface User {
     id: number;
@@ -57,6 +58,7 @@ export default function IDEMulti() {
 
     return (
         <Styled.Container>
+            <SizedBox height={"18x"}/>
             <Styled.MyProfile onClick={() => alert("My profile Clicked!")}>
                 <ProfileImage src={DefaultProfile} width={"56px"} height={"56px"}/>
             </Styled.MyProfile>

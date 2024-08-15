@@ -13,13 +13,23 @@ import newFolderIcon from "@/assets/icons/Sidebar/newFolderIcon.svg";
 import newFileIcon from "@/assets/icons/Sidebar/newFileIcon.svg";
 import refreshIcon from "@/assets/icons/Sidebar/refreshIcon.svg";
 import Row from "@/components/Common/Row";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "@/stores/store.ts";
+import {updateRoomFrameState} from "@/stores/slices/roomFrame.slice.ts";
 
 export default function IDEPersonal() {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+    const dispatch = useDispatch<AppDispatch>();
+    const roomFrameState = useSelector((state: RootState) => state.roomFrameState);
 
     const toggleSidebar = () => {
         setIsCollapsed(!isCollapsed);
     };
+
+    const handleQuestionButtonClick = () => {
+
+        roomFrameState.type === "user" ? dispatch(updateRoomFrameState("default")) : dispatch(updateRoomFrameState("user"));
+    }
 
     return (
         <Styled.Container isCollapsed={isCollapsed}>
@@ -59,12 +69,13 @@ export default function IDEPersonal() {
                             <H3 text={"무능한 하마님의"} color={"white"} textAlign={"left"}/>
                             <H3 text={"개인공간"} color={"white"} textAlign={"left"}/>
                         </Column>
-                        <ProfileImage src={questionIcon} width={"48px"} height={"48px"}/>
+                        <ProfileImage src={questionIcon} width={"48px"} height={"48px"}
+                                      onClick={handleQuestionButtonClick}/>
                     </Styled.MiddleMenuBar>
                     <Styled.BottomMenuBar>
-                        <ProfileImage src={newFileIcon} width={"24px"} height={"24px"}/>
-                        <ProfileImage src={newFolderIcon} width={"24px"} height={"24px"}/>
-                        <ProfileImage src={refreshIcon} width={"24px"} height={"24px"}/>
+                        <ProfileImage src={newFileIcon} width={"16px"} height={"16px"}/>
+                        <ProfileImage src={newFolderIcon} width={"14px"} height={"14px"}/>
+                        <ProfileImage src={refreshIcon} width={"16px"} height={"16px"}/>
                     </Styled.BottomMenuBar>
                 </>
             )}
