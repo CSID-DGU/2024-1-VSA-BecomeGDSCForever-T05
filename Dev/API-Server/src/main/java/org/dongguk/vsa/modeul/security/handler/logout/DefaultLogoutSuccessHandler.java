@@ -1,6 +1,5 @@
 package org.dongguk.vsa.modeul.security.handler.logout;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +14,6 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -24,7 +21,6 @@ public class DefaultLogoutSuccessHandler
         extends AbstractFailureHandler implements LogoutSuccessHandler {
 
     private final HttpServletUtil httpServletUtil;
-    private final ObjectMapper objectMapper;
 
     @Override
     public void onLogoutSuccess(
@@ -47,7 +43,7 @@ public class DefaultLogoutSuccessHandler
             CookieUtil.deleteCookie(request, response, "JSESSIONID");
         }
 
-        httpServletUtil.onSuccessJsonResponse(response);
+        httpServletUtil.onSuccessBodyResponse(response, HttpStatus.OK);
     }
 
     private ErrorCode refineErrorCode(HttpServletRequest request) {

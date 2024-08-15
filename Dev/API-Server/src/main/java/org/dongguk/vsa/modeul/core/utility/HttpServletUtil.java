@@ -34,7 +34,7 @@ public class HttpServletUtil {
     ) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpStatus.OK.value());
+        response.setStatus(HttpStatus.CREATED.value());
 
         CookieUtil.addCookie(
                 response,
@@ -53,7 +53,7 @@ public class HttpServletUtil {
         response.sendRedirect(String.format("%s/%s", clientUrl, "profile"));
     }
 
-    public void onSuccessJsonResponseWithJWTCookie(
+    public void onSuccessBodyResponseWithJWTCookie(
             HttpServletResponse response,
             DefaultJsonWebTokenDto tokenDto
     ) throws IOException {
@@ -84,7 +84,7 @@ public class HttpServletUtil {
         response.getWriter().write(objectMapper.writeValueAsString(result));
     }
 
-    public void onSuccessJsonResponseWithJWTBody(
+    public void onSuccessBodyResponseWithJWTBody(
             HttpServletResponse response,
             DefaultJsonWebTokenDto tokenDto
     ) throws IOException {
@@ -105,19 +105,22 @@ public class HttpServletUtil {
         response.getWriter().write(objectMapper.writeValueAsString(result));
     }
 
-    public void onSuccessJsonResponse(
-            HttpServletResponse response
+    public void onSuccessBodyResponse(
+            HttpServletResponse response,
+            HttpStatus httpStatus
     ) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpStatus.OK.value());
+        response.setStatus(httpStatus.value());
 
         Map<String, Object> result = new HashMap<>();
 
-        result.put("success", true);
-        result.put("data", null);
-        result.put("error", null);
+        if (httpStatus != HttpStatus.NO_CONTENT) {
+            result.put("success", true);
+            result.put("data", null);
+            result.put("error", null);
 
-        response.getWriter().write(objectMapper.writeValueAsString(result));
+            response.getWriter().write(objectMapper.writeValueAsString(result));
+        }
     }
 }
