@@ -5,7 +5,13 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
+
+    min-height: 1080px;
+
     height: 100vh;
+
+    margin: 0 0 auto 0;
+
     width: ${(props) => (props.isCollapsed ? '60px' : '240px')};
     display: flex;
     flex-direction: column;

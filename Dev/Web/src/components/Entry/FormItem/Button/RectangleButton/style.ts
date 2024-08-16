@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
-export const Container = styled.button`
+interface ContainerProps {
+    backgroundColor: string;
+    isIssued: boolean;
+}
+
+export const Container = styled.button<ContainerProps>`
     width: 180px;
     height: 60px;
-    background-color: ${({theme}) => theme.colorSystem.primary["500"]};
+    background-color: ${(props) => props.backgroundColor};
     border-radius: 12px;
     border: none;
 
@@ -12,7 +17,6 @@ export const Container = styled.button`
     justify-content: center;
     align-items: center;
 
-    &:hover {
-        background-color: #28a745;
-    }
+    // props.isIssued 일 때 cursor: pointer
+    ${(props) => props.isIssued ? "cursor: pointer;" : ""};
 `;

@@ -1,17 +1,18 @@
 import * as Styled from "./style.ts";
-import { useState } from "react";
+import React, {useState} from "react";
 import EyeIcon from "@/assets/icons/Eye.svg";
 import EyeIconNo from "@/assets/icons/EyeBlind.svg";
 
-interface InputFieldProps {
+interface props {
     placeholder: string;
     width?: string;
     type?: string;
     borderRadius?: string;
     height?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function InputField({ placeholder, width, type, borderRadius }: InputFieldProps) {
+export default function InputField(props: props) {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -19,22 +20,24 @@ export default function InputField({ placeholder, width, type, borderRadius }: I
     };
 
     return (
-        type === "password" ?
-            <Styled.InputFieldContainer width={width}>
+        props.type === "password" ?
+            <Styled.InputFieldContainer width={props.width}>
                 <Styled.PasswordContainer>
                     <Styled.InputContainer
-                        type={passwordVisible ? 'text' : 'password'}
-                        placeholder={placeholder}
-                        borderRadius={borderRadius}
+                        type={passwordVisible ? 'email' : 'password'}
+                        placeholder={props.placeholder}
+                        borderRadius={props.borderRadius}
+                        onChange={props.onChange}
                     />
                     <Styled.ToggleButton onClick={togglePasswordVisibility}>
-                        <img src={passwordVisible ? EyeIconNo : EyeIcon} alt="Toggle visibility" />
+                        <img src={passwordVisible ? EyeIconNo : EyeIcon} alt="Toggle visibility"/>
                     </Styled.ToggleButton>
                 </Styled.PasswordContainer>
             </Styled.InputFieldContainer>
             :
-            <Styled.InputFieldContainer width={width}>
-                <Styled.InputContainer type={type || 'text'} placeholder={placeholder} borderRadius={borderRadius} />
+            <Styled.InputFieldContainer width={props.width}>
+                <Styled.InputContainer type={props.type || 'email'} placeholder={props.placeholder}
+                                       borderRadius={props.borderRadius} onChange={props.onChange}/>
             </Styled.InputFieldContainer>
     );
 }

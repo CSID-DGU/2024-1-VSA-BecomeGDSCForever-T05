@@ -1,19 +1,22 @@
 import styled from "styled-components";
 
-export const Container = styled.button`
+interface ContainerProps {
+    backgroundColor: string;
+    isValid: boolean;
+}
+
+export const Container = styled.button<ContainerProps>`
     width: 360px;
     height: 68px;
-    background-color: ${({theme}) => theme.colorSystem.primary["500"]};
+    background-color: ${(props) => props.backgroundColor};
     border-radius: 34px;
     border: none;
-    
+
     display: flex;
-    padding: 19px 0px;
+    padding: 19px 0;
     justify-content: center;
     align-items: center;
     align-self: stretch;
 
-    &:hover {
-        background-color: #28a745;
-    }
+    cursor: ${(props) => props.isValid ? "pointer" : "default"};
 `;
