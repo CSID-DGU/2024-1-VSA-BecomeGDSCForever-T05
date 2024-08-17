@@ -58,6 +58,7 @@ public class MailUtil {
 
         // 위 HTML을 이용하여 이메일을 작성하고 전송하는 코드
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        mimeMessageHelper.setFrom("WITHME");
         mimeMessageHelper.setTo(receiverAddress);
         // UTF-8로 인코딩
         mimeMessageHelper.setText(AUTHENTICATION_CODE_TEMPLATE.replace("${AuthenticationCode}", authenticationCode), true);
@@ -74,6 +75,7 @@ public class MailUtil {
 
         // 위 HTML을 이용하여 이메일을 작성하고 전송하는 코드
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        mimeMessageHelper.setFrom("WITHME");
         mimeMessageHelper.setTo(receiverAddress);
         mimeMessageHelper.setText(FORGET_PASSWORD_TEMPLATE.replace("${TemporaryPassword}", temporaryPassword), true);
 
