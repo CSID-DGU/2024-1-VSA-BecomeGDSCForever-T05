@@ -1,0 +1,87 @@
+import {useState} from 'react';
+import * as Styled from './style';
+import Column from "@/components/Common/Column";
+import H3 from '@/components/Common/Font/Heading/H3';
+import ProfileImage from "@/components/Common/ProfileImage";
+import SizedBox from "@/components/Common/SizedBox";
+import exitIcon from "@/assets/icons/Sidebar/exitIcon.svg";
+import settingIcon from "@/assets/icons/Sidebar/settingIcon.svg";
+import doubleLeftIcon from "@/assets/icons/Sidebar/doubleLeftIcon.svg";
+import doubleRightIcon from "@/assets/icons/Sidebar/doubleRightIcon.svg";
+import questionIcon from "@/assets/icons/Sidebar/questionIcon.svg";
+import newFolderIcon from "@/assets/icons/Sidebar/newFolderIcon.svg";
+import newFileIcon from "@/assets/icons/Sidebar/newFileIcon.svg";
+import refreshIcon from "@/assets/icons/Sidebar/refreshIcon.svg";
+import Row from "@/components/Common/Row";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "@/stores/store.ts";
+import {updateRoomFrameState} from "@/stores/slices/roomFrame.slice.ts";
+
+export default function IDEPersonal() {
+    const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+    const dispatch = useDispatch<AppDispatch>();
+    const roomFrameState = useSelector((state: RootState) => state.roomFrameState);
+
+    const toggleSidebar = () => {
+        setIsCollapsed(!isCollapsed);
+    };
+
+    const handleQuestionButtonClick = () => {
+
+        roomFrameState.type === "user" ? dispatch(updateRoomFrameState("default")) : dispatch(updateRoomFrameState("user"));
+    }
+
+    return (
+        <Styled.Container isCollapsed={isCollapsed}>
+            <Styled.TopMenuBar isCollapsed={isCollapsed}>
+                {isCollapsed ? (
+                    <Column alignItems={"center"} justifyContent={"space-between"}>
+                        <ProfileImage
+                            src={doubleRightIcon}
+                            width={"24px"}
+                            height={"24px"}
+                            onClick={toggleSidebar}
+                        />
+                        <SizedBox height={"8px"}/>
+                        <ProfileImage src={settingIcon} width={"24px"} height={"24px"}/>
+                        <SizedBox height={"8px"}/>
+                        <ProfileImage src={exitIcon} width={"24px"} height={"24px"}/>
+                    </Column>
+                ) : (
+                    <>
+                        <ProfileImage src={exitIcon} width={"24px"} height={"24px"}/>
+                        <Row width={"auto"}>
+                            <ProfileImage src={settingIcon} width={"24px"} height={"24px"}/>
+                            <ProfileImage
+                                src={doubleLeftIcon}
+                                width={"24px"}
+                                height={"24px"}
+                                onClick={toggleSidebar}
+                            />
+                        </Row>
+                    </>
+                )}
+            </Styled.TopMenuBar>
+            {!isCollapsed && (
+                <>
+                    <Styled.MiddleMenuBar>
+                        <Column>
+                            <H3 text={"무능한 하마님의"} color={"white"} textAlign={"left"}/>
+                            <H3 text={"개인공간"} color={"white"} textAlign={"left"}/>
+                        </Column>
+                        <ProfileImage src={questionIcon} width={"48px"} height={"48px"}
+                                      onClick={handleQuestionButtonClick}/>
+                    </Styled.MiddleMenuBar>
+                    <Styled.BottomMenuBar>
+                        <ProfileImage src={newFileIcon} width={"16px"} height={"16px"}/>
+                        <ProfileImage src={newFolderIcon} width={"14px"} height={"14px"}/>
+                        <ProfileImage src={refreshIcon} width={"16px"} height={"16px"}/>
+                    </Styled.BottomMenuBar>
+                </>
+            )}
+            <Styled.DirectoryList isCollapsed={isCollapsed}>
+                {!isCollapsed && 'Directory List init'}
+            </Styled.DirectoryList>
+        </Styled.Container>
+    );
+}

@@ -11,7 +11,7 @@ export default function Button(props: ButtonProps) {
     return (
         <Styled.Container isParticipated={props.isParticipated} onClick={props.onClick}>
             <H1
-                color={props.isParticipated ? theme.colorSystem.neutral["500"] : theme.colorSystem.white}
+                color={theme.colorSystem.neutral["500"]}
                 textAlign={"center"}
                 text={"참여하기"}
             />

@@ -104,6 +104,12 @@ const colorSystem = {
 }
 
 const fontSystem = {
+    h0: {
+        fontSize: "3rem",
+        lineHeight: "3.75rem",
+        fontWeight: "700",
+        fontFamily: "SUIT"
+    },
     h1: {
         fontSize: "1.5rem",
         lineHeight: "1.875rem",
@@ -112,7 +118,7 @@ const fontSystem = {
     },
     h2: {
         fontSize: "1.375rem",
-        lineHeight: "1.719ren",
+        lineHeight: "1.719rem",
         fontWeight: "700",
         fontFamily: "SUIT"
     },

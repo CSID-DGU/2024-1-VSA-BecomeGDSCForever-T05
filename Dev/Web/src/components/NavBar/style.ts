@@ -26,24 +26,6 @@ export const NavBarRightSection = styled.div`
     gap: 20px;
 `
 
-// Icon
-export interface IconProps {
-    src: string;
-    alt?: string;
-    height?: string;
-    width?: string;
-    padding?: string;
-}
-
-export const Icon = styled.img<IconProps>`
-  display: flex;
-  height: ${(props) => props.height || "auto"};
-  width: ${(props) => props.width || "auto"};
-  padding: ${(props) => props.padding || "10px 0px"};
-  align-items: center;
-  gap: 12px;
-    flex-shrink: 0;
-`;
 
 export const NavMenuButton = styled.div`
     display: flex;
