@@ -2,7 +2,7 @@ package org.dongguk.vsa.modeul.security.service;
 
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.core.utility.PasswordUtil;
 import org.dongguk.vsa.modeul.security.domain.redis.AuthenticationCode;
 import org.dongguk.vsa.modeul.security.domain.redis.AuthenticationCodeHistory;
@@ -35,7 +35,7 @@ public class ValidateEmailService implements ValidateEmailUseCase {
     @Override
     public ValidateEmailResponseDto execute(ValidateEmailRequestDto requestDto) {
         if (requestDto.isDuplicateCheck() && isDuplicatedEmail(requestDto.email())) {
-            throw new HttpCommonException(ErrorCode.DUPLICATED_RESOURCE);
+            throw new CommonException(ErrorCode.DUPLICATED_RESOURCE);
         }
 
         // 인증코드 발급 이력 조회
@@ -44,12 +44,12 @@ public class ValidateEmailService implements ValidateEmailUseCase {
 
         // 인증코드 발급 제한 확인
         if (isBlockedIssuingAuthenticationCode(history)) {
-            throw new HttpCommonException(ErrorCode.TOO_MANY_AUTHENTICATION_CODE_REQUESTS);
+            throw new CommonException(ErrorCode.TOO_MANY_AUTHENTICATION_CODE_REQUESTS);
         }
 
         // 인증코드 발급 속도 제한 확인(1분 이내에 재요청 했을 경우)
         if (isTooFastIssuingAuthenticationCode(history)) {
-            throw new HttpCommonException(ErrorCode.TOO_FAST_AUTHENTICATION_CODE_REQUESTS);
+            throw new CommonException(ErrorCode.TOO_FAST_AUTHENTICATION_CODE_REQUESTS);
         }
 
         // 새로운 인증코드 생성

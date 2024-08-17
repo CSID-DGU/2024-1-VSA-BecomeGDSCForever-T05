@@ -2,7 +2,7 @@ package org.dongguk.vsa.modeul.modeullak.service;
 
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.core.scheduler.UpdaterScheduler;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.ModeullakTag;
@@ -53,7 +53,7 @@ public class CreateModeullakService implements CreateModeullakUseCase {
     ) {
         // 1. 현재 들어가있는 모들락이 있는지 확인
         if (isExistCurrentModeullak(accountId)) {
-            throw new HttpCommonException(ErrorCode.EXISTING_RESOURCE);
+            throw new CommonException(ErrorCode.EXISTING_RESOURCE);
         }
 
         // 2. String에서 Tag로 변환
@@ -86,7 +86,7 @@ public class CreateModeullakService implements CreateModeullakUseCase {
 
         // 5. 모들락 권한 생성 및 저장
         User user = userRepository.findById(accountId)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
 
         ModeullakUser modeullakUser = ModeullakUser.builder()
                 .modeullakRole(EModeullakRole.HOST)
@@ -142,7 +142,7 @@ public class CreateModeullakService implements CreateModeullakUseCase {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             hashBytes = digest.digest(uuidBytes);
         } catch (NoSuchAlgorithmException e) {
-            throw new HttpCommonException(ErrorCode.INTERNAL_SERVER_ERROR);
+            throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
 
         StringBuilder hashStr = new StringBuilder();

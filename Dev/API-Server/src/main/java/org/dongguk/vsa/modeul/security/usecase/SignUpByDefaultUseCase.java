@@ -1,6 +1,6 @@
 package org.dongguk.vsa.modeul.security.usecase;
 
-import org.dongguk.vsa.modeul.core.annotation.UseCase;
+import org.dongguk.vsa.modeul.core.annotation.bean.UseCase;
 import org.dongguk.vsa.modeul.security.dto.request.SignUpByDefaultRequestDto;
 import org.dongguk.vsa.modeul.security.dto.response.DefaultJsonWebTokenDto;
 

@@ -1,10 +1,10 @@
-package org.dongguk.vsa.modeul.file.domain.mongo;
+package org.dongguk.vsa.modeul.storage.domain.mongo;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dongguk.vsa.modeul.file.domain.type.EType;
+import org.dongguk.vsa.modeul.storage.domain.type.EStorageType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Document(collection = "`directories`")
-public class DirectoryComposite implements Component {
+public class Directory implements Storage {
 
     /* -------------------------------------------- */
     /* Default Column ----------------------------- */
@@ -30,11 +30,11 @@ public class DirectoryComposite implements Component {
     @Field("user_modeullak_id")
     private Long userModeullakId;
 
-    @Field("name")
-    private String name;
+    @Field("title")
+    private String title;
 
     @Field("children")
-    private List<Component> children = new ArrayList<>();
+    private List<Storage> children = new ArrayList<>();
 
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
@@ -49,16 +49,27 @@ public class DirectoryComposite implements Component {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public DirectoryComposite(String name, Long userModeullakId) {
+    public Directory(String title, Long userModeullakId) {
         this.userModeullakId = userModeullakId;
-        this.name = name;
+        this.title = title;
 
         this.createdAt = LocalDateTime.now();
     }
 
     @Override
-    public EType getType() {
-        return EType.DIRECTORY;
+    public String getExtension() {
+        return "";
+    }
+
+    @Override
+    public EStorageType getType() {
+        return EStorageType.DIRECTORY;
+    }
+
+    public void updateTitle(String title) {
+        this.title = title;
+
+        this.updatedAt = LocalDateTime.now();
     }
 }
 

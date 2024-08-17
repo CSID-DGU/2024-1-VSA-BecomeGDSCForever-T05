@@ -2,7 +2,7 @@ package org.dongguk.vsa.modeul.modeullak.service;
 
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
@@ -30,17 +30,17 @@ public class DeleteModeullakService implements DeleteModeullakUseCase {
     @Transactional
     public void deleteModeullak(UUID accountId, Long modeullakId) {
         User user = userRepository.findById(accountId)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
 
         Modeullak modeullak = modeullakRepository.findById(modeullakId)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_RESOURCE));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         if (isLLMEnded(modeullak)) {
-            throw new HttpCommonException(ErrorCode.NOT_COMPLETED_LLM_PROCESSING);
+            throw new CommonException(ErrorCode.NOT_COMPLETED_LLM_PROCESSING);
         }
 
         if (isNotHost(user, modeullak)) {
-            throw new HttpCommonException(ErrorCode.ACCESS_DENIED);
+            throw new CommonException(ErrorCode.ACCESS_DENIED);
         }
 
         modeullakRepository.delete(modeullak);
@@ -62,7 +62,7 @@ public class DeleteModeullakService implements DeleteModeullakUseCase {
      */
     private Boolean isNotHost(User user, Modeullak modeullak) {
         ModeullakUser modeullakUser = userModeullakRepository.findByUserAndModeullak(user, modeullak)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_RESOURCE));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         return modeullakUser.getRole() != EModeullakRole.HOST;
     }

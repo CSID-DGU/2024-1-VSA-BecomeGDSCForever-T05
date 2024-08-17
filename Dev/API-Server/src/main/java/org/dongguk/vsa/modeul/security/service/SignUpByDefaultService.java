@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.core.utility.JsonWebTokenUtil;
 import org.dongguk.vsa.modeul.security.domain.mysql.Account;
 import org.dongguk.vsa.modeul.security.domain.redis.RefreshToken;
@@ -43,12 +43,12 @@ public class SignUpByDefaultService implements SignUpByDefaultUseCase {
 
         // Temporary Token 존재 여부 확인
         if (!isEqualsTemporaryToken(email, temporaryToken)) {
-            throw new HttpCommonException(ErrorCode.INVALID_TOKEN_ERROR);
+            throw new CommonException(ErrorCode.INVALID_TOKEN_ERROR);
         }
 
         // 이메일 중복 검사
         if (isDuplicatedEmail(email)) {
-            throw new HttpCommonException(ErrorCode.DUPLICATED_RESOURCE);
+            throw new CommonException(ErrorCode.DUPLICATED_RESOURCE);
         }
 
         // TODO: 이후 프로필 이미지 실제 주소로 변경
@@ -96,7 +96,7 @@ public class SignUpByDefaultService implements SignUpByDefaultUseCase {
         }
 
         TemporaryToken temporaryTokenEntity = temporaryTokenRepository.findById(email)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.INVALID_TOKEN_ERROR));
+                .orElseThrow(() -> new CommonException(ErrorCode.INVALID_TOKEN_ERROR));
 
         return temporaryTokenEntity.getValue().equals(temporaryToken);
     }

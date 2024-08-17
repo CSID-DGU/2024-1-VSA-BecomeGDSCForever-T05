@@ -2,9 +2,8 @@ package org.dongguk.vsa.modeul.modeullak.service;
 
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
-import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.modeullak.dto.response.ModeullakSummaryResponseDto;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
 import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakSummaryUseCase;
@@ -27,13 +26,13 @@ public class ReadModeullakSummaryService implements ReadModeullakSummaryUseCase 
     @Override
     public ModeullakSummaryResponseDto execute(UUID accountId, Long modeullakId) {
         User user = userRepository.findById(accountId)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
 
         Modeullak modeullak = modeullakRepository.findWithTagsById(modeullakId)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_RESOURCE));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         if (isNotHadRole(user, modeullak)) {
-            throw new HttpCommonException(ErrorCode.ACCESS_DENIED);
+            throw new CommonException(ErrorCode.ACCESS_DENIED);
         }
 
         return ModeullakSummaryResponseDto.fromEntity(modeullak);

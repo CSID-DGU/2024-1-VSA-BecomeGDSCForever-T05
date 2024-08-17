@@ -1,4 +1,4 @@
-package org.dongguk.vsa.modeul.core.annotation;
+package org.dongguk.vsa.modeul.core.annotation.security;
 
 import java.lang.annotation.*;
 

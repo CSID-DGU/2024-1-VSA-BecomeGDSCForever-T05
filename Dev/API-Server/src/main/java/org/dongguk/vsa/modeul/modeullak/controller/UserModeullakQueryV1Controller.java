@@ -1,8 +1,8 @@
 package org.dongguk.vsa.modeul.modeullak.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.dongguk.vsa.modeul.core.annotation.AccountID;
-import org.dongguk.vsa.modeul.core.annotation.DateValue;
+import org.dongguk.vsa.modeul.core.annotation.security.AccountID;
+import org.dongguk.vsa.modeul.core.annotation.validation.DateValue;
 import org.dongguk.vsa.modeul.core.dto.ResponseDto;
 import org.dongguk.vsa.modeul.modeullak.usecase.ReadCurrentUserParticipationStatusesUseCase;
 import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakOverviewsByUserUseCase;

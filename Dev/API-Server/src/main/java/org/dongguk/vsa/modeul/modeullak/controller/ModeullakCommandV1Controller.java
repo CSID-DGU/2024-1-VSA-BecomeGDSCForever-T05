@@ -2,10 +2,10 @@ package org.dongguk.vsa.modeul.modeullak.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.dongguk.vsa.modeul.core.annotation.AccountID;
+import org.dongguk.vsa.modeul.core.annotation.security.AccountID;
 import org.dongguk.vsa.modeul.core.dto.ResponseDto;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.modeullak.dto.request.CreateModeullakRequestDto;
 import org.dongguk.vsa.modeul.modeullak.dto.response.CreateModeullakResponseDto;
 import org.dongguk.vsa.modeul.modeullak.usecase.CreateModeullakUseCase;
@@ -31,8 +31,8 @@ public class ModeullakCommandV1Controller {
             @AccountID UUID accountId,
             @RequestBody @Valid CreateModeullakRequestDto requestDto
     ) {
-        if (requestDto.hour() + requestDto.minute() == 0) {
-            throw new HttpCommonException(ErrorCode.INVALID_ARGUMENT);
+        if (requestDto.hour() + requestDto.minute() == 0 || requestDto.hour() * 60 + requestDto.minute() > 10) {
+            throw new CommonException(ErrorCode.INVALID_ARGUMENT);
         }
 
         CreateModeullakResponseDto responseDto = createModeullakUseCase.execute(

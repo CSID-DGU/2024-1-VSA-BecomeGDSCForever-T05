@@ -6,8 +6,8 @@ import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
-import org.dongguk.vsa.modeul.core.exception.type.HttpJsonWebTokenException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
+import org.dongguk.vsa.modeul.core.exception.type.HttpSecurityException;
 import org.dongguk.vsa.modeul.security.dto.response.DefaultJsonWebTokenDto;
 import org.dongguk.vsa.modeul.security.dto.response.TemporaryJsonWebTokenDto;
 import org.dongguk.vsa.modeul.security.domain.type.ESecurityRole;
@@ -63,17 +63,17 @@ public class JsonWebTokenUtil implements InitializingBean {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (MalformedJwtException e) {
-            throw new HttpJsonWebTokenException(e.getMessage(), ErrorCode.TOKEN_MALFORMED_ERROR);
+            throw new HttpSecurityException(e.getMessage(), ErrorCode.TOKEN_MALFORMED_ERROR);
         } catch (IllegalArgumentException e) {
-            throw new HttpJsonWebTokenException(e.getMessage(), ErrorCode.TOKEN_TYPE_ERROR);
+            throw new HttpSecurityException(e.getMessage(), ErrorCode.TOKEN_TYPE_ERROR);
         } catch (ExpiredJwtException e) {
-            throw new HttpJsonWebTokenException(e.getMessage(), ErrorCode.EXPIRED_TOKEN_ERROR);
+            throw new HttpSecurityException(e.getMessage(), ErrorCode.EXPIRED_TOKEN_ERROR);
         } catch (UnsupportedJwtException e) {
-            throw new HttpJsonWebTokenException(e.getMessage(), ErrorCode.TOKEN_UNSUPPORTED_ERROR);
+            throw new HttpSecurityException(e.getMessage(), ErrorCode.TOKEN_UNSUPPORTED_ERROR);
         } catch (JwtException e) {
-            throw new HttpJsonWebTokenException(e.getMessage(), ErrorCode.TOKEN_UNKNOWN_ERROR);
+            throw new HttpSecurityException(e.getMessage(), ErrorCode.TOKEN_UNKNOWN_ERROR);
         } catch (Exception e) {
-            throw new HttpCommonException(ErrorCode.INTERNAL_SERVER_ERROR);
+            throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
     }
 

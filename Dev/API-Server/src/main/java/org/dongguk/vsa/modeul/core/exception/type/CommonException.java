@@ -6,7 +6,7 @@ import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 
 @Getter
 @RequiredArgsConstructor
-public class HttpCommonException extends RuntimeException {
+public class CommonException extends RuntimeException {
 
     private final ErrorCode errorCode;
 

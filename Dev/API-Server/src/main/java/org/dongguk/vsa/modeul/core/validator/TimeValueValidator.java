@@ -2,9 +2,8 @@ package org.dongguk.vsa.modeul.core.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.dongguk.vsa.modeul.core.annotation.TimeValue;
+import org.dongguk.vsa.modeul.core.annotation.validation.TimeValue;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

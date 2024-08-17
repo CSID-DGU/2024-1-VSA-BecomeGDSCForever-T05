@@ -2,18 +2,14 @@ package org.dongguk.vsa.modeul.modeullak.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
-import org.dongguk.vsa.modeul.core.annotation.DateTimeValue;
-import org.dongguk.vsa.modeul.core.annotation.TimeValue;
+import org.dongguk.vsa.modeul.core.annotation.validation.DateTimeValue;
 import org.dongguk.vsa.modeul.core.dto.SelfValidating;
 import org.dongguk.vsa.modeul.core.utility.DateTimeUtil;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter

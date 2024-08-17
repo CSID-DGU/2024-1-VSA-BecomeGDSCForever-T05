@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
-import org.dongguk.vsa.modeul.core.exception.type.HttpJsonWebTokenException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
+import org.dongguk.vsa.modeul.core.exception.type.HttpSecurityException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -27,11 +27,11 @@ public class ExceptionFilter extends OncePerRequestFilter {
             log.error("FilterException throw SecurityException : {}", e.getMessage());
             request.setAttribute("exception", ErrorCode.ACCESS_DENIED);
             filterChain.doFilter(request, response);
-        } catch (HttpJsonWebTokenException e) {
+        } catch (HttpSecurityException e) {
             log.error("FilterException throw JsonWebTokenException : {}", e.getMessage());
             request.setAttribute("exception", e.getErrorCode());
             filterChain.doFilter(request, response);
-        } catch (HttpCommonException e) {
+        } catch (CommonException e) {
             log.error("FilterException throw CommonException : {}", e.getMessage());
             request.setAttribute("exception", e.getErrorCode());
             filterChain.doFilter(request, response);

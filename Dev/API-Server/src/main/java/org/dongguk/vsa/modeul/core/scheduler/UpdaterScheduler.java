@@ -1,7 +1,7 @@
 package org.dongguk.vsa.modeul.core.scheduler;
 
 import lombok.RequiredArgsConstructor;
-import org.dongguk.vsa.modeul.core.annotation.TaskScheduler;
+import org.dongguk.vsa.modeul.core.annotation.bean.TaskScheduler;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;

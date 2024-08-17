@@ -1,6 +1,6 @@
 package org.dongguk.vsa.modeul.security.usecase;
 
-import org.dongguk.vsa.modeul.core.annotation.UseCase;
+import org.dongguk.vsa.modeul.core.annotation.bean.UseCase;
 
 @UseCase
 public interface ReissuePasswordUseCase {

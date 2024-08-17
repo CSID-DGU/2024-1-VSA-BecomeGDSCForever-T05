@@ -1,7 +1,7 @@
 package org.dongguk.vsa.modeul.modeullak.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.dongguk.vsa.modeul.core.annotation.AccountID;
+import org.dongguk.vsa.modeul.core.annotation.security.AccountID;
 import org.dongguk.vsa.modeul.core.dto.ResponseDto;
 import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakBriefUseCase;
 import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakDetailUseCase;

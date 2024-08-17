@@ -2,7 +2,7 @@ package org.dongguk.vsa.modeul.core.dto;
 
 import jakarta.validation.*;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 
 import java.util.Set;
 
@@ -27,7 +27,7 @@ public abstract class SelfValidating<T> {
     protected void validateSelf() {
         Set<ConstraintViolation<T>> violations = validator.validate((T) this);
         if (!violations.isEmpty()) {
-            throw new HttpCommonException(ErrorCode.INTERNAL_DATA_ERROR);
+            throw new CommonException(ErrorCode.INTERNAL_DATA_ERROR);
         }
     }
 }

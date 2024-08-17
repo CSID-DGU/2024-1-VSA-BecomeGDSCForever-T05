@@ -1,11 +1,11 @@
-package org.dongguk.vsa.modeul.file.domain.mongo;
+package org.dongguk.vsa.modeul.storage.domain.mongo;
 
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dongguk.vsa.modeul.file.domain.type.EType;
+import org.dongguk.vsa.modeul.storage.domain.type.EStorageType;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Document(collection = "`files`")
-public class FileLeaf implements Component {
+public class File implements Storage {
 
     /* -------------------------------------------- */
     /* Default Column ----------------------------- */
@@ -26,7 +26,7 @@ public class FileLeaf implements Component {
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
     @Field("name")
-    private String name;
+    private String title;
 
     @Field("content")
     private String content;
@@ -47,16 +47,29 @@ public class FileLeaf implements Component {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public FileLeaf(String name, String content) {
-        this.name = name;
-        this.content = content;
-        this.extension = name.substring(name.lastIndexOf(".")+1);
+    public File(String fileName) {
+        this.title = fileName.substring(0, fileName.lastIndexOf("."));
+        this.content = "";
+        this.extension = fileName.substring(fileName.lastIndexOf(".")+1);
 
         this.createdAt = LocalDateTime.now();
     }
 
     @Override
-    public EType getType() {
-        return EType.FILE;
+    public EStorageType getType() {
+        return EStorageType.FILE;
+    }
+
+    public void updateTitleAndExtension(String fileName) {
+        this.title = fileName.substring(0, fileName.lastIndexOf("."));
+        this.extension = fileName.substring(fileName.lastIndexOf(".")+1);
+
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
+
+        this.updatedAt = LocalDateTime.now();
     }
 }

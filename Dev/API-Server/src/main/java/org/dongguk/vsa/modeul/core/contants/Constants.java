@@ -21,30 +21,30 @@ public class Constants {
      * 인증이 필요 없는 URL
      */
     public static List<String> NO_NEED_AUTH_URLS = List.of(
+            // Health Check
+            "/ws-stomp",
 
-            // Auth
+            // Stomp
+            "/pub",
+            "/exchange",
+
+            // Authentication/Authorization
             "/auth/validations/email",
             "/auth/validations/authentication-code",
-
             "/auth/reissue/token",
             "/auth/reissue/password",
-
             "/auth/sign-up",
-
             "/auth/login",
 
             // Swagger
             "/api-docs.html",
             "/api-docs/**",
             "/swagger-ui/**",
-            "/v3/**",
-
-            // Drug
-            "/v1/drugs/**"
+            "/v3/**"
     );
 
     /**
-     * Swagger에서 사용하는 URL
+     * Swagger 에서 사용하는 URL
      */
     public static List<String> SWAGGER_URLS = List.of(
             "/api-docs.html",
@@ -57,5 +57,6 @@ public class Constants {
      * 사용자 URL
      */
     public static List<String> USER_URLS = List.of(
-            "/api/v1/**");
+            "/v1/**"
+    );
 }

@@ -1,6 +1,6 @@
 package org.dongguk.vsa.modeul.user.usecase;
 
-import org.dongguk.vsa.modeul.core.annotation.UseCase;
+import org.dongguk.vsa.modeul.core.annotation.bean.UseCase;
 
 import java.util.UUID;
 

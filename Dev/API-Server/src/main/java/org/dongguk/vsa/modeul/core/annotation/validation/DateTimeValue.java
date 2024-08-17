@@ -1,4 +1,4 @@
-package org.dongguk.vsa.modeul.core.annotation;
+package org.dongguk.vsa.modeul.core.annotation.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

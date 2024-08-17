@@ -1,4 +1,4 @@
-package org.dongguk.vsa.modeul.core.annotation;
+package org.dongguk.vsa.modeul.core.annotation.bean;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
