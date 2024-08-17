@@ -60,7 +60,7 @@ public class ModeullakCommandV1Controller {
             @PathVariable("modeullakId") Long modeullakId
     ) {
 
-        deleteModeullakUseCase.deleteModeullak(accountId, modeullakId);
+        deleteModeullakUseCase.execute(accountId, modeullakId);
 
         return ResponseDto.noContent();
     }

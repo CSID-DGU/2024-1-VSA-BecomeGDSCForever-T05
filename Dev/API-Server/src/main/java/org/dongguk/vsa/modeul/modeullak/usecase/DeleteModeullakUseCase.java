@@ -12,7 +12,7 @@ public interface DeleteModeullakUseCase {
      * @param accountId 계정 ID
      * @param modeullakId 모들락 ID
      */
-    void deleteModeullak(
+    void execute(
             UUID accountId,
             Long modeullakId
     );

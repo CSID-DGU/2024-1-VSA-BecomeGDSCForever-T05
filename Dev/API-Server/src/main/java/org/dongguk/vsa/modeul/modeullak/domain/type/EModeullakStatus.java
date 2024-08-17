@@ -17,6 +17,5 @@ public enum EModeullakStatus {
 
     private final String koName;
     private final String enName;
-    ;
 
 }

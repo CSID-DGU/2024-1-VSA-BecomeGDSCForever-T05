@@ -28,7 +28,7 @@ public class DeleteModeullakService implements DeleteModeullakUseCase {
 
     @Override
     @Transactional
-    public void deleteModeullak(UUID accountId, Long modeullakId) {
+    public void execute(UUID accountId, Long modeullakId) {
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
 
