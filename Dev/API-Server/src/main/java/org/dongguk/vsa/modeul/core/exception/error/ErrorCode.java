@@ -30,6 +30,7 @@ public enum ErrorCode {
     EXISTING_RESOURCE(40008, HttpStatus.BAD_REQUEST, "이미 존재하는 리소스입니다."),
     NOT_CREATE_STORAGE_IN_FILE(40009, HttpStatus.BAD_REQUEST, "파일에 저장소를 생성할 수 없습니다."),
     INVALID_PARTICIPATION_CODE(40010, HttpStatus.BAD_REQUEST, "유효하지 않은 참여 코드입니다."),
+    INVALID_RESOURCE_TYPE(40011, HttpStatus.BAD_REQUEST, "유효하지 않은 리소스 타입입니다."),
 
     NOT_COMPLETED_LLM_PROCESSING(40009, HttpStatus.BAD_REQUEST, "아직 정리되지 않은 모들락 처리입니다."),
     ALREADY_ENDED_MODEULLAK(40010, HttpStatus.BAD_REQUEST, "이미 종료된 모들락입니다."),
