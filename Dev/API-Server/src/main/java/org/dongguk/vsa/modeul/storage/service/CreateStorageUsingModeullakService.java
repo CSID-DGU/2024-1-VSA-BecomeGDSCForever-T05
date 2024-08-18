@@ -43,7 +43,7 @@ public class CreateStorageUsingModeullakService implements CreateStorageUsingMod
         UserModeullak userModeullak = userModeullakRepository.findByUserAndModeullak(user, modeullak)
                 .orElseThrow(() -> new CommonException(ErrorCode.ACCESS_DENIED));
 
-        // 3. 상위 Storage에 추가하는 경우 조건문 확인
+        // 3. 상위 Storage에 추가하는 경우
         if (requestDto.parentStorageId() != null) {
             Storage parentStorage = storageRepository.findById(requestDto.parentStorageId())
                     .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
