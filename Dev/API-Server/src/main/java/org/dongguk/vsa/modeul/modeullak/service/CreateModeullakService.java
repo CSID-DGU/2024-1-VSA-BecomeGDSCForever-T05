@@ -15,7 +15,7 @@ import org.dongguk.vsa.modeul.modeullak.usecase.CreateModeullakUseCase;
 import org.dongguk.vsa.modeul.tag.domain.mysql.Tag;
 import org.dongguk.vsa.modeul.tag.repository.mysql.TagRepository;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
-import org.dongguk.vsa.modeul.modeullak.domain.mysql.ModeullakUser;
+import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakRole;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserModeullakRepository;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserRepository;
@@ -88,13 +88,13 @@ public class CreateModeullakService implements CreateModeullakUseCase {
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
 
-        ModeullakUser modeullakUser = ModeullakUser.builder()
+        UserModeullak userModeullak = UserModeullak.builder()
                 .modeullakRole(EModeullakRole.HOST)
                 .user(user)
                 .modeullak(modeullak)
                 .build();
 
-        userModeullakRepository.save(modeullakUser);
+        userModeullakRepository.save(userModeullak);
 
         // 6. Scheduler 등록
         updaterScheduler.addModeullakTask(

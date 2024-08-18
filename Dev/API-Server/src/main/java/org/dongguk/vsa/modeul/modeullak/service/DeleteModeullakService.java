@@ -8,7 +8,7 @@ import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
 import org.dongguk.vsa.modeul.modeullak.usecase.DeleteModeullakUseCase;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
-import org.dongguk.vsa.modeul.modeullak.domain.mysql.ModeullakUser;
+import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakRole;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserModeullakRepository;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserRepository;
@@ -61,9 +61,9 @@ public class DeleteModeullakService implements DeleteModeullakUseCase {
      * @return 해당 유저가 모들락의 Host인지 여부
      */
     private Boolean isNotHost(User user, Modeullak modeullak) {
-        ModeullakUser modeullakUser = userModeullakRepository.findByUserAndModeullak(user, modeullak)
+        UserModeullak userModeullak = userModeullakRepository.findByUserAndModeullak(user, modeullak)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        return modeullakUser.getRole() != EModeullakRole.HOST;
+        return userModeullak.getRole() != EModeullakRole.HOST;
     }
 }

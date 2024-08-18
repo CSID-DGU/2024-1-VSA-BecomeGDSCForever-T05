@@ -31,7 +31,7 @@ public class ModeullakCommandV1Controller {
             @AccountID UUID accountId,
             @RequestBody @Valid CreateModeullakRequestDto requestDto
     ) {
-        if (requestDto.hour() + requestDto.minute() == 0 || requestDto.hour() * 60 + requestDto.minute() > 10) {
+        if (requestDto.hour() + requestDto.minute() == 0 || requestDto.hour() * 60 + requestDto.minute() < 10) {
             throw new CommonException(ErrorCode.INVALID_ARGUMENT);
         }
 

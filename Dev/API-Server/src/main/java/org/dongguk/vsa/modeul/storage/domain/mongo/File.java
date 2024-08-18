@@ -1,11 +1,11 @@
 package org.dongguk.vsa.modeul.storage.domain.mongo;
 
-import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dongguk.vsa.modeul.storage.domain.type.EStorageType;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -13,21 +13,12 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Document(collection = "`files`")
-public class File implements Storage {
-
-    /* -------------------------------------------- */
-    /* Default Column ----------------------------- */
-    /* -------------------------------------------- */
-    @Id
-    private String id;
-
+@Document(collection = "storages")
+@TypeAlias("file")
+public class File extends Storage {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Field("name")
-    private String title;
-
     @Field("content")
     private String content;
 
@@ -35,24 +26,28 @@ public class File implements Storage {
     private String extension;
 
     /* -------------------------------------------- */
-    /* Timestamp Column --------------------------- */
-    /* -------------------------------------------- */
-    @Field("created_at")
-    private LocalDateTime createdAt;
-
-    @Field("updated_at")
-    private LocalDateTime updatedAt;
-
-    /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public File(String fileName) {
-        this.title = fileName.substring(0, fileName.lastIndexOf("."));
-        this.content = "";
-        this.extension = fileName.substring(fileName.lastIndexOf(".")+1);
+    public File(
+            String parentId,
+            Long userModeullakId,
+            String title,
+            String extension
+    ) {
+        super(
+                parentId,
+                userModeullakId,
+                title
+        );
 
-        this.createdAt = LocalDateTime.now();
+        this.content = "";
+        this.extension = extension;
+    }
+
+    @Override
+    public String getName() {
+        return title + "." + extension;
     }
 
     @Override
@@ -60,9 +55,12 @@ public class File implements Storage {
         return EStorageType.FILE;
     }
 
-    public void updateTitleAndExtension(String fileName) {
-        this.title = fileName.substring(0, fileName.lastIndexOf("."));
-        this.extension = fileName.substring(fileName.lastIndexOf(".")+1);
+    @Override
+    public void updateName(String name) {
+        int lastDotIndex = name.lastIndexOf(".");
+
+        this.title = name.substring(0, lastDotIndex);
+        this.extension = name.substring(lastDotIndex + 1);
 
         this.updatedAt = LocalDateTime.now();
     }

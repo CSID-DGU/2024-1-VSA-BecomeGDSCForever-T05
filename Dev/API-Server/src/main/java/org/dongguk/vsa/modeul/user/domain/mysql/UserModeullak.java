@@ -1,26 +1,26 @@
-package org.dongguk.vsa.modeul.modeullak.domain.mysql;
+package org.dongguk.vsa.modeul.user.domain.mysql;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakRole;
-import org.dongguk.vsa.modeul.user.domain.mysql.User;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(
-        name = "modeullak_users",
+        name = "user_modeullaks",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "uk_modeullak_user",
+                        name = "uk_user_modeullak",
                         columnNames = {"modeullak_id", "user_id"}
                 )
         }
 )
-public class ModeullakUser {
+public class UserModeullak {
 
     /* -------------------------------------------- */
     /* Default Column ----------------------------- */
@@ -52,7 +52,7 @@ public class ModeullakUser {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public ModeullakUser(
+    public UserModeullak(
             EModeullakRole modeullakRole,
             User user,
             Modeullak modeullak

@@ -28,6 +28,7 @@ public enum ErrorCode {
     BAD_REQUEST_JSON(40006, HttpStatus.BAD_REQUEST, "잘못된 JSON 형식입니다."),
     DUPLICATED_RESOURCE(40007, HttpStatus.BAD_REQUEST, "중복된 리소스입니다."),
     EXISTING_RESOURCE(40008, HttpStatus.BAD_REQUEST, "이미 존재하는 리소스입니다."),
+    NOT_CREATE_STORAGE_IN_FILE(40009, HttpStatus.BAD_REQUEST, "파일에 저장소를 생성할 수 없습니다."),
 
     NOT_COMPLETED_LLM_PROCESSING(40009, HttpStatus.BAD_REQUEST, "아직 정리되지 않은 모들락 처리입니다."),
     ALREADY_ENDED_MODEULLAK(40010, HttpStatus.BAD_REQUEST, "이미 종료된 모들락입니다."),

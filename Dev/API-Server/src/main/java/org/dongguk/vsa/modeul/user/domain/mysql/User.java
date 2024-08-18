@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
-import org.dongguk.vsa.modeul.modeullak.domain.mysql.ModeullakUser;
 import org.dongguk.vsa.modeul.security.domain.mysql.Account;
 import org.dongguk.vsa.modeul.security.domain.type.ESecurityProvider;
 import org.dongguk.vsa.modeul.security.domain.type.ESecurityRole;
@@ -40,7 +39,7 @@ public class User extends Account {
     /* One To Many Mapping ------------------------ */
     /* -------------------------------------------- */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ModeullakUser> modeullaks = new ArrayList<>();
+    private List<UserModeullak> modeullaks = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Dialogue> dialogues = new ArrayList<>();

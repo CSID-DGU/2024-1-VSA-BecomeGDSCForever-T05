@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dongguk.vsa.modeul.storage.domain.type.EStorageType;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -15,50 +16,29 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Document(collection = "`directories`")
-public class Directory implements Storage {
-
-    /* -------------------------------------------- */
-    /* Default Column ----------------------------- */
-    /* -------------------------------------------- */
-    @Id
-    private String id;
-
-    /* -------------------------------------------- */
-    /* Information Column ------------------------- */
-    /* -------------------------------------------- */
-    @Field("user_modeullak_id")
-    private Long userModeullakId;
-
-    @Field("title")
-    private String title;
-
-    @Field("children")
-    private List<Storage> children = new ArrayList<>();
-
-    /* -------------------------------------------- */
-    /* Timestamp Column --------------------------- */
-    /* -------------------------------------------- */
-    @Field("created_at")
-    private LocalDateTime createdAt;
-
-    @Field("updated_at")
-    private LocalDateTime updatedAt;
+@Document(collection = "storages")
+@TypeAlias("directory")
+public class Directory extends Storage {
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Directory(String title, Long userModeullakId) {
-        this.userModeullakId = userModeullakId;
-        this.title = title;
-
-        this.createdAt = LocalDateTime.now();
+    public Directory(
+            String parentId,
+            Long userModeullakId,
+            String title
+    ) {
+        super(
+                parentId,
+                userModeullakId,
+                title
+        );
     }
 
     @Override
-    public String getExtension() {
-        return "";
+    public String getName() {
+        return title;
     }
 
     @Override
@@ -66,8 +46,9 @@ public class Directory implements Storage {
         return EStorageType.DIRECTORY;
     }
 
-    public void updateTitle(String title) {
-        this.title = title;
+    @Override
+    public void updateName(String name) {
+        this.title = name;
 
         this.updatedAt = LocalDateTime.now();
     }
