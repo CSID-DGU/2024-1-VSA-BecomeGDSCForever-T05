@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface StorageRepository extends MongoRepository<Storage, String> {
     List<Storage> findByUserModeullakId(Long userModeullakId);
+
+    List<Storage> findByParentId(String parentId);
 }

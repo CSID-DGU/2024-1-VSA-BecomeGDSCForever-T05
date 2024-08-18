@@ -10,9 +10,9 @@ import org.dongguk.vsa.modeul.storage.domain.mongo.File;
 import org.dongguk.vsa.modeul.storage.domain.mongo.Storage;
 import org.dongguk.vsa.modeul.storage.domain.type.EStorageType;
 import org.dongguk.vsa.modeul.storage.dto.request.CreateStorageRequestDto;
-import org.dongguk.vsa.modeul.storage.dto.response.StorageIdResponseDto;
+import org.dongguk.vsa.modeul.storage.dto.response.CreateStorageResponseDto;
 import org.dongguk.vsa.modeul.storage.repository.mongo.StorageRepository;
-import org.dongguk.vsa.modeul.storage.usecase.CreateStorageUsingModeullakUseCase;
+import org.dongguk.vsa.modeul.storage.usecase.CreateStorageUseCase;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
 import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserModeullakRepository;
@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class CreateStorageUsingModeullakService implements CreateStorageUsingModeullakUseCase {
+public class CreateStorageService implements CreateStorageUseCase {
 
     private final UserRepository userRepository;
     private final ModeullakRepository modeullakRepository;
@@ -32,11 +32,11 @@ public class CreateStorageUsingModeullakService implements CreateStorageUsingMod
     private final StorageRepository storageRepository;
 
     @Override
-    public StorageIdResponseDto execute(UUID accountId, Long modeullakId, CreateStorageRequestDto requestDto) {
+    public CreateStorageResponseDto execute(UUID accountId, CreateStorageRequestDto requestDto) {
         // 1. 사용자 및 모들락 정보 조회
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
-        Modeullak modeullak = modeullakRepository.findById(modeullakId)
+        Modeullak modeullak = modeullakRepository.findById(requestDto.modeullakId())
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 2. 조회할 UserModeullak 정보 조회
@@ -57,10 +57,12 @@ public class CreateStorageUsingModeullakService implements CreateStorageUsingMod
             }
         }
 
-        // 3. Storage 생성 및 저장
+        // 4. Storage 생성 및 저장
         Storage storage = storageRepository.save(generateStorage(userModeullak, requestDto));
 
-        return StorageIdResponseDto.fromEntity(storage);
+        // 5. Create Storage Event 발생
+
+        return CreateStorageResponseDto.fromEntity(storage);
     }
 
     private Storage generateStorage(

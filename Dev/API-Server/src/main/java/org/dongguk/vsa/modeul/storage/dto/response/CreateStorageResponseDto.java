@@ -8,20 +8,20 @@ import org.dongguk.vsa.modeul.core.dto.SelfValidating;
 import org.dongguk.vsa.modeul.storage.domain.mongo.Storage;
 
 @Getter
-public class StorageIdResponseDto extends SelfValidating<StorageIdResponseDto> {
+public class CreateStorageResponseDto extends SelfValidating<CreateStorageResponseDto> {
 
     @JsonProperty("id")
     @NotNull
     private final String id;
 
     @Builder
-    public StorageIdResponseDto(String id) {
+    public CreateStorageResponseDto(String id) {
         this.id = id;
         validateSelf();
     }
 
-    public static StorageIdResponseDto fromEntity(Storage entity) {
-        return StorageIdResponseDto.builder()
+    public static CreateStorageResponseDto fromEntity(Storage entity) {
+        return CreateStorageResponseDto.builder()
                 .id(entity.getId())
                 .build();
     }
