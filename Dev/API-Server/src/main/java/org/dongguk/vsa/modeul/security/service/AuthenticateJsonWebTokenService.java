@@ -2,7 +2,7 @@ package org.dongguk.vsa.modeul.security.service;
 
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.security.domain.mysql.Account;
 import org.dongguk.vsa.modeul.security.info.CustomUserPrincipal;
 import org.dongguk.vsa.modeul.security.repository.mysql.AccountRepository;
@@ -23,10 +23,10 @@ public class AuthenticateJsonWebTokenService implements AuthenticateJsonWebToken
     @Override
     public CustomUserPrincipal execute(UUID accountId) {
         Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
 
         refreshTokenRepository.findById(accountId)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_LOGIN_USER));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_LOGIN_USER));
 
         return CustomUserPrincipal.create(account);
     }

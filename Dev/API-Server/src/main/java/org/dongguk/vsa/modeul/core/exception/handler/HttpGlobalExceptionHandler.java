@@ -1,12 +1,14 @@
 package org.dongguk.vsa.modeul.core.exception.handler;
 
+import io.sentry.Sentry;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.UnexpectedTypeException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.SystemProperties;
 import org.dongguk.vsa.modeul.core.dto.ResponseDto;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
-import org.dongguk.vsa.modeul.core.exception.type.HttpJsonWebTokenException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
+import org.dongguk.vsa.modeul.core.exception.type.HttpSecurityException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -26,28 +28,28 @@ public class HttpGlobalExceptionHandler {
     @ExceptionHandler(value = {HttpMessageNotReadableException.class})
     public ResponseDto<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.error("ExceptionHandler catch HttpMessageNotReadableException : {}", e.getMessage());
-        return ResponseDto.fail(new HttpCommonException(ErrorCode.BAD_REQUEST_JSON));
+        return ResponseDto.fail(new CommonException(ErrorCode.BAD_REQUEST_JSON));
     }
 
     // 지원되지 않는 미디어 타입을 사용할 때 발생하는 예외
     @ExceptionHandler(value = {HttpMediaTypeNotSupportedException.class})
     public ResponseDto<?> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
         log.error("ExceptionHandler catch HttpMediaTypeNotSupportedException : {}", e.getMessage());
-        return ResponseDto.fail(new HttpCommonException(ErrorCode.UNSUPPORTED_MEDIA_TYPE));
+        return ResponseDto.fail(new CommonException(ErrorCode.UNSUPPORTED_MEDIA_TYPE));
     }
 
     // 지원되지 않는 HTTP 메소드를 사용할 때 발생하는 예외
     @ExceptionHandler(value = {NoHandlerFoundException.class})
     public ResponseDto<?> handleNoHandlerFoundException(NoHandlerFoundException e) {
         log.error("ExceptionHandler catch NoHandlerFoundException : {}", e.getMessage());
-        return ResponseDto.fail(new HttpCommonException(ErrorCode.METHOD_NOT_ALLOWED));
+        return ResponseDto.fail(new CommonException(ErrorCode.METHOD_NOT_ALLOWED));
     }
 
     // 지원되지 않는 HTTP 메소드를 사용할 때 발생하는 예외
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
     public ResponseDto<?> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         log.error("ExceptionHandler catch HttpRequestMethodNotSupportedException : {}", e.getMessage());
-        return ResponseDto.fail(new HttpCommonException(ErrorCode.METHOD_NOT_ALLOWED));
+        return ResponseDto.fail(new CommonException(ErrorCode.METHOD_NOT_ALLOWED));
     }
 
     // Body Validation 에서 검증 실패시 발생하는 예외
@@ -93,15 +95,15 @@ public class HttpGlobalExceptionHandler {
     }
 
     // 개발자가 직접 정의한 예외
-    @ExceptionHandler(value = {HttpJsonWebTokenException.class})
-    public ResponseDto<?> handleApiException(HttpJsonWebTokenException e) {
+    @ExceptionHandler(value = {HttpSecurityException.class})
+    public ResponseDto<?> handleApiException(HttpSecurityException e) {
         log.error("ExceptionHandler catch HttpJsonWebTokenException : {}", e.getMessage());
         return ResponseDto.fail(e);
     }
 
     // 개발자가 직접 정의한 예외
-    @ExceptionHandler(value = {HttpCommonException.class})
-    public ResponseDto<?> handleApiException(HttpCommonException e) {
+    @ExceptionHandler(value = {CommonException.class})
+    public ResponseDto<?> handleApiException(CommonException e) {
         log.error("ExceptionHandler catch HttpCommonException : {}", e.getMessage());
         return ResponseDto.fail(e);
     }
@@ -110,7 +112,15 @@ public class HttpGlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     public ResponseDto<?> handleException(Exception e) {
         log.error("ExceptionHandler catch Exception : {}", e.getMessage());
-        e.printStackTrace();
-        return ResponseDto.fail(new HttpCommonException(ErrorCode.INTERNAL_SERVER_ERROR));
+        if (isRunningOnLocal()) {
+            e.printStackTrace();
+        } else {
+            Sentry.captureException(e);
+        }
+        return ResponseDto.fail(new CommonException(ErrorCode.INTERNAL_SERVER_ERROR));
+    }
+
+    private Boolean isRunningOnLocal() {
+        return SystemProperties.getProperty("spring.profiles.active") == null || SystemProperties.getProperty("spring.profiles.active").equals("local");
     }
 }

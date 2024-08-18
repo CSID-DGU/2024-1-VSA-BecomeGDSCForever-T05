@@ -7,8 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
-import org.dongguk.vsa.modeul.core.exception.type.HttpJsonWebTokenException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
+import org.dongguk.vsa.modeul.core.exception.type.HttpSecurityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -128,7 +128,7 @@ public class ResponseDto<T> extends SelfValidating<ResponseDto<T>> {
                 .build();
     }
 
-    public static ResponseDto<Object> fail(final HttpJsonWebTokenException e) {
+    public static ResponseDto<Object> fail(final HttpSecurityException e) {
         return ResponseDto.<Object>builder()
                 .httpStatus(e.getErrorCode().getHttpStatus())
                 .success(false)
@@ -137,7 +137,7 @@ public class ResponseDto<T> extends SelfValidating<ResponseDto<T>> {
                 .build();
     }
 
-    public static ResponseDto<Object> fail(final HttpCommonException e) {
+    public static ResponseDto<Object> fail(final CommonException e) {
         return ResponseDto.<Object>builder()
                 .httpStatus(e.getErrorCode().getHttpStatus())
                 .success(false)

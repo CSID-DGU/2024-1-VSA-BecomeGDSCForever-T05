@@ -1,8 +1,7 @@
 package org.dongguk.vsa.modeul.security.usecase;
 
-import org.dongguk.vsa.modeul.core.annotation.UseCase;
+import org.dongguk.vsa.modeul.core.annotation.bean.UseCase;
 import org.dongguk.vsa.modeul.security.dto.request.ValidateEmailRequestDto;
-import org.dongguk.vsa.modeul.security.dto.response.TemporaryJsonWebTokenDto;
 import org.dongguk.vsa.modeul.security.dto.response.ValidateEmailResponseDto;
 
 @UseCase
