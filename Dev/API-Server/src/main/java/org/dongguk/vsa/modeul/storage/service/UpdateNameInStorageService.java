@@ -62,6 +62,8 @@ public class UpdateNameInStorageService implements UpdateNameInStorageUseCase {
         storage.updateName(requestDto.name());
 
         storageRepository.save(storage);
+
+        // TODO: 4. Update Storage Event 발생
     }
 
     private Boolean isFileNameWhenFILE(String name) {

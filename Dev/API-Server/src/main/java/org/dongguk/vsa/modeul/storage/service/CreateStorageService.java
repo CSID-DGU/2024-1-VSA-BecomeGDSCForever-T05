@@ -65,7 +65,7 @@ public class CreateStorageService implements CreateStorageUseCase {
         // 4. Storage 생성 및 저장
         Storage storage = storageRepository.save(generateStorage(userModeullak, requestDto));
 
-        // 5. Create Storage Event 발생
+        // TODO: 5. Create Storage Event 발생
 
         return CreateStorageResponseDto.fromEntity(storage);
     }

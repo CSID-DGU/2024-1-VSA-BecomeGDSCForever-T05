@@ -60,5 +60,7 @@ public class UpdateContentInStorageService implements UpdateContentInStorageUseC
         file.updateContent(requestDto.content());
 
         storageRepository.save(file);
+
+        // TODO: 4. Update Content Event 발생
     }
 }
