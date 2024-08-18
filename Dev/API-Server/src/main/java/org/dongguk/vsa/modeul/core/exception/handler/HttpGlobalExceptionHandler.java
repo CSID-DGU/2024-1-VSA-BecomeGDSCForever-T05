@@ -1,8 +1,10 @@
 package org.dongguk.vsa.modeul.core.exception.handler;
 
+import io.sentry.Sentry;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.UnexpectedTypeException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.SystemProperties;
 import org.dongguk.vsa.modeul.core.dto.ResponseDto;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
@@ -110,7 +112,15 @@ public class HttpGlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     public ResponseDto<?> handleException(Exception e) {
         log.error("ExceptionHandler catch Exception : {}", e.getMessage());
-        e.printStackTrace();
+        if (isRunningOnLocal()) {
+            e.printStackTrace();
+        } else {
+            Sentry.captureException(e);
+        }
         return ResponseDto.fail(new CommonException(ErrorCode.INTERNAL_SERVER_ERROR));
+    }
+
+    private Boolean isRunningOnLocal() {
+        return SystemProperties.getProperty("spring.profiles.active") == null || SystemProperties.getProperty("spring.profiles.active").equals("local");
     }
 }

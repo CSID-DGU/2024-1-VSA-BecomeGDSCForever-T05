@@ -1,7 +1,9 @@
 package org.dongguk.vsa.modeul.core.exception.handler;
 
+import io.sentry.Sentry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.SystemProperties;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.messaging.Message;
@@ -47,8 +49,18 @@ public class StompGlobalExceptionHandler {
     ) {
         log.error("GlobalExceptionHandler catch Exception In Stomp Processing : {}", e.getMessage());
 
+        if (isRunningOnLocal()) {
+            e.printStackTrace();
+        } else {
+            Sentry.captureException(e);
+        }
+
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(clientMessage);
 
         // TODO: 오류 발생 시 생길 Logic 구현해야 함
+    }
+
+    private Boolean isRunningOnLocal() {
+        return SystemProperties.getProperty("spring.profiles.active") == null || SystemProperties.getProperty("spring.profiles.active").equals("local");
     }
 }

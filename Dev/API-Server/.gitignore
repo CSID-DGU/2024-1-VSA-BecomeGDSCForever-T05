@@ -230,4 +230,7 @@ $RECYCLE.BIN/
 application-local.yml
 application-dev.yml
 
+# Bin
+bin/
+
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,visualstudiocode,windows,macos

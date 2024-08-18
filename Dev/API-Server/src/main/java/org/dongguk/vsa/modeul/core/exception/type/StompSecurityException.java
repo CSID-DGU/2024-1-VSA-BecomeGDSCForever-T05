@@ -1,16 +1,16 @@
 package org.dongguk.vsa.modeul.core.exception.type;
 
-import io.jsonwebtoken.JwtException;
 import lombok.Getter;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
+import org.springframework.messaging.MessageDeliveryException;
 
 @Getter
-public class StompSecurityException extends JwtException {
+public class StompSecurityException extends MessageDeliveryException {
 
     private final ErrorCode errorCode;
 
-    public StompSecurityException(String message, ErrorCode errorCode) {
-        super(message);
+    public StompSecurityException(ErrorCode errorCode) {
+        super(String.format("%d|%s", errorCode.getCode(), errorCode.getMessage()));
 
         this.errorCode = errorCode;
     }
