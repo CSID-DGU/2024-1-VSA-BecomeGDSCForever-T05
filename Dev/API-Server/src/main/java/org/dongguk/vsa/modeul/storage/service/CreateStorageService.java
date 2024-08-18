@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
 import org.dongguk.vsa.modeul.storage.domain.mongo.Directory;
 import org.dongguk.vsa.modeul.storage.domain.mongo.File;
@@ -39,6 +40,10 @@ public class CreateStorageService implements CreateStorageUseCase {
         Modeullak modeullak = modeullakRepository.findById(requestDto.modeullakId())
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
+        if (modeullak.getStatus() != EModeullakStatus.STARTED) {
+            throw new CommonException(ErrorCode.MODEULLAK_NOT_STARTED);
+        }
+
         // 2. 조회할 UserModeullak 정보 조회
         UserModeullak userModeullak = userModeullakRepository.findByUserAndModeullak(user, modeullak)
                 .orElseThrow(() -> new CommonException(ErrorCode.ACCESS_DENIED));
@@ -60,7 +65,7 @@ public class CreateStorageService implements CreateStorageUseCase {
         // 4. Storage 생성 및 저장
         Storage storage = storageRepository.save(generateStorage(userModeullak, requestDto));
 
-        // 5. Create Storage Event 발생
+        // TODO: 5. Create Storage Event 발생
 
         return CreateStorageResponseDto.fromEntity(storage);
     }
