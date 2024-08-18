@@ -15,6 +15,9 @@ public interface UserModeullakRepository extends JpaRepository<UserModeullak, Lo
 
     Optional<UserModeullak> findByUserAndModeullak(User user, Modeullak modeullak);
 
+    @EntityGraph(attributePaths = {"user"})
+    Optional<UserModeullak> findWithUserByUserAndModeullak(User user, Modeullak modeullak);
+
     @EntityGraph(attributePaths = {"user", "modeullak"})
     Optional<UserModeullak> findWithUserAndModeullakById(Long id);
 

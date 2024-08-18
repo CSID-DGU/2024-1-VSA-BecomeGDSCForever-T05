@@ -33,7 +33,7 @@ public class ReadModeullakUserListService implements ReadModeullakUserListUseCas
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 2. 권한 확인
-        UserModeullak selfModeullak = userModeullakRepository.findByUserAndModeullak(user, modeullak)
+        UserModeullak selfModeullak = userModeullakRepository.findWithUserByUserAndModeullak(user, modeullak)
                 .orElseThrow(() -> new CommonException(ErrorCode.ACCESS_DENIED));
 
         // 3. 모들락 사용자 목록 조회(본인 제외)
