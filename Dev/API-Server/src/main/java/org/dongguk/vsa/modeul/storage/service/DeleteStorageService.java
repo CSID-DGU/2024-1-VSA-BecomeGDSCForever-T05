@@ -3,6 +3,7 @@ package org.dongguk.vsa.modeul.storage.service;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.storage.domain.mongo.Storage;
 import org.dongguk.vsa.modeul.storage.domain.type.EStorageType;
 import org.dongguk.vsa.modeul.storage.repository.mongo.StorageRepository;
@@ -35,8 +36,12 @@ public class DeleteStorageService implements DeleteStorageUseCase {
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 2. 권한 확인
-        UserModeullak userModeullak = userModeullakRepository.findById(storage.getUserModeullakId())
+        UserModeullak userModeullak = userModeullakRepository.findWithUserAndModeullakById(storage.getUserModeullakId())
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
+
+        if (userModeullak.getModeullak().getStatus() != EModeullakStatus.STARTED) {
+            throw new CommonException(ErrorCode.MODEULLAK_NOT_STARTED);
+        }
 
         if (!userModeullak.getUser().getId().equals(user.getId())) {
             throw new CommonException(ErrorCode.ACCESS_DENIED);
