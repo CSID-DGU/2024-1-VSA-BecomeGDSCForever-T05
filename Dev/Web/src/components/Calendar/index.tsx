@@ -22,7 +22,7 @@ const MyCalendar = () => {
     };
 
     const onClickDate = (value: Date): void => {
-        dispatch(updateDate(value))
+        dispatch(updateDate(value.toISOString()))
         setSelectedDate(formatDate(value));
     };
     // 선택 날짜 적용을 위한 useEffect

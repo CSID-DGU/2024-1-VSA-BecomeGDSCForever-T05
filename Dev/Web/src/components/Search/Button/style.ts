@@ -20,8 +20,5 @@ export const Container = styled.button<ContainerProps>`
     margin-bottom: 28px;
     gap: 10px;
 
-    &:hover {
-        background-color: ${({theme, isParticipated}) =>
-                !isParticipated && theme.colorSystem.primary["400"]};
-    }
+    cursor: ${({isParticipated}) => isParticipated ? "default" : "pointer"};
 `;

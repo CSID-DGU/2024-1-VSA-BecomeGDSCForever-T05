@@ -14,20 +14,25 @@ export default function Search() {
 
     const [isOpen, setIsOpen] = useState(false);
     const [modalType, setModalType] = useState<"create" | "join">("create");
-    const participatingModeulState = useSelector((state: RootState) => state.participatingModeulState);
+    const participatedModeullakState = useSelector((state: RootState) => state.participatedModeullakState);
 
     const handleClose = () => {
         setIsOpen(false);
     }
 
     const handleCreateOpen = () => {
-        setModalType("create")
-        setIsOpen(true);
+
+        if (participatedModeullakState.modeullak_id === null) {
+            setModalType("create")
+            setIsOpen(true);
+        }
     }
 
     const handleJoinOpen = () => {
-        setModalType("join")
-        setIsOpen(true);
+        if (participatedModeullakState.modeullak_id === null) {
+            setModalType("join")
+            setIsOpen(true);
+        }
     }
 
     return (
@@ -39,18 +44,20 @@ export default function Search() {
                     <SizedBox width={"30px"} height={"20px"}/>
                     <Sub1 color={theme.colorSystem.neutral["400"]} text={"개설된 모들락이 없나요?"}/>
                     <SizedBox width={"20px"} height={"20px"}/>
-                    <Styled.RoomMaker onClick={handleCreateOpen}>
+                    <Styled.RoomMaker onClick={handleCreateOpen}
+                                      isParticipated={participatedModeullakState.modeullak_id !== null}>
                         <Sub1
-                            color={participatingModeulState.isParticipating ? theme.colorSystem.neutral[400] : theme.colorSystem.neutral["700"]}
+                            color={participatedModeullakState.modeullak_id !== null ? theme.colorSystem.neutral[400] : theme.colorSystem.neutral["700"]}
                             text={"개설하기"}/>
                     </Styled.RoomMaker>
                     <SizedBox width={"30px"} height={"20px"}/>
                 </Styled.Label>
             </Styled.Input>
             <SizedBox width={"80px"} height={"88px"}/>
-            <Button onClick={handleJoinOpen} isParticipated={participatingModeulState.isParticipating}/>
+            <Button onClick={handleJoinOpen} isParticipated={participatedModeullakState.modeullak_id !== null}/>
             {
-                isOpen && !participatingModeulState.isParticipating && <Modal onClose={handleClose} type={modalType}/>
+                isOpen && !participatedModeullakState.modeullak_id !== null &&
+                <Modal onClose={handleClose} type={modalType}/>
             }
         </Styled.Container>
     );

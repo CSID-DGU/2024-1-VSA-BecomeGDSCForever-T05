@@ -27,12 +27,14 @@ export const Label = styled.label`
     align-items: center;
 `;
 
-export const RoomMaker = styled.a`
+export const RoomMaker = styled.a<{ isParticipated: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
     width: 49px;
     height: 20px;
-    cursor: pointer;
-    color: ${({ theme }) => theme.colorSystem.neutral["700"]};
+
+    color: ${({theme}) => theme.colorSystem.neutral["700"]};
+
+    cursor: ${({isParticipated}) => isParticipated ? "default" : "pointer"};
 `;

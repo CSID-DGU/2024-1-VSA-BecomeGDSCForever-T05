@@ -7,11 +7,11 @@ import ProfileImage from "@/components/Common/ProfileImage";
 import DefaultProfile from "@/assets/icons/Profile/DefaultProfile.svg"
 import H3 from "@/components/Common/Font/Heading/H3";
 import JoinStateTag from "@/components/NavBar/JoinStateTag";
-import {useParticipatingModeul} from "@/hooks/useParticipatingModeul.ts";
+import {useParticipatedModeullak} from "@/hooks/useParticipatedModeullak.ts";
 
 const NavBar: React.FC = () => {
 
-    const participatingModeulState = useParticipatingModeul();
+    const participatedModeullak = useParticipatedModeullak();
 
     const onLogoClick = (): void => {
         alert("logo clicked!");
@@ -31,9 +31,9 @@ const NavBar: React.FC = () => {
                 </Styled.NavMenuButton>
             </Styled.NavBarLeftSection>
             <Styled.NavBarRightSection>
-                {participatingModeulState.isParticipating ?
-                    <JoinStateTag text={`${participatingModeulState.name} 참여 중`}
-                                  id={participatingModeulState.id}/> : null
+                {participatedModeullak.modeullak_id !== null ?
+                    <JoinStateTag text={`${participatedModeullak.modeullak_title} 참여 중`}
+                                  id={participatedModeullak.modeullak_id}/> : null
                 }
                 <ProfileImage src={DefaultProfile} onClick={onProfileCLick} width={"58.667px"} height={"58.667px"}/>
             </Styled.NavBarRightSection>

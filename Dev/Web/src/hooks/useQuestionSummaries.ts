@@ -1,7 +1,7 @@
 import {AppDispatch, RootState} from "@/stores/store.ts";
 import {useDispatch, useSelector} from "react-redux";
 import {QuestionSummaryState} from "@/interfaces/states/QuestionSummaryState.ts";
-import {fetchQuestionSummaries, updateQuestionSummariesState} from "@/stores/slices/questionSummaries.slice.ts";
+import {updateQuestionSummariesState} from "@/stores/slices/questionSummaries.slice.ts";
 import {useEffect} from "react";
 
 export const useQuestionSummaries = (date: Date) => {
@@ -13,7 +13,6 @@ export const useQuestionSummaries = (date: Date) => {
     useEffect(() => {
 
         // Todo: 서버에서 받아온 정보로 업데이트
-        console.log("fetch data when date is changed", date.toISOString());
 
         const fetchData: QuestionSummaryState[] = [
             {
@@ -63,13 +62,16 @@ export const useQuestionSummaries = (date: Date) => {
             }
         ];
 
-        if (!import.meta.env.VITE_APP_SERVER_URL) {
-            console.log("fetch data from local");
-            dispatch(updateQuestionSummariesState(fetchData));
-        } else {
-            console.log("fetch data from server")
-            dispatch(fetchQuestionSummaries(date));
-        }
+        // if (!import.meta.env.VITE_APP_SERVER_URL) {
+        //     console.log("fetch data from local");
+        //     dispatch(updateQuestionSummariesState(fetchData));
+        // } else {
+        //     console.log("fetch data from server")
+        //     dispatch(fetchQuestionSummaries(date));
+        // }
+
+        dispatch(updateQuestionSummariesState(fetchData));
+
 
     }, [dispatch, date]);
 
