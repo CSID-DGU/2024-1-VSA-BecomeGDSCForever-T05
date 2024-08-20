@@ -7,8 +7,11 @@ import Row from "@/components/Common/Row";
 import Spacer from "@/components/Common/Spacer";
 import theme from "@/shared/theme.ts";
 import H1 from "@/components/Common/Font/Heading/H1";
+import {useModeullakSummaries} from "@/hooks/modeullak/useModeullakSummaries.ts";
 
 export default function DefaultRoom() {
+
+    const modeullakSummaries = useModeullakSummaries(1);
 
     const handleClose = () => {
         alert("back");
@@ -16,9 +19,10 @@ export default function DefaultRoom() {
 
     return (
         <Styled.Container>
-            <DefaultRoomHeader/>
+            <DefaultRoomHeader code={modeullakSummaries.participationCode} tags={modeullakSummaries.tags}
+                               title={modeullakSummaries.title}/>
             <SizedBox height={"40px"}/>
-            <DefaultRoomProgress/>
+            <DefaultRoomProgress total={modeullakSummaries.totalTime} remained={modeullakSummaries.remainedTime}/>
             <SizedBox height={"28px"}/>
             <DefaultQuestionSummary/>
             <SizedBox height={"184px"}/>

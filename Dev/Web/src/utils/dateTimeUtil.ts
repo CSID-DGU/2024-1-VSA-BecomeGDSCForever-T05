@@ -18,6 +18,11 @@ export const convertDateToKoreanString = (date: Date): string => {
     return `${year}년 ${parseInt(month)}월 ${parseInt(day)}일`
 }
 
+export const convertStringToTime = (time: string): number => {
+    const [hour, minute] = time.split(':').map((time) => parseInt(time))
+    return hour * 60 + minute
+}
+
 /**
  * @description 날짜를 받아서 해당 날짜의 시간읠 계산합니다.
  */
@@ -27,40 +32,40 @@ export const calculateTime = (date: Date): string => {
     const seconds = milliSeconds / 1000;
 
     if (seconds < 60) {
-        return `${seconds}초 전`
+        return `방금 전`
     }
 
     const minutes = seconds / 60;
 
     if (minutes < 60) {
-        return `${minutes}분 전`
+        return `${Math.floor(minutes)}분 전`
     }
 
     const hours = minutes / 60;
 
     if (hours < 24) {
-        return `${hours}시간 전`
+        return `${Math.floor(hours)}시간 전`
     }
 
     const days = hours / 24;
 
     if (days < 7) {
-        return `${days}일 전`
+        return `${Math.floor(days)}일 전`
     }
 
     const weeks = days / 7;
 
     if (weeks < 5) {
-        return `${weeks}주 전`
+        return `${Math.floor(weeks)}주 전`
     }
 
     const months = days / 30;
 
     if (months < 12) {
-        return `${months}개월 전`
+        return `${Math.floor(months)}개월 전`
     }
 
     const years = months / 12;
 
-    return `${years}년 전`
+    return `${Math.floor(years)}년 전`
 }
