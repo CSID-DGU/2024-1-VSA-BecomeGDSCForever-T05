@@ -7,7 +7,7 @@ import ProfileImage from "@/components/Common/ProfileImage";
 import DefaultProfile from "@/assets/icons/Profile/DefaultProfile.svg"
 import H3 from "@/components/Common/Font/Heading/H3";
 import JoinStateTag from "@/components/NavBar/JoinStateTag";
-import {useParticipatedModeullak} from "@/hooks/useParticipatedModeullak.ts";
+import {useParticipatedModeullak} from "@/hooks/modeullak/useParticipatedModeullak.ts";
 
 const NavBar: React.FC = () => {
 
@@ -31,9 +31,9 @@ const NavBar: React.FC = () => {
                 </Styled.NavMenuButton>
             </Styled.NavBarLeftSection>
             <Styled.NavBarRightSection>
-                {participatedModeullak.modeullak_id !== null ?
-                    <JoinStateTag text={`${participatedModeullak.modeullak_title} 참여 중`}
-                                  id={participatedModeullak.modeullak_id}/> : null
+                {participatedModeullak.modeullakId !== null ?
+                    <JoinStateTag text={`${participatedModeullak.modeullakTitle} 참여 중`}
+                                  id={participatedModeullak.modeullakId}/> : null
                 }
                 <ProfileImage src={DefaultProfile} onClick={onProfileCLick} width={"58.667px"} height={"58.667px"}/>
             </Styled.NavBarRightSection>

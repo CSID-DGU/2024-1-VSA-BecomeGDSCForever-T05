@@ -1,4 +1,8 @@
-import {ParticipatedModeullakState} from "@/interfaces/states/ParticipatedModeullakState.ts";
+import {
+    fromJson,
+    ParticipatedModeullakJson,
+    ParticipatedModeullakState
+} from "@/interfaces/states/modeullak/ParticipatedModeullakState.ts";
 import {createSlice} from "@reduxjs/toolkit";
 import {fetchParticipatedModeullak} from "@/apis/modeullak";
 import {ResponseWrapper} from "@/interfaces/wrappers/ResponseWrapper.ts";
@@ -9,8 +13,8 @@ type ParticipatedModeullakStatePayload = ParticipatedModeullakState & {
 }
 
 const initialState: ParticipatedModeullakStatePayload = {
-    modeullak_id: null,
-    modeullak_title: null,
+    modeullakId: null,
+    modeullakTitle: null,
     loading: false,
     error: null
 };
@@ -27,16 +31,16 @@ const participatedModeullakSlice = createSlice({
             })
             .addCase(fetchParticipatedModeullak.fulfilled, (state, action) => {
 
-                const response = action.payload as ResponseWrapper<ParticipatedModeullakState>
+                const response = action.payload as ResponseWrapper<ParticipatedModeullakJson>
 
                 if (response.success) {
-                    state.modeullak_id = response.data!.modeullak_id;
-                    state.modeullak_title = response.data!.modeullak_title;
+                    const updatedState = fromJson(response.data!);
+                    Object.assign(state, updatedState);
                     state.error = null;
                 } else {
                     state.error = response.message as string;
                 }
-                 
+
                 state.loading = false;
             })
     }
