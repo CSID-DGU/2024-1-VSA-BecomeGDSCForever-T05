@@ -18,3 +18,12 @@ export const fetchModeullakSummaries = createAsyncThunk(
         return response.data;
     }
 )
+
+export const fetchModeullakDetail = createAsyncThunk(
+    "fetchModeullakDetail",
+    async (modeullakId: number) => {
+        const response = await instance.get(`/api/v1/modeullaks/${modeullakId}`);
+
+        return response.data;
+    }
+)

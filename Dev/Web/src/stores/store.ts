@@ -9,6 +9,7 @@ import keywordModalSlice from "@/stores/slices/keywordModal.slice.ts";
 import roomFrameSlice from "@/stores/slices/roomFrame.slice.ts";
 import userQuestionBriefSlice from "@/stores/slices/userQuestionBrief.slice.ts";
 import modeullakSummariesSlice from "@/stores/slices/modeullak/modeullakSummaries.slice.ts";
+import modeullakDetailSlice from "@/stores/slices/modeullak/modeullakDetail.slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
         // Modeullak
         participatedModeullakState: participatingModeulSlice,
         modeullakSummariesState: modeullakSummariesSlice,
+        modeullakDetailState: modeullakDetailSlice,
 
         questionSummariesState: questionSummariesSlice,
         userQuestionChunkState: userQuestionChunkSlice,

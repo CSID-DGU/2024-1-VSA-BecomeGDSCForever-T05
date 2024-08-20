@@ -14,6 +14,7 @@ import Row from "@/components/Common/Row";
 import CloseButton from "@/assets/icons/CloseButton.svg";
 import UserQuestionChunk from "@/components/QuestionDetail/UserQuestionChunk";
 import QuestionKeywordChunk from "@/components/QuestionDetail/QuestionKeywordChunk";
+import {useModeullakDetail} from "@/hooks/modeullak/useModeullakDetail.ts";
 
 export default function QuestionDetail() {
 
@@ -23,8 +24,10 @@ export default function QuestionDetail() {
         dispatch(updateAnswerModalState(false));
     }
 
+    const modeullakDetailState = useModeullakDetail(1);
+
     return (
-        <Padding all={"20px"} width={"1080px"}>
+        <Padding all={"20px"} width={"1080px"}>s
             <Styled.Container>
                 <Row>
                     <Spacer flex={1} direction={"horizontal"}/>
@@ -32,25 +35,26 @@ export default function QuestionDetail() {
                     />
                 </Row>
                 <SizedBox height={"20px"}/>
-                <H1 color={theme.colorSystem.black} textAlign={"left"} text={"자료구조 12강 실습"}/>
+                <H1 color={theme.colorSystem.black} textAlign={"left"} text={modeullakDetailState.title}/>
                 <SizedBox height={"20px"}/>
                 <Sub2 color={theme.colorSystem.neutral["800"]}
                       textAlign={"left"}
-                      text={"포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~\n\n\n" +
-                          "포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~\n" +
-                          "\n\n" +
-                          "포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~\n" +
-                          "\n\n" +
-                          "포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~ 포인터는 강력한 도구이지만, 잘못 사용하면 메모리 누수, 버퍼 오버플로우 등 다양한 문제를 일으킬 수 있으므로 주의가 필요합니다. 따라서 포인터를 사용할 때는 메모리 관리를 철저히 하고, 항상 할당된 메모리를 해제하는 습관을 기르는 것이 중요합니다. 주저리 주저리 주저리 ~~"}/>
+                      text={modeullakDetailState.content}/>
                 <SizedBox height={"20px"}/>
                 <Row>
-                    <AnswerTagItem color={theme.colorSystem.secondary["200"]} text={"C"}/>
-                    <SizedBox width={"12px"}/>
-                    <AnswerTagItem color={theme.colorSystem.secondary["200"]} text={"Pointer"}/>
-                    <SizedBox width={"12px"}/>
-                    <AnswerTagItem color={theme.colorSystem.secondary["200"]} text={"Memory"}/>
+                    {
+                        modeullakDetailState.tags.map((tag) => {
+                            return (
+                                <>
+                                    <AnswerTagItem color={theme.colorSystem.secondary["200"]} text={tag}/>
+                                    <SizedBox width={"12px"}/>
+                                </>
+                            )
+                        })
+                    }
                     <Spacer flex={1} direction={"horizontal"}/>
-                    <H4 color={theme.colorSystem.neutral["500"]} text={"2024/07/11 14 : 30 ~ 2024/07/11 16: 30"}/>
+                    <H4 color={theme.colorSystem.neutral["500"]}
+                        text={`${modeullakDetailState.startedAt} ~ ${modeullakDetailState.endedAt}`}/>
                 </Row>
                 <SizedBox height={"20px"}/>
                 <Styled.Line color={theme.colorSystem.secondary["400"]}/>
