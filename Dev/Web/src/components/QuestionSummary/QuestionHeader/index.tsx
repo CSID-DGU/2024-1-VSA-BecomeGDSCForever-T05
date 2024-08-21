@@ -6,7 +6,7 @@ import {convertDateToKoreanString, convertStringToDate} from "@/utils/dateTimeUt
 
 export default function QuestionHeader() {
 
-    const date = useSelector((state: RootState) => state.dateState.selectedDate);
+    const date = useSelector((state: RootState) => state.calendarState.selectedDate);
 
     return (
         <H1 color={theme.colorSystem.primary["800"]}

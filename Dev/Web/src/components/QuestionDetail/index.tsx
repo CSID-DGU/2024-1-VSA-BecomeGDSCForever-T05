@@ -27,7 +27,7 @@ export default function QuestionDetail() {
     const modeullakDetailState = useModeullakDetail(1);
 
     return (
-        <Padding all={"20px"} width={"1080px"}>s
+        <Padding all={"20px"} width={"1080px"}>
             <Styled.Container>
                 <Row>
                     <Spacer flex={1} direction={"horizontal"}/>

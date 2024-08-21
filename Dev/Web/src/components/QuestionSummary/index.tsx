@@ -11,7 +11,7 @@ import {useQuestionSummaries} from "@/hooks/useQuestionSummaries.ts";
 export default function QuestionSummary() {
 
     const dispatch = useDispatch<AppDispatch>();
-    const selectedDate = useSelector((state: RootState) => state.dateState.selectedDate);
+    const selectedDate = useSelector((state: RootState) => state.calendarState.selectedDate);
 
     const questionSummaries = useQuestionSummaries(selectedDate);
 

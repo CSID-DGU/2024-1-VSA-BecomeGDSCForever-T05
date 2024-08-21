@@ -27,3 +27,21 @@ export const fetchModeullakDetail = createAsyncThunk(
         return response.data;
     }
 )
+
+export const fetchModeullakBrief = createAsyncThunk(
+    "fetchModeullakBrief",
+    async (authCode: string) => {
+        const response = await instance.get(`/api/v1/modeullaks/briefs?code=${authCode}`);
+
+        return response.data;
+    }
+)
+
+export const fetchModeullakCalendarTags = createAsyncThunk(
+    "fetchModeullakCalendarTags",
+    async ({startedAt, endedAt}: { startedAt: string, endedAt: string }) => {
+        const response = await instance.get(`/api/v1/users/modeullaks/tags?startedAt=${startedAt}&endedAt=${endedAt}`);
+
+        return response.data;
+    }
+)
