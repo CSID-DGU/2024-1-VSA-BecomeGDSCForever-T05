@@ -49,18 +49,11 @@ public class StompGlobalExceptionHandler {
     ) {
         log.error("GlobalExceptionHandler catch Exception In Stomp Processing : {}", e.getMessage());
 
-        if (isRunningOnLocal()) {
-            e.printStackTrace();
-        } else {
-            Sentry.captureException(e);
-        }
+        e.printStackTrace();
+        Sentry.captureException(e);
 
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(clientMessage);
 
         // TODO: 오류 발생 시 생길 Logic 구현해야 함
-    }
-
-    private Boolean isRunningOnLocal() {
-        return SystemProperties.getProperty("spring.profiles.active") == null || SystemProperties.getProperty("spring.profiles.active").equals("local");
     }
 }
