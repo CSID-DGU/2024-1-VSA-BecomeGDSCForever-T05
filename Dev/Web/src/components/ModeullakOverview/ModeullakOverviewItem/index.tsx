@@ -10,18 +10,29 @@ import ModeullakOverviewItemTime from "@/components/ModeullakOverview/ModeullakO
 import ModeullakOverviewItemTag from "@/components/ModeullakOverview/ModeullakOverviewItem/ModeullakOverviewItemTag";
 import ModeullakOverviewItemContent
     from "@/components/ModeullakOverview/ModeullakOverviewItem/ModeullakOverviewItemContent";
+import {updateAnswerModalState} from "@/stores/slices/answerModal.slice.ts";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "@/stores/store.ts";
 
 interface props {
     isFirst?: boolean;
     isLast?: boolean;
-    onClick?: () => void | undefined;
     modeullakOverview: ModeullakOverviewState;
 }
 
 export default function ModeullakOverviewItem(props: props) {
 
+    const dispatch = useDispatch<AppDispatch>();
+
+    const handleOnclick = () => {
+        dispatch(updateAnswerModalState({
+            isOpen: true,
+            modeullakId: props.modeullakOverview.id
+        }))
+    }
+
     return (
-        <Styled.Container onClick={props.onClick}>
+        <Styled.Container onClick={handleOnclick}>
             {
                 !props.isFirst && (
                     <>

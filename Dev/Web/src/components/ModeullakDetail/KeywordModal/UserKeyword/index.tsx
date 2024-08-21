@@ -4,11 +4,11 @@ import * as Styled from "./style.ts";
 import CloseButton from "@/assets/icons/CloseButton.svg";
 import SizedBox from "@/components/Common/SizedBox";
 import theme from "@/shared/theme.ts";
-import BriefQuestion from "@/components/QuestionDetail/BriefQuestion";
+import BriefQuestion from "@/components/ModeullakDetail/BriefQuestion";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "@/stores/store.ts";
 import {updateKeywordModalState, updateKeywordModalType} from "@/stores/slices/keywordModal.slice.ts";
-import BriefAnswer from "@/components/QuestionDetail/BriefAnswer";
+import BriefAnswer from "@/components/ModeullakDetail/BriefAnswer";
 import H0 from "@/components/Common/Font/Heading/H0";
 
 export default function UserKeyword() {

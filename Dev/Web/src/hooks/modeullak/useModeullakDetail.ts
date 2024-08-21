@@ -9,7 +9,7 @@ export const useModeullakDetail = (modeullakId: number) => {
 
     useEffect(() => {
         dispatch(fetchModeullakDetail(modeullakId));
-    }, [dispatch]);
-    
+    }, [modeullakId]);
+
     return modeullakDetailState;
 }

@@ -8,4 +8,6 @@ export const Container = styled.div`
     border: 1px solid ${({theme}) => theme.colorSystem.neutral["200"]};
     padding: 20px;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+
+    cursor: pointer;
 `;

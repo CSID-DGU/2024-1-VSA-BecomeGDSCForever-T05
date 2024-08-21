@@ -3,7 +3,7 @@ import theme from "@/shared/theme.ts";
 import H1 from "@/components/Common/Font/Heading/H1";
 import SizedBox from "@/components/Common/SizedBox";
 import {useQuestionKeywordChunks} from "@/hooks/useQuestionKeywordChunks.ts";
-import QuestionKeyword from "@/components/QuestionDetail/QuestionKeywordChunk/QuestionKeyword";
+import QuestionKeyword from "@/components/ModeullakDetail/QuestionKeywordChunk/QuestionKeyword";
 
 export default function QuestionKeywordChunk() {
 

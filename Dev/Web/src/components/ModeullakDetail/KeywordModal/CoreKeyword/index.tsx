@@ -1,4 +1,5 @@
 import * as Styled from "./style.ts"
+import {SvgButton} from "./style.ts"
 import Row from "@/components/Common/Row";
 import Spacer from "@/components/Common/Spacer";
 import CloseButton from "@/assets/icons/CloseButton.svg";
@@ -8,16 +9,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/stores/store.ts";
 import {updateKeywordModalState, updateKeywordModalType} from "@/stores/slices/keywordModal.slice.ts";
 
-import BriefQuestion from "@/components/QuestionDetail/BriefQuestion";
+import BriefQuestion from "@/components/ModeullakDetail/BriefQuestion";
 import Sub1 from "@/components/Common/Font/Body/Sub1";
 import {useState} from "react";
-import {SvgButton} from "./style.ts";
 
 import UpChevron from "@/assets/icons/UpChevron.svg";
 import DownChevron from "@/assets/icons/DownChevron.svg";
 import H0 from "@/components/Common/Font/Heading/H0";
-import BriefAnswer from "@/components/QuestionDetail/BriefAnswer";
-import KeywordOwner from "@/components/QuestionDetail/KeywordModal/KeywordOwner";
+import BriefAnswer from "@/components/ModeullakDetail/BriefAnswer";
+import KeywordOwner from "@/components/ModeullakDetail/KeywordModal/KeywordOwner";
 
 export default function CoreKeyword() {
 
@@ -59,7 +59,7 @@ export default function CoreKeyword() {
 
                 !isBrief && <Styled.GridView>
                     {
-                        questionKeywordChunk.map((keyword, index) => {
+                        questionKeywordChunk.map((_, index) => {
                             return <KeywordOwner isClicked={true}/>
                         })
                     }
