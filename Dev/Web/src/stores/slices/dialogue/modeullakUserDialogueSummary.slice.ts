@@ -36,8 +36,6 @@ export const modeullakUserDialogueSummarySlice = createSlice({
             .addCase(fetchModeullakUserDialogueSummary.fulfilled, (state, action) => {
                 const response = action.payload as ResponseWrapper<JsonWrapper>
 
-                console.log(response);
-
                 if (response.success) {
                     state.dialogues = response.data!.dialogues.map(fromJson);
                     state.error = null;

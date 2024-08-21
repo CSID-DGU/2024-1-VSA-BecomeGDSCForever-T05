@@ -26,9 +26,9 @@ export default function CoreKeyword() {
 
     const modeullakKeywordState = useSelector((state: RootState) => state.modeullakKeywordState);
     const dialogueKeywordBriefState = useDialogueKeywordBrief(keywordModalState.modeullakId!, modeullakKeywordState.keywords.find((keyword) => keyword.name === keywordModalState.keyword)!.id);
-    const [ownerId, setOwnerId] = useState(dialogueKeywordBriefState.dialogues[0].id);
+    const [ownerId, setOwnerId] = useState(modeullakKeywordState.keywords.find((keyword) => keyword.name === keywordModalState.keyword)!.representativeDialogueId);
     const dialogueDetailState = useDialogueDetail(ownerId);
-
+ 
     const [isBrief, setIsBrief] = useState(true);
 
     const handleClose = () => {
@@ -73,7 +73,7 @@ export default function CoreKeyword() {
                 !isBrief && <Styled.GridWrapper>
                     <Styled.GridView>
                         {
-                            dialogueKeywordBriefState.dialogues.map((dialogue, _) => {
+                            dialogueKeywordBriefState.dialogues.map((dialogue) => {
                                 return <KeywordOwner isClicked={dialogue.id === ownerId} dialogue={dialogue}
                                                      onClick={() => handleKeywordOwner(dialogue.id)}/>
                             })

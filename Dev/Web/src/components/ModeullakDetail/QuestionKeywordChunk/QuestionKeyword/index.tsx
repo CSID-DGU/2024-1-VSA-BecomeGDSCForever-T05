@@ -5,7 +5,7 @@ import SizedBox from "@/components/Common/SizedBox";
 import theme from "@/shared/theme.ts";
 import {AppDispatch} from "@/stores/store.ts";
 import {useDispatch} from "react-redux";
-import {updateKeywordModal,} from "@/stores/slices/modal/keywordModal.slice.ts";
+import {updateKeywordModal} from "@/stores/slices/modal/keywordModal.slice.ts";
 
 interface props {
     id: number;
