@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.dongguk.vsa.modeul.dialogue.domain.type.EDialogueStatus;
 import org.dongguk.vsa.modeul.keyword.domain.mysql.Keyword;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
@@ -47,6 +48,10 @@ public class Dialogue {
     @Column(name = "is_answered_by_llm")
     private Boolean isAnsweredByLlm;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name ="status", nullable = false)
+    private EDialogueStatus status;
+
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
     /* -------------------------------------------- */
@@ -68,7 +73,7 @@ public class Dialogue {
     private Modeullak modeullak;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "keyword_id", nullable = false)
+    @JoinColumn(name = "keyword_id")
     private Keyword keyword;
 
     /* -------------------------------------------- */
@@ -79,16 +84,16 @@ public class Dialogue {
             String questionShortCode,
             String questionLongCode,
             String questionContent,
+            EDialogueStatus status,
             User user,
-            Modeullak modeullak,
-            Keyword keyWord
+            Modeullak modeullak
     ) {
         this.questionShortCode = questionShortCode;
         this.questionLongCode = questionLongCode;
         this.questionContent = questionContent;
+        this.status = status;
         this.user = user;
         this.modeullak = modeullak;
-        this.keyword = keyWord;
         this.askedAt = LocalDateTime.now();
     }
 
@@ -97,4 +102,13 @@ public class Dialogue {
         this.isAnsweredByLlm = isAnsweredByLlm;
         this.repliedAt = LocalDateTime.now();
     }
+
+    public void updateQuestionContent(String questionContent) {
+        this.questionContent = questionContent;
+    }
+
+    public void updateStatus(EDialogueStatus status) {
+        this.status = status;
+    }
+
 }
