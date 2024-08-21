@@ -1,4 +1,4 @@
-import * as Styled from "@/components/QuestionSummary/QuestionItem/QuestionTag/style.ts";
+import * as Styled from "@/components/ModeullakOverview/ModeullakOverviewItem/ModeullakOverviewItemTag/style.ts";
 import Sub3 from "@/components/Common/Font/Body/Sub3";
 import theme from "@/shared/theme.ts";
 

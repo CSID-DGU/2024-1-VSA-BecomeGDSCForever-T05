@@ -4,7 +4,7 @@ import {RootState} from "@/stores/store.ts";
 import {useSelector} from "react-redux";
 import {convertDateToKoreanString, convertStringToDate} from "@/utils/dateTimeUtil.ts";
 
-export default function QuestionHeader() {
+export default function ModeullakOverviewHeader() {
 
     const date = useSelector((state: RootState) => state.calendarState.selectedDate);
 

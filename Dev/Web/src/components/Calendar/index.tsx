@@ -10,7 +10,7 @@ import {useModeullakCalendarTag} from "@/hooks/modeullak/useModeullakCalendarTag
 import {convertDateToString} from "@/utils/dateTimeUtil.ts";
 import React from "react";
 
-export default function MyCalendar() {
+export default function ModeullakCalendar() {
 
     const dispatch = useDispatch<AppDispatch>();
     const calendarState = useSelector((state: RootState) => state.calendarState);

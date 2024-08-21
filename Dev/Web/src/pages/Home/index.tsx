@@ -1,6 +1,6 @@
 import * as Styled from './style';
-import MyCalendar from "@/components/Calendar";
-import QuestionSummary from "../../components/QuestionSummary";
+import ModeullakCalendar from "@/components/Calendar";
+import ModeullakOverview from "../../components/ModeullakOverview";
 import SizedBox from "@/components/Common/SizedBox";
 import {useSelector} from "react-redux";
 import {RootState} from "@/stores/store.ts";
@@ -22,9 +22,9 @@ export default function Home() {
             <Search/>
             <SizedBox height={"40px"}/>
             <Row justifyContent={"center"}>
-                {isOpen ? <QuestionDetail/> : <MyCalendar/>}
+                {isOpen ? <QuestionDetail/> : <ModeullakCalendar/>}
                 <SizedBox width={"64px"}/>
-                <QuestionSummary/>
+                <ModeullakOverview/>
             </Row>
             {
                 keywordModalState && <KeywordModal/>

@@ -45,3 +45,12 @@ export const fetchModeullakCalendarTags = createAsyncThunk(
         return response.data;
     }
 )
+
+export const fetchModeullakOverview = createAsyncThunk(
+    "fetchModeullakOverview",
+    async (whichAt: string) => {
+        const response = await instance.get(`/api/v1/users/modeullaks/overviews?whichAt=${whichAt}`);
+
+        return response.data;
+    }
+)

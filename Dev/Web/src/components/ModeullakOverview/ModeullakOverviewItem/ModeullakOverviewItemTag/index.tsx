@@ -7,7 +7,7 @@ interface props {
     text?: string;
 }
 
-export default function QuestionTag(props: props) {
+export default function ModeullakOverviewItemTag(props: props) {
     return (
         <Styled.Container color={props.color}>
             <Sub3 color={theme.colorSystem.black} text={props.text}/>
