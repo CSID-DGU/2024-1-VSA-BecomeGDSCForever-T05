@@ -8,7 +8,7 @@ import SizedBox from "@/components/Common/SizedBox";
 import Sub3 from "@/components/Common/Font/Body/Sub3/index.tsx";
 import {AppDispatch} from "@/stores/store.ts";
 import {useDispatch} from "react-redux";
-import {updateKeywordModalState, updateKeywordModalType} from "@/stores/slices/keywordModal.slice.ts";
+import {updateKeywordModal} from "@/stores/slices/keywordModal.slice.ts";
 
 interface props {
     id: number;
@@ -22,8 +22,12 @@ export default function QuestionChunk(props: props) {
     const dispatch = useDispatch<AppDispatch>();
 
     const handleClick = () => {
-        dispatch(updateKeywordModalState(true));
-        dispatch(updateKeywordModalType("user"))
+        dispatch(updateKeywordModal({
+            isOpen: true,
+            type: "user",
+            keyword: props.keyword,
+            dialogueId: props.id
+        }))
     }
 
     return (

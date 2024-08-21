@@ -5,7 +5,7 @@ import SizedBox from "@/components/Common/SizedBox";
 import theme from "@/shared/theme.ts";
 import {AppDispatch} from "@/stores/store.ts";
 import {useDispatch} from "react-redux";
-import {updateKeywordModalState, updateKeywordModalType} from "@/stores/slices/keywordModal.slice.ts";
+import {updateKeywordModal,} from "@/stores/slices/keywordModal.slice.ts";
 
 interface props {
     id: number;
@@ -19,8 +19,12 @@ export default function QuestionKeyword(props: props) {
     const dispatch = useDispatch<AppDispatch>();
 
     const handleClick = () => {
-        dispatch(updateKeywordModalState(true));
-        dispatch(updateKeywordModalType("keyword"))
+        dispatch(updateKeywordModal({
+            isOpen: true,
+            type: "keyword",
+            keyword: props.keyword,
+            dialogueId: props.id
+        }))
     }
 
     return (

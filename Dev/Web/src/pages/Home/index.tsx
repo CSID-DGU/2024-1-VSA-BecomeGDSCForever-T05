@@ -13,7 +13,7 @@ import ModeullakDetail from "@/components/ModeullakDetail";
 export default function Home() {
 
     const isOpen = useSelector((state: RootState) => state.answerModalState.isOpen);
-    const keywordModalState = useSelector((state: RootState) => state.keywordModalState.isOpen);
+    const keywordModalState = useSelector((state: RootState) => state.keywordModalState);
 
     return (
         <Styled.Container>
@@ -27,7 +27,7 @@ export default function Home() {
                 <ModeullakOverview/>
             </Row>
             {
-                keywordModalState && <KeywordModal/>
+                keywordModalState.isOpen && <KeywordModal/>
             }
         </Styled.Container>
     )

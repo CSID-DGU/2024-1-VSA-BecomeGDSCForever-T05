@@ -7,17 +7,17 @@ import SizedBox from "@/components/Common/SizedBox";
 import theme from "@/shared/theme.ts";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/stores/store.ts";
-import {updateKeywordModalState, updateKeywordModalType} from "@/stores/slices/keywordModal.slice.ts";
 
-import BriefQuestion from "@/components/ModeullakDetail/BriefQuestion";
+import BriefQuestion from "../BriefQuestion";
 import Sub1 from "@/components/Common/Font/Body/Sub1";
 import {useState} from "react";
 
 import UpChevron from "@/assets/icons/UpChevron.svg";
 import DownChevron from "@/assets/icons/DownChevron.svg";
 import H0 from "@/components/Common/Font/Heading/H0";
-import BriefAnswer from "@/components/ModeullakDetail/BriefAnswer";
+import BriefAnswer from "../BriefAnswer";
 import KeywordOwner from "@/components/ModeullakDetail/KeywordModal/KeywordOwner";
+import {updateKeywordModal} from "@/stores/slices/keywordModal.slice.ts";
 
 export default function CoreKeyword() {
 
@@ -27,8 +27,12 @@ export default function CoreKeyword() {
     const [isBrief, setIsBrief] = useState(true);
 
     const handleClose = () => {
-        dispatch(updateKeywordModalState(false));
-        dispatch(updateKeywordModalType("none"));
+        dispatch(updateKeywordModal({
+            isOpen: false,
+            type: "none",
+            keyword: "",
+            dialogueId: -1
+        }))
     }
 
     const handleToggle = () => {

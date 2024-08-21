@@ -4,20 +4,29 @@ import * as Styled from "./style.ts";
 import CloseButton from "@/assets/icons/CloseButton.svg";
 import SizedBox from "@/components/Common/SizedBox";
 import theme from "@/shared/theme.ts";
-import BriefQuestion from "@/components/ModeullakDetail/BriefQuestion";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "@/stores/store.ts";
-import {updateKeywordModalState, updateKeywordModalType} from "@/stores/slices/keywordModal.slice.ts";
-import BriefAnswer from "@/components/ModeullakDetail/BriefAnswer";
+import BriefQuestion from "../BriefQuestion";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "@/stores/store.ts";
+import BriefAnswer from "../BriefAnswer";
 import H0 from "@/components/Common/Font/Heading/H0";
+import {updateKeywordModal} from "@/stores/slices/keywordModal.slice.ts";
+import {useDialogueDetail} from "@/hooks/dialogue/useDialogueDetail.ts";
 
 export default function UserKeyword() {
 
     const dispatch = useDispatch<AppDispatch>();
+    const keyword = useSelector((state: RootState) => state.keywordModalState.keyword);
+    const dialogueId = useSelector((state: RootState) => state.keywordModalState.dialogueId);
+
+    const dialogueDetailState = useDialogueDetail(dialogueId);
 
     const handleClose = () => {
-        dispatch(updateKeywordModalState(false));
-        dispatch(updateKeywordModalType("none"));
+        dispatch(updateKeywordModal({
+            isOpen: false,
+            type: "none",
+            keyword: "",
+            dialogueId: -1
+        }))
     }
 
     return (
@@ -29,13 +38,18 @@ export default function UserKeyword() {
                 />
             </Row>
             <SizedBox height={"20px"}/>
-            <H0 color={theme.colorSystem.black} textAlign={"left"} text={"핵심 키워드"}/>
+            <H0 color={theme.colorSystem.black} textAlign={"left"} text={keyword}/>
             <SizedBox height={"20px"}/>
             <Styled.Wrapper>
                 <div>
-                    <BriefQuestion/>
+                    <BriefQuestion questionContent={dialogueDetailState.questionContent}
+                                   questionLongCode={dialogueDetailState.questionLongCode}
+                                   questionShortCode={dialogueDetailState.questionShortCode}/>
                     <SizedBox height={"20px"}/>
-                    <BriefAnswer/>
+                    {
+                        dialogueDetailState.answer && <BriefAnswer answer={dialogueDetailState.answer}
+                                                                   isAnsweredByLlm={dialogueDetailState.isAnsweredLlm!}/>
+                    }
                 </div>
             </Styled.Wrapper>
         </Styled.Container>

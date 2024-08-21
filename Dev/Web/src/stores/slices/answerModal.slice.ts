@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {AnswerModalState} from "@/interfaces/states/AnswerModalState.ts";
+import {AnswerModalState} from "@/interfaces/states/modal/AnswerModalState.ts";
 
 const initialState: AnswerModalState = {
     isOpen: false,
