@@ -91,7 +91,7 @@ public class Dialogue {
         this.questionShortCode = questionShortCode;
         this.questionLongCode = questionLongCode;
         this.questionContent = questionContent;
-        this.status = status;
+        this.status = EDialogueStatus.PENDING;
         this.user = user;
         this.modeullak = modeullak;
         this.askedAt = LocalDateTime.now();
