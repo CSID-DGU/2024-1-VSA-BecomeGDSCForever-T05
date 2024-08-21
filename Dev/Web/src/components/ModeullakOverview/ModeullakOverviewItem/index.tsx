@@ -59,13 +59,6 @@ export default function ModeullakOverviewItem(props: props) {
             <SizedBox height={"8px"}/>
             <ModeullakOverviewItemContent
                 text={props.modeullakOverview.content}/>
-            {/*<SizedBox height={"12px"}/>*/}
-            {/*{!props.isLast && (*/}
-            {/*    <>*/}
-            {/*        <SizedBox height={"12px"}/>*/}
-            {/*        <Styled.Line/>*/}
-            {/*    </>*/}
-            {/*)}*/}
         </Styled.Container>
     );
 }
