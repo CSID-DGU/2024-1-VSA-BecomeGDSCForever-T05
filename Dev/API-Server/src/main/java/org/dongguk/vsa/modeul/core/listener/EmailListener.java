@@ -20,6 +20,12 @@ public class EmailListener {
     @Async
     @EventListener(classes = {CompleteEmailValidationEvent.class})
     public void handleCompleteEmailValidationEvent(CompleteEmailValidationEvent event) {
+        log.info(
+                "\n----------------------------------\n[ 이메일 인증 완료 이벤트 처리 ]\n{}\n{}\n----------------------------------",
+                event.receiverAddress() + "님의 이메일 인증이 완료되었습니다.",
+                "인증코드는 " + event.authenticationCode() + " 입니다."
+        );
+
         try {
             mailUtil.sendAuthenticationCode(
                     event.receiverAddress(),
@@ -33,6 +39,12 @@ public class EmailListener {
     @Async
     @EventListener(classes = {ChangePasswordBySystemEvent.class})
     public void handleChangePasswordBySystemEvent(ChangePasswordBySystemEvent event) {
+        log.info(
+                "\n----------------------------------\n[ 임시 비밀번호 발급 이벤트 처리 ]\n{}\n{}\n----------------------------------",
+                event.receiverAddress() + "님의 임시 비밀번호가 발급되었습니다.",
+                "임시 비밀번호는 " + event.temporaryPassword() + " 입니다."
+        );
+
         try {
             mailUtil.sendTemporaryPassword(
                     event.receiverAddress(),
