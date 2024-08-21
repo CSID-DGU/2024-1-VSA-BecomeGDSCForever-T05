@@ -13,6 +13,7 @@ import modeullakBriefSlice from "@/stores/slices/modeullak/modeullakBrief.slice.
 import modeullakCalendarTagSlice from "@/stores/slices/modeullak/modeullakCalendarTag.slice.ts";
 import calendarSlice from "@/stores/slices/calendar/calendar.slice.ts";
 import modeullakOverviewsSlice from "@/stores/slices/modeullak/modeullakOverviews.slice.ts";
+import modeullakUserDialogueSummarySlice from "@/stores/slices/dialogue/modeullakUserDialogueSummary.slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -26,6 +27,9 @@ export const store = configureStore({
         modeullakDetailState: modeullakDetailSlice,
         modeullakBriefState: modeullakBriefSlice,
         modeullakOverviewsState: modeullakOverviewsSlice,
+
+        // Dialogue
+        modeullakUserDialogueSummaryState: modeullakUserDialogueSummarySlice,
 
         // Modal
         answerModalState: answerModalSlice,

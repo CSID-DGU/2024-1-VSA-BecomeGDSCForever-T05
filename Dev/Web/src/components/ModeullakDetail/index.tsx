@@ -63,7 +63,7 @@ export default function ModeullakDetail() {
                 <SizedBox height={"20px"}/>
                 <Styled.Line color={theme.colorSystem.secondary["400"]}/>
                 <SizedBox height={"20px"}/>
-                <UserQuestionChunk/>
+                <UserQuestionChunk modeullakId={answerModalState.modeullakId}/>
                 <SizedBox height={"20px"}/>
                 <QuestionKeywordChunk/>
             </Styled.Container>

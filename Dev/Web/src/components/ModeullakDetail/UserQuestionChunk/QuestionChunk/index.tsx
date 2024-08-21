@@ -13,7 +13,7 @@ import {updateKeywordModalState, updateKeywordModalType} from "@/stores/slices/k
 interface props {
     id: number;
     keyword: string;
-    answerBy: "AI 답변" | "조교 답변";
+    answerBy: boolean;
     question: string;
 }
 
@@ -31,7 +31,7 @@ export default function QuestionChunk(props: props) {
             <Row>
                 <H3 text={props.keyword}/>
                 <Spacer flex={1} direction={"horizontal"}/>
-                <H6 text={props.answerBy} color={theme.colorSystem.neutral["500"]}/>
+                <H6 text={props.answerBy ? "AI 답변" : "조교 답변"} color={theme.colorSystem.neutral["500"]}/>
             </Row>
             <SizedBox height={"20px"}/>
             <Sub3

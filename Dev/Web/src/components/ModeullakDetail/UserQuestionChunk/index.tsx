@@ -3,24 +3,30 @@ import theme from "@/shared/theme.ts";
 import H1 from "@/components/Common/Font/Heading/H1";
 import SizedBox from "@/components/Common/SizedBox";
 import QuestionChunk from "@/components/ModeullakDetail/UserQuestionChunk/QuestionChunk";
-import {useUserQuestionChunk} from "@/hooks/useQuestionChunks.ts";
+import {useModeullakUserDialogueSummary} from "@/hooks/dialogue/useModeullakUserDialogueSummary.ts";
 
-export default function UserQuestionChunk() {
+interface props {
+    modeullakId: number;
+}
 
-    const userQuestionChunk = useUserQuestionChunk();
+export default function UserQuestionChunk(props: props) {
+
+    const modeullakUserDialogueSummaries = useModeullakUserDialogueSummary(props.modeullakId);
+
+    console.log(modeullakUserDialogueSummaries);
 
     return (
         <Styled.Container>
             <H1 color={theme.colorSystem.black} textAlign={"left"} text={"나의 질문 모음"}/>
             <SizedBox height={"20px"}/>
             <Styled.GridContainer>
-                {userQuestionChunk.map((chunk) => (
+                {modeullakUserDialogueSummaries.dialogues.map((dialogue) => (
                     <QuestionChunk
-                        key={chunk.id}
-                        id={chunk.id}
-                        keyword={chunk.keyword}
-                        answerBy={chunk.answerBy}
-                        question={chunk.question}
+                        key={dialogue.id}
+                        id={dialogue.id}
+                        keyword={dialogue.keywordName}
+                        answerBy={dialogue.isAnsweredByLlm}
+                        question={dialogue.questionContent}
                     />
                 ))}
             </Styled.GridContainer>
