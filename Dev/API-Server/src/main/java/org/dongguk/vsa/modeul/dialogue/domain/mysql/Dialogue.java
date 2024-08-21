@@ -107,18 +107,6 @@ public class Dialogue {
         this.questionContent = questionContent;
     }
 
-    public void updateKeywordAndStatus(Keyword keyword) {
-        if (this.keyword != null) {
-            this.keyword.getDialogues().remove(this);
-        }
-        this.keyword = keyword;
-        this.status = EDialogueStatus.WAITING;
-        if (keyword != null) {
-            keyword.getDialogues().add(this);
-        }
-    }
-
-
     public void updateStatus(EDialogueStatus status) {
         this.status = status;
     }
