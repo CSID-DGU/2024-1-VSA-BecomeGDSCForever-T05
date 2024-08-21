@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import theme from "@/shared/theme.ts";
 
 export const CalendarBox = styled.div`
     display: flex;
@@ -56,7 +57,7 @@ export const StyleCalendar = styled(Calendar)`
 
     .react-calendar__navigation button:enabled:hover,
     .react-calendar__navigation button:enabled:focus {
-        background-color: #e8e8e8;
+        background-color: transparent;
     }
 
     .react-calendar__month-view__weekdays {
@@ -97,7 +98,7 @@ export const StyleCalendar = styled(Calendar)`
 
     .react-calendar__tile:enabled:hover,
     .react-calendar__tile:enabled:focus {
-        background-color: #dcf8a3; /* 타일 호버 시 배경 색상 */
+        background-color: transparent; /* 타일 호버 시 배경 색상 */
         border-radius: 5px;
     }
 
@@ -107,53 +108,65 @@ export const StyleCalendar = styled(Calendar)`
         left: 0.5em;
     }
 
+    .react-calendar__tile--range {
+        background: transparent;
+    }
+
+    .react-calendar__tile--range:enabled:hover,
+    .react-calendar__tile--range:enabled:focus {
+        background: transparent;
+    }
+
+    .react-calendar-_tile--rangeStart {
+        background: transparent;
+    }
+
+    .react-calendar-_tile--rangeStart:enabled:hover,
+    .react-calendar-_tile--rangeStart:enabled:focus {
+        background: transparent;
+    }
+
+    .react-calendar-_tile--rangeEnd {
+        background: transparent;
+    }
+
+    .react-calendar-_tile--rangeEnd:enabled:hover,
+    .react-calendar-_tile--rangeEnd:enabled:focus {
+        background: transparent;
+    }
+
     .react-calendar__tile--now {
-        background: #ffffff; /* 오늘 날짜 배경 색상 */
-        color: transparent; /* 오늘 날짜 숫자 숨김 */
+        background: ${theme.colorSystem.secondary["100"]}; /* 오늘 날짜 배경 색상 */
         border-radius: 5px;
-        border: 1px solid #42850d; /* 오늘 날짜 테두리 색상 */
+        //border: 1px solid #42850d; /* 오늘 날짜 테두리 색상 */
         position: relative;
     }
 
     .react-calendar__tile--now:enabled:hover,
     .react-calendar__tile--now:enabled:focus {
-        background: #dcf8a3; /* 오늘 날짜 호버 시 배경 색상 */
+        background: transparent; /* 오늘 날짜 호버 시 배경 색상 */
     }
 
-    // .react-calendar__tile--now .today-label {
-    //   color: #42850d; /* 오늘 텍스트 색상 */
-    //   position: absolute;
-    //   z-index: 10;
-    //   text-align: center;
-    //   top: 50%;
-    //   left: 50%;
-    //   transform: translate(-50%, -50%);
-    //   font-weight: bold;
-    //   font-size: 1em;
-    //   width: auto;
-    //   height: auto;
-    //   background: #ffffff; /* 오늘 텍스트 배경 색상 */
-    // }
-
     .react-calendar__tile--active {
-        color: #ffffff; /* 선택된 날짜 텍스트 색상 */
+        color: black; /* 선택된 날짜 텍스트 색상 */
+        background-color: transparent;
         border-radius: 5px;
     }
 
     .react-calendar__tile--active:enabled:hover,
     .react-calendar__tile--active:enabled:focus {
-        background: #ffffff; /* "오늘"날짜에 대한 호버, 클릭 시 배경 색상 */
+        background: transparent; /* "오늘"날짜에 대한 호버, 클릭 시 배경 색상 */
     }
 
     .react-calendar__tile--hasActive {
-        background: #42850d; /* 활성화된 날짜 배경 색상 */
+        background: transparent; /* 활성화된 날짜 배경 색상 */
         color: #ffffff; /* 활성화된 날짜 텍스트 색상 */
         border-radius: 5px;
     }
 
     .react-calendar__tile--hasActive:enabled:hover,
     .react-calendar__tile--hasActive:enabled:focus {
-        background: #42850d; /* 활성화된 날짜 호버 시 배경 색상 */
+        background: transparent; /* 활성화된 날짜 호버 시 배경 색상 */
     }
 
     .react-calendar__month-view__weekdays__weekday abbr {
@@ -216,8 +229,6 @@ export const ExImg = styled.img`
 
 export const TagList = styled.div`
     margin-top: 0.5em;
-    gap: 0.2em;
-
     display: flex;
     align-items: flex-start;
     align-content: flex-start;
@@ -230,24 +241,11 @@ export const TagList = styled.div`
         padding: 0.2em 0.5em;
         font-size: 0.8em;
     }
-
-    .more {
-        font-size: 0.8em;
-        color: #42850d;
-    }
 `;
 
 export const TodayContainer = styled.div`
-    color: #42850d; /* 오늘 텍스트 색상 */
-    position: absolute;
-    z-index: 10;
-    text-align: center;
-    // top: 50%;
-    // left: 50%;
-    // transform: translate(-50%, -50%);
+    color: #42850d;
     font-weight: bold;
     font-size: 1em;
-    // width: auto;
-    // height: auto;
-    background: #ffffff; /* 오늘 텍스트 배경 색상 */
+    margin-bottom: 4px;
 `;

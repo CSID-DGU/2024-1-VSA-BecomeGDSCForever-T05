@@ -6,6 +6,7 @@ import RadiusButton from "@/components/Entry/FormItem/Button/RadiusButton";
 import {useNavigate} from "react-router-dom";
 import {CONSTANT} from "@/constants/Constant.ts";
 import React, {useEffect, useState} from "react";
+import {postFormLogin} from "@/apis/auth";
 
 interface SignUpProps {
     toggleForm: () => void;
@@ -28,12 +29,10 @@ export default function LoginForm({toggleForm}: SignUpProps) {
         setPassword(e.target.value);
     }
 
-    const handleLogin = () => {
-        console.log(email, password);
-
-        // Todo: 로그인 로직 구현
+    const handleLogin = async () => {
 
         if (isValid) {
+            await postFormLogin({email, password});
             navigate(CONSTANT.ROUTER.HOME);
         }
     }
