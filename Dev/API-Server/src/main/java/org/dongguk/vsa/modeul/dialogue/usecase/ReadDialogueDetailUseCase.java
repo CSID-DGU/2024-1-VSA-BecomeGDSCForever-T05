@@ -1,10 +1,9 @@
 package org.dongguk.vsa.modeul.dialogue.usecase;
 
-
+import org.dongguk.vsa.modeul.core.annotation.bean.UseCase;
 import org.dongguk.vsa.modeul.dialogue.dto.response.DialogueDetailResponseDto;
 
-import java.util.UUID;
-
+@UseCase
 public interface ReadDialogueDetailUseCase {
 
     /**

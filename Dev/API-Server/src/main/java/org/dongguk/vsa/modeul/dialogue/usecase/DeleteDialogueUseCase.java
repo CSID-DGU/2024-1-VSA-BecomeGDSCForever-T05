@@ -1,7 +1,10 @@
 package org.dongguk.vsa.modeul.dialogue.usecase;
 
+import org.dongguk.vsa.modeul.core.annotation.bean.UseCase;
+
 import java.util.UUID;
 
+@UseCase
 public interface DeleteDialogueUseCase {
 
     /**

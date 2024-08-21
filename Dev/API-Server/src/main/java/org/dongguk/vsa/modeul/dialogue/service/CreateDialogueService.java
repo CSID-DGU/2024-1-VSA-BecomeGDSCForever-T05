@@ -58,7 +58,6 @@ public class CreateDialogueService implements CreateDialogueUseCase {
                 .questionShortCode(requestDto.shortCode())
                 .questionLongCode(questionLongCode)
                 .questionContent(requestDto.content())
-                .status(EDialogueStatus.PENDING)
                 .user(user)
                 .modeullak(modeullak)
                 .build();
