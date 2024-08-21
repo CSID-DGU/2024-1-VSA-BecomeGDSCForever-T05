@@ -9,12 +9,13 @@ import theme from "@/shared/theme.ts";
 import Sub2 from "@/components/Common/Font/Body/Sub2";
 import H4 from "@/components/Common/Font/Heading/H4";
 import Spacer from "@/components/Common/Spacer";
-import AnswerTagItem from "@/components/ModeullakDetail/AnswerTagItem";
+
 import Row from "@/components/Common/Row";
 import CloseButton from "@/assets/icons/CloseButton.svg";
 import UserQuestionChunk from "@/components/ModeullakDetail/UserQuestionChunk";
 import QuestionKeywordChunk from "@/components/ModeullakDetail/QuestionKeywordChunk";
 import {useModeullakDetail} from "@/hooks/modeullak/useModeullakDetail.ts";
+import ModeullakDetailTagItem from "@/components/ModeullakDetail/ModeullakDetailTagItem";
 
 export default function ModeullakDetail() {
 
@@ -50,7 +51,7 @@ export default function ModeullakDetail() {
                         modeullakDetailState.tags.map((tag) => {
                             return (
                                 <>
-                                    <AnswerTagItem color={theme.colorSystem.secondary["200"]} text={tag}/>
+                                    <ModeullakDetailTagItem color={theme.colorSystem.secondary["200"]} text={tag}/>
                                     <SizedBox width={"12px"}/>
                                 </>
                             )
@@ -65,7 +66,7 @@ export default function ModeullakDetail() {
                 <SizedBox height={"20px"}/>
                 <UserQuestionChunk modeullakId={answerModalState.modeullakId}/>
                 <SizedBox height={"20px"}/>
-                <QuestionKeywordChunk/>
+                <QuestionKeywordChunk modeullakId={answerModalState.modeullakId}/>
             </Styled.Container>
         </Padding>
     )

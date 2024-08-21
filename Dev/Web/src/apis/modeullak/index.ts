@@ -60,3 +60,12 @@ export const checkModeullakCode = async (code: string) => {
 
     return response.data;
 }
+
+export const fetchModeullakKeywords = createAsyncThunk(
+    "fetchModeullakKeywords",
+    async (modeullakId: number) => {
+        const response = await instance.get(`/api/v1/modeullaks/${modeullakId}/keywords?page=1&size=1000`);
+
+        return response.data;
+    }
+)

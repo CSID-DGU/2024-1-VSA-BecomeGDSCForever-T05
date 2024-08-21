@@ -14,6 +14,7 @@ import modeullakCalendarTagSlice from "@/stores/slices/modeullak/modeullakCalend
 import calendarSlice from "@/stores/slices/calendar/calendar.slice.ts";
 import modeullakOverviewsSlice from "@/stores/slices/modeullak/modeullakOverviews.slice.ts";
 import modeullakUserDialogueSummarySlice from "@/stores/slices/dialogue/modeullakUserDialogueSummary.slice.ts";
+import modeullakKeywordSlice from "@/stores/slices/modeullak/modeullakKeyword.slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
         modeullakDetailState: modeullakDetailSlice,
         modeullakBriefState: modeullakBriefSlice,
         modeullakOverviewsState: modeullakOverviewsSlice,
+        modeullakKeywordState: modeullakKeywordSlice,
 
         // Dialogue
         modeullakUserDialogueSummaryState: modeullakUserDialogueSummarySlice,

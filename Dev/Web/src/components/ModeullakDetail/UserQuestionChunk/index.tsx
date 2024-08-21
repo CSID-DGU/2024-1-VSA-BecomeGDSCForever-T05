@@ -13,8 +13,6 @@ export default function UserQuestionChunk(props: props) {
 
     const modeullakUserDialogueSummaries = useModeullakUserDialogueSummary(props.modeullakId);
 
-    console.log(modeullakUserDialogueSummaries);
-
     return (
         <Styled.Container>
             <H1 color={theme.colorSystem.black} textAlign={"left"} text={"나의 질문 모음"}/>

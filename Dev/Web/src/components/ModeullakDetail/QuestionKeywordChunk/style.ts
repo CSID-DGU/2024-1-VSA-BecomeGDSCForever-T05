@@ -14,4 +14,10 @@ export const GridContainer = styled.div`
         flex: 1 1 calc(33.33% - 20px);
         box-sizing: border-box;
     }
+
+    &::after {
+        content: "";
+        flex: 1 1 calc(33.33% - 20px);
+        box-sizing: border-box;
+    }
 `;
