@@ -8,13 +8,18 @@ import DefaultProfile from "@/assets/icons/Profile/DefaultProfile.svg"
 import H3 from "@/components/Common/Font/Heading/H3";
 import JoinStateTag from "@/components/NavBar/JoinStateTag";
 import {useParticipatedModeullak} from "@/hooks/modeullak/useParticipatedModeullak.ts";
+import {useNavigate} from "react-router-dom";
+import {CONSTANT} from "@/constants/Constant.ts";
 
 const NavBar: React.FC = () => {
 
     const participatedModeullak = useParticipatedModeullak();
+    const navigate = useNavigate();
 
     const onLogoClick = (): void => {
-        alert("logo clicked!");
+        // reload
+        window.location.reload();
+        navigate(CONSTANT.ROUTER.HOME);
     }
 
     const onProfileCLick = (): void => {
