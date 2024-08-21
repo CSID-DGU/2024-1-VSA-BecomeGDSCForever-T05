@@ -40,11 +40,11 @@ export default function MyCalendar() {
         return date.toLocaleDateString(locale, {weekday: "long"});
     };
 
-    const formatMonthYear: CalendarProps["formatMonthYear"] = (locale, date) => {
+    const formatMonthYear: CalendarProps["formatMonthYear"] = (_, date) => {
         return date.toLocaleDateString("ko-KR", {year: "numeric", month: "long"});
     };
 
-    const formatYear: CalendarProps["formatYear"] = (locale, date) => {
+    const formatYear: CalendarProps["formatYear"] = (_, date) => {
         return date.toLocaleDateString("ko-KR", {year: "numeric"});
     };
 
