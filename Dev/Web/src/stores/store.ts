@@ -1,7 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
-import answerModalSlice from "@/stores/slices/answerModal.slice.ts";
+import answerModalSlice from "@/stores/slices/modal/answerModal.slice.ts";
 import participatingModeulSlice from "@/stores/slices/modeullak/participatedModeullak.slice.ts";
-import keywordModalSlice from "@/stores/slices/keywordModal.slice.ts";
+import keywordModalSlice from "@/stores/slices/modal/keywordModal.slice.ts";
 import roomFrameSlice from "@/stores/slices/roomFrame.slice.ts";
 import userQuestionBriefSlice from "@/stores/slices/userQuestionBrief.slice.ts";
 import modeullakSummariesSlice from "@/stores/slices/modeullak/modeullakSummaries.slice.ts";
@@ -13,6 +13,7 @@ import modeullakOverviewsSlice from "@/stores/slices/modeullak/modeullakOverview
 import modeullakUserDialogueSummarySlice from "@/stores/slices/dialogue/modeullakUserDialogueSummary.slice.ts";
 import modeullakKeywordSlice from "@/stores/slices/modeullak/modeullakKeyword.slice.ts";
 import dialogueDetailSlice from "@/stores/slices/dialogue/dialogueDetail.slice.ts";
+import dialogueKeywordBriefSlice from "@/stores/slices/dialogue/dialogueKeyword.slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -31,11 +32,12 @@ export const store = configureStore({
         // Dialogue
         modeullakUserDialogueSummaryState: modeullakUserDialogueSummarySlice,
         dialogueDetailState: dialogueDetailSlice,
+        dialogueKeywordBriefState: dialogueKeywordBriefSlice,
 
         // Modal
         answerModalState: answerModalSlice,
-
         keywordModalState: keywordModalSlice,
+
         roomFrameState: roomFrameSlice,
         userQuestionBriefState: userQuestionBriefSlice,
     },

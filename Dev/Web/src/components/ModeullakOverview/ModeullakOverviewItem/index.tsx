@@ -10,7 +10,7 @@ import ModeullakOverviewItemTime from "@/components/ModeullakOverview/ModeullakO
 import ModeullakOverviewItemTag from "@/components/ModeullakOverview/ModeullakOverviewItem/ModeullakOverviewItemTag";
 import ModeullakOverviewItemContent
     from "@/components/ModeullakOverview/ModeullakOverviewItem/ModeullakOverviewItemContent";
-import {updateAnswerModalState} from "@/stores/slices/answerModal.slice.ts";
+import {updateAnswerModalState} from "@/stores/slices/modal/answerModal.slice.ts";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "@/stores/store.ts";
 

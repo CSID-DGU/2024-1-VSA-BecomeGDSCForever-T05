@@ -9,6 +9,7 @@ import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "@/stores/store.ts";
 import {checkModeullakCode} from "@/apis/modeullak";
+import Alert from "@/components/Common/Alert";
 
 
 export default function Search() {
@@ -16,6 +17,14 @@ export default function Search() {
     const [isOpen, setIsOpen] = useState(false);
     const [modalType, setModalType] = useState<"create" | "join">("create");
     const [modeullakCode, setModeullakCode] = useState("");
+
+    const [isAlertOpen, setIsAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+
+    const handleAlertClose = () => {
+        setIsAlertOpen(false);
+    }
+
     const participatedModeullakState = useSelector((state: RootState) => state.participatedModeullakState);
 
     const handleClose = () => {
@@ -36,14 +45,16 @@ export default function Search() {
 
     const handleJoinOpen = async () => {
         if (modeullakCode === "") {
-            alert("모들락 코드를 입력해주세요.");
+            setIsAlertOpen(true);
+            setAlertMessage("모들락 코드를 입력해주세요.");
             return;
         }
 
         const response = await checkModeullakCode(modeullakCode);
 
         if (response.success === false) {
-            alert("존재하지 않는 모들락 코드입니다.");
+            setIsAlertOpen(true);
+            setAlertMessage("모들락 코드를 입력해주세요.");
             return;
         }
 
@@ -76,6 +87,10 @@ export default function Search() {
             {
                 isOpen && !participatedModeullakState.modeullakId !== null &&
                 <Modal onClose={handleClose} type={modalType} modeullakCode={modeullakCode}/>
+            }
+
+            {
+                isAlertOpen && <Alert title={alertMessage} onClick={handleAlertClose}/>
             }
         </Styled.Container>
     );

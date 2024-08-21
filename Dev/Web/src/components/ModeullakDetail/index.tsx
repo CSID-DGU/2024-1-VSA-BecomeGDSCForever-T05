@@ -1,7 +1,7 @@
 import * as Styled from './style';
 import {AppDispatch, RootState} from "@/stores/store.ts";
 import {useDispatch, useSelector} from "react-redux";
-import {updateAnswerModalState} from "@/stores/slices/answerModal.slice.ts";
+import {updateAnswerModalState} from "@/stores/slices/modal/answerModal.slice.ts";
 import Padding from "@/components/Common/Padding";
 import SizedBox from "@/components/Common/SizedBox";
 import H1 from "@/components/Common/Font/Heading/H1";

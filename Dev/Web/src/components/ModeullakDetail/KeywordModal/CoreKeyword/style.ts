@@ -13,6 +13,8 @@ export const SvgButton = styled.button<SvgButtonProps>`
     left: ${(props) => props.left || "0"};
     border: none;
 
+    margin-bottom: 20px;
+
     cursor: pointer
 `;
 
@@ -41,6 +43,10 @@ export const Wrapper = styled.div`
     justify-content: start;
 
     overflow: scroll;
+`;
+
+export const GridWrapper = styled.div`
+
 `;
 
 export const GridView = styled.div`

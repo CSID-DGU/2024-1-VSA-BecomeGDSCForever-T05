@@ -5,7 +5,8 @@ const initialState: KeywordModalState = {
     isOpen: false,
     type: "none",
     keyword: "",
-    dialogueId: -1
+    dialogueId: -1,
+    modeullakId: -1
 }
 
 const keywordModalSlice = createSlice({
@@ -17,9 +18,12 @@ const keywordModalSlice = createSlice({
             state.type = action.payload.type;
             state.keyword = action.payload.keyword;
             state.dialogueId = action.payload.dialogueId;
+        },
+        updateKeywordModalModeullakId: (state, action) => {
+            state.modeullakId = action.payload;
         }
     }
 })
 
-export const {updateKeywordModal} = keywordModalSlice.actions;
+export const {updateKeywordModal, updateKeywordModalModeullakId} = keywordModalSlice.actions;
 export default keywordModalSlice.reducer

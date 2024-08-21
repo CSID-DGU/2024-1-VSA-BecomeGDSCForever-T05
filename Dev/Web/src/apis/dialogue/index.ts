@@ -18,3 +18,12 @@ export const fetchDialogueDetail = createAsyncThunk(
         return response.data;
     }
 )
+
+export const fetchModeullakKeywordDialogueBrief = createAsyncThunk(
+    "fetchModeullakKeywordDialogueBrief",
+    async ({modeullakId, keywordId}: { modeullakId: number, keywordId: number }) => {
+        const response = await instance.get(`/api/v1/modeullaks/${modeullakId}/keywords/${keywordId}/dialogues/briefs`);
+
+        return response.data;
+    }
+)

@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/stores/store.ts";
 import BriefAnswer from "../BriefAnswer";
 import H0 from "@/components/Common/Font/Heading/H0";
-import {updateKeywordModal} from "@/stores/slices/keywordModal.slice.ts";
+import {updateKeywordModal} from "@/stores/slices/modal/keywordModal.slice.ts";
 import {useDialogueDetail} from "@/hooks/dialogue/useDialogueDetail.ts";
 
 export default function UserKeyword() {

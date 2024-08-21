@@ -3,4 +3,5 @@ export interface KeywordModalState {
     type: "user" | "keyword" | "none";
     keyword: string;
     dialogueId: number;
+    modeullakId?: number;
 }
