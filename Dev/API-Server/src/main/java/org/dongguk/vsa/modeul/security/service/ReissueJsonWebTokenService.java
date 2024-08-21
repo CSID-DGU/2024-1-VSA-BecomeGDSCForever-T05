@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.core.utility.JsonWebTokenUtil;
 import org.dongguk.vsa.modeul.security.domain.mysql.Account;
 import org.dongguk.vsa.modeul.security.domain.redis.RefreshToken;
@@ -36,12 +36,12 @@ public class ReissueJsonWebTokenService implements ReissueJsonWebTokenUseCase {
 
         // Token 일치 여부 확인
         if (!isEqualsRefreshToken(accountId, refreshToken)) {
-            throw new HttpCommonException(ErrorCode.ACCESS_DENIED);
+            throw new CommonException(ErrorCode.ACCESS_DENIED);
         }
 
         // Account 조회
         Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.INVALID_TOKEN_ERROR));
+                .orElseThrow(() -> new CommonException(ErrorCode.INVALID_TOKEN_ERROR));
 
         // Default Json Web Token 생성
         DefaultJsonWebTokenDto defaultJsonWebTokenDto = jsonWebTokenUtil.generateDefaultJsonWebTokens(
@@ -68,7 +68,7 @@ public class ReissueJsonWebTokenService implements ReissueJsonWebTokenUseCase {
      */
     private Boolean isEqualsRefreshToken(UUID accountId, String refreshToken) {
         RefreshToken token = refreshTokenRepository.findById(accountId)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.INVALID_TOKEN_ERROR));
+                .orElseThrow(() -> new CommonException(ErrorCode.INVALID_TOKEN_ERROR));
 
         return token.getValue().equals(refreshToken);
     }

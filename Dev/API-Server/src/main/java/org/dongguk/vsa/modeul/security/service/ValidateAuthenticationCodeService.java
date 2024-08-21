@@ -2,7 +2,7 @@ package org.dongguk.vsa.modeul.security.service;
 
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.core.utility.JsonWebTokenUtil;
 import org.dongguk.vsa.modeul.security.domain.redis.AuthenticationCode;
 import org.dongguk.vsa.modeul.security.domain.redis.AuthenticationCodeHistory;
@@ -31,13 +31,13 @@ public class ValidateAuthenticationCodeService implements ValidateAuthentication
     @Override
     public TemporaryJsonWebTokenDto execute(ValidateAuthenticationCodeRequestDto requestDto) {
         AuthenticationCode authenticationCode = authenticationCodeRepository.findById(requestDto.email())
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_RESOURCE));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         AuthenticationCodeHistory authenticationCodeHistory = authenticationCodeHistoryRepository.findById(requestDto.email())
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_RESOURCE));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         if (!bCryptPasswordEncoder.matches(requestDto.authenticationCode(), authenticationCode.getValue())) {
-            throw new HttpCommonException(ErrorCode.ACCESS_DENIED);
+            throw new CommonException(ErrorCode.ACCESS_DENIED);
         }
 
         authenticationCodeRepository.delete(authenticationCode);

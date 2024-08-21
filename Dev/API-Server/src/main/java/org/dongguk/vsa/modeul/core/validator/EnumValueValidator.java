@@ -2,7 +2,7 @@ package org.dongguk.vsa.modeul.core.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.dongguk.vsa.modeul.core.annotation.EnumValue;
+import org.dongguk.vsa.modeul.core.annotation.validation.EnumValue;
 
 public class EnumValueValidator implements ConstraintValidator<EnumValue, String> {
 

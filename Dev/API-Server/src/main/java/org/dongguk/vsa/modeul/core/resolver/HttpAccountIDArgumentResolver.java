@@ -1,9 +1,9 @@
 package org.dongguk.vsa.modeul.core.resolver;
 
-import org.dongguk.vsa.modeul.core.annotation.AccountID;
+import org.dongguk.vsa.modeul.core.annotation.security.AccountID;
 import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -36,7 +36,7 @@ public class HttpAccountIDArgumentResolver implements HandlerMethodArgumentResol
         );
 
         if (userAccountId == null) {
-            throw new HttpCommonException(ErrorCode.ACCESS_DENIED);
+            throw new CommonException(ErrorCode.ACCESS_DENIED);
         }
 
         return UUID.fromString(userAccountId);

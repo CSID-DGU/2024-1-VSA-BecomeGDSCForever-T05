@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.core.utility.HeaderUtil;
 import org.dongguk.vsa.modeul.core.utility.JsonWebTokenUtil;
 import org.dongguk.vsa.modeul.security.domain.type.ESecurityRole;
@@ -38,7 +38,7 @@ public class JsonWebTokenAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
 
         String token = HeaderUtil.refineHeader(request, Constants.AUTHORIZATION_HEADER, Constants.BEARER_PREFIX)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.INVALID_HEADER_ERROR));
+                .orElseThrow(() -> new CommonException(ErrorCode.INVALID_HEADER_ERROR));
 
         Claims claims = jsonWebTokenUtil.validateToken(token);
 
@@ -48,7 +48,7 @@ public class JsonWebTokenAuthenticationFilter extends OncePerRequestFilter {
         CustomUserPrincipal principal = authenticateJsonWebTokenUseCase.execute(accountId);
 
         if (!role.equals(principal.getRole())) {
-            throw new HttpCommonException(ErrorCode.ACCESS_DENIED);
+            throw new CommonException(ErrorCode.ACCESS_DENIED);
         }
 
         // AuthenticationToken 생성

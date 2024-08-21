@@ -2,9 +2,9 @@ package org.dongguk.vsa.modeul.core.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.dongguk.vsa.modeul.core.annotation.TimeValue;
+import org.dongguk.vsa.modeul.core.annotation.validation.TimeValue;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -24,7 +24,7 @@ public class TimeValueValidator implements ConstraintValidator<TimeValue, String
         }
 
         try {
-            LocalDate.parse(value, TIME_FORMATTER);
+            LocalTime.parse(value, TIME_FORMATTER);
         } catch(DateTimeParseException e) {
             return false;
         }

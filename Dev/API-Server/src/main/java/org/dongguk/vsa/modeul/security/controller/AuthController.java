@@ -5,11 +5,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.dongguk.vsa.modeul.core.annotation.AccountID;
+import org.dongguk.vsa.modeul.core.annotation.security.AccountID;
 import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.dto.ResponseDto;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.core.utility.CookieUtil;
 import org.dongguk.vsa.modeul.core.utility.HeaderUtil;
 import org.dongguk.vsa.modeul.core.utility.HttpServletUtil;
@@ -49,7 +49,7 @@ public class AuthController {
             @RequestBody @Valid SignUpByDefaultRequestDto requestDto
     ) throws IOException {
         String temporaryToken = HeaderUtil.refineHeader(request, Constants.AUTHORIZATION_HEADER, Constants.BEARER_PREFIX)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.INVALID_HEADER_ERROR));
+                .orElseThrow(() -> new CommonException(ErrorCode.INVALID_HEADER_ERROR));
 
         DefaultJsonWebTokenDto tokenDto = signUpByDefaultUseCase.execute(temporaryToken, requestDto);
 
@@ -91,7 +91,7 @@ public class AuthController {
             HttpServletRequest request
     ) {
         String temporaryToken = HeaderUtil.refineHeader(request, Constants.AUTHORIZATION_HEADER, Constants.BEARER_PREFIX)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.INVALID_HEADER_ERROR));
+                .orElseThrow(() -> new CommonException(ErrorCode.INVALID_HEADER_ERROR));
 
         reissuePasswordUseCase.execute(temporaryToken);
 
@@ -110,10 +110,10 @@ public class AuthController {
         // 브라우저에서 온 요청인 경우 쿠키에서 토큰을 가져오고 아닌 경우 헤더에서 토큰을 가져옴
         if (userAgent != null && userAgent.contains("Mozilla")) {
             refreshToken = CookieUtil.refineCookie(request, Constants.REFRESH_TOKEN)
-                    .orElseThrow(() -> new HttpCommonException(ErrorCode.INVALID_HEADER_ERROR));
+                    .orElseThrow(() -> new CommonException(ErrorCode.INVALID_HEADER_ERROR));
         } else {
             refreshToken = HeaderUtil.refineHeader(request, Constants.AUTHORIZATION_HEADER, Constants.BEARER_PREFIX)
-                    .orElseThrow(() -> new HttpCommonException(ErrorCode.INVALID_HEADER_ERROR));
+                    .orElseThrow(() -> new CommonException(ErrorCode.INVALID_HEADER_ERROR));
         }
 
         DefaultJsonWebTokenDto tokenDto = reissueJsonWebTokenUseCase.execute(refreshToken);

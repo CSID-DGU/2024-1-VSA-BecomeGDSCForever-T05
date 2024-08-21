@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
-import org.dongguk.vsa.modeul.core.exception.type.HttpCommonException;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.core.utility.JsonWebTokenUtil;
 import org.dongguk.vsa.modeul.core.utility.PasswordUtil;
 import org.dongguk.vsa.modeul.security.domain.mysql.Account;
@@ -43,12 +43,12 @@ public class ReissuePasswordService implements ReissuePasswordUseCase {
 
         // Temporary Token 존재 여부 확인
         if (!isEqualsTemporaryToken(serialId, temporaryToken)) {
-            throw new HttpCommonException(ErrorCode.INVALID_TOKEN_ERROR);
+            throw new CommonException(ErrorCode.INVALID_TOKEN_ERROR);
         }
 
         // 계정 조회
         Account account = accountRepository.findBySerialIdAndProvider(serialId, ESecurityProvider.DEFAULT)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
 
         // 임시 비밀번호 생성 및 저장
         String temporaryPassword = PasswordUtil.generatePassword(8);
@@ -74,7 +74,7 @@ public class ReissuePasswordService implements ReissuePasswordUseCase {
         }
 
         TemporaryToken temporaryTokenEntity = temporaryTokenRepository.findById(serialId)
-                .orElseThrow(() -> new HttpCommonException(ErrorCode.INVALID_TOKEN_ERROR));
+                .orElseThrow(() -> new CommonException(ErrorCode.INVALID_TOKEN_ERROR));
 
         return temporaryTokenEntity.getValue().equals(temporaryToken);
     }

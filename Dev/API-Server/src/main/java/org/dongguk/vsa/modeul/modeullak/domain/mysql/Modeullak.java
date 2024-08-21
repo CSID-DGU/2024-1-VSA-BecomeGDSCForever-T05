@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
-import org.dongguk.vsa.modeul.modeullak.domain.type.ELLmStatus;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ public class Modeullak {
     /* Default Column ----------------------------- */
     /* -------------------------------------------- */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -32,15 +32,15 @@ public class Modeullak {
     @Column(name = "title", length = 20, nullable = false)
     private String title;
 
-    @Column(name = "content", length = 1000, nullable = false)
+    @Column(name = "content", length = 1000)
     private String content;
 
-    @Column(name="participation_code", length = 10, nullable = false)
-    private String participationCode;
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "llm_status", nullable = false)
-    private ELLmStatus llmStatus;
+    @Column(name = "status", nullable = false)
+    private EModeullakStatus status;
+
+    @Column(name="participation_code", length = 10, nullable = false, updatable = false)
+    private String participationCode;
 
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
@@ -61,10 +61,10 @@ public class Modeullak {
     private List<ModeullakKeyword> keywords = new ArrayList<>();
 
     @OneToMany(mappedBy = "modeullak", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UserModeullak> users = new ArrayList<>();
+    private List<Dialogue> dialogues = new ArrayList<>();
 
     @OneToMany(mappedBy = "modeullak", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Dialogue> dialogues = new ArrayList<>();
+    private List<UserModeullak> users = new ArrayList<>();
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */
@@ -72,21 +72,23 @@ public class Modeullak {
     @Builder
     public Modeullak(
             String title,
-            String content,
             String participationCode,
-            ELLmStatus llmStatus,
             LocalDateTime startedAt,
             LocalDateTime endedAt
     ) {
         this.title = title;
-        this.content = content;
         this.participationCode = participationCode;
-        this.llmStatus = llmStatus;
+        this.status = EModeullakStatus.STARTED;
+
         this.startedAt = startedAt;
         this.endedAt = endedAt;
     }
 
-    public void updateLLmStatus(ELLmStatus llmStatus) {
-        this.llmStatus = llmStatus;
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void updateStatus(EModeullakStatus status) {
+        this.status = status;
     }
 }
