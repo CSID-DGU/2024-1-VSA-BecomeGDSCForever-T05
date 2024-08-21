@@ -10,7 +10,7 @@ export const useModeullakBrief = (authCode: string) => {
 
     useEffect(() => {
         dispatch(fetchModeullakBrief(authCode));
-    }, [dispatch]);
+    }, [authCode]);
 
     return modeullakBriefState;
 }

@@ -5,31 +5,49 @@ import Sub1 from "@/components/Common/Font/Body/Sub1";
 import theme from "@/shared/theme.ts";
 import Button from "@/components/Search/Button";
 import Modal from "@/components/Modal";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "@/stores/store.ts";
+import {checkModeullakCode} from "@/apis/modeullak";
 
 
 export default function Search() {
 
     const [isOpen, setIsOpen] = useState(false);
     const [modalType, setModalType] = useState<"create" | "join">("create");
+    const [modeullakCode, setModeullakCode] = useState("");
     const participatedModeullakState = useSelector((state: RootState) => state.participatedModeullakState);
 
     const handleClose = () => {
         setIsOpen(false);
     }
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setModeullakCode(e.target.value);
+    }
+
     const handleCreateOpen = () => {
 
-        if (participatedModeullakState.modeullak_id === null) {
+        if (participatedModeullakState.modeullakId === null) {
             setModalType("create")
             setIsOpen(true);
         }
     }
 
-    const handleJoinOpen = () => {
-        if (participatedModeullakState.modeullak_id === null) {
+    const handleJoinOpen = async () => {
+        if (modeullakCode === "") {
+            alert("모들락 코드를 입력해주세요.");
+            return;
+        }
+
+        const response = await checkModeullakCode(modeullakCode);
+
+        if (response.success === false) {
+            alert("존재하지 않는 모들락 코드입니다.");
+            return;
+        }
+
+        if (participatedModeullakState.modeullakId === null && modeullakCode !== "") {
             setModalType("join")
             setIsOpen(true);
         }
@@ -38,26 +56,26 @@ export default function Search() {
     return (
         <Styled.Container>
             <Styled.Input>
-                <Input placeholder={"모들락을 검색해주세요."} width={"600px"} borderRadius={"30px"}/>
+                <Input placeholder={"모들락을 검색해주세요."} width={"600px"} borderRadius={"30px"} onChange={handleInputChange}/>
                 <SizedBox width={"600px"} height={"8px"}/>
                 <Styled.Label>
                     <SizedBox width={"30px"} height={"20px"}/>
                     <Sub1 color={theme.colorSystem.neutral["400"]} text={"개설된 모들락이 없나요?"}/>
                     <SizedBox width={"20px"} height={"20px"}/>
                     <Styled.RoomMaker onClick={handleCreateOpen}
-                                      isParticipated={participatedModeullakState.modeullak_id !== null}>
+                                      isParticipated={participatedModeullakState.modeullakId !== null}>
                         <Sub1
-                            color={participatedModeullakState.modeullak_id !== null ? theme.colorSystem.neutral[400] : theme.colorSystem.neutral["700"]}
+                            color={participatedModeullakState.modeullakId !== null ? theme.colorSystem.neutral[400] : theme.colorSystem.neutral["700"]}
                             text={"개설하기"}/>
                     </Styled.RoomMaker>
                     <SizedBox width={"30px"} height={"20px"}/>
                 </Styled.Label>
             </Styled.Input>
             <SizedBox width={"80px"} height={"88px"}/>
-            <Button onClick={handleJoinOpen} isParticipated={participatedModeullakState.modeullak_id !== null}/>
+            <Button onClick={handleJoinOpen} isParticipated={participatedModeullakState.modeullakId !== null}/>
             {
-                isOpen && !participatedModeullakState.modeullak_id !== null &&
-                <Modal onClose={handleClose} type={modalType}/>
+                isOpen && !participatedModeullakState.modeullakId !== null &&
+                <Modal onClose={handleClose} type={modalType} modeullakCode={modeullakCode}/>
             }
         </Styled.Container>
     );

@@ -54,3 +54,9 @@ export const fetchModeullakOverview = createAsyncThunk(
         return response.data;
     }
 )
+
+export const checkModeullakCode = async (code: string) => {
+    const response = await instance.get(`/api/v1/modeullaks/briefs?code=${code}`);
+
+    return response.data;
+}

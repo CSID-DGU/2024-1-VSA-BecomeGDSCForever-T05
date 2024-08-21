@@ -8,10 +8,12 @@ import Row from "../Common/Row";
 import ModalButton from "./ModalButton";
 import theme from "@/shared/theme";
 import SizedBox from "@/components/Common/SizedBox";
+import {useModeullakBrief} from "@/hooks/modeullak/useModeullakBrief.ts";
 
 interface ModalProps {
     onClose: () => void;
     type: "create" | "join";
+    modeullakCode?: string;
 }
 
 interface ModuleTime {
@@ -28,6 +30,8 @@ const Modal: React.FC<ModalProps> = (props) => {
     });
     const [languageList, setLanguageList] = React.useState<string[]>([]);
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const modeullakBriefState = props.modeullakCode ? useModeullakBrief(props.modeullakCode!) : null;
 
     const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -87,26 +91,38 @@ const Modal: React.FC<ModalProps> = (props) => {
                     color={theme.colorSystem.neutral["700"]}
                 />
                 <Sub1 text="방 이름" textAlign="start"/>
-                <S.Input
-                    type="text"
-                    placeholder="방 이름을 입력해주세요"
-                    value={roomName}
-                    onChange={(e) => setRoomeName(e.target.value)}
-                />
+                {
+                    props.type === "create" ? (
+                        <S.Input
+                            type="text"
+                            placeholder="방 이름을 입력해주세요"
+                            value={roomName}
+                            onChange={(e) => setRoomeName(e.target.value)}
+                        />
+                    ) : (
+                        <S.Name>{modeullakBriefState!.title}</S.Name>
+                    )
+                }
                 <Sub1 text="질문 시간" textAlign="start"/>
                 <Row justifyContent="start" alignItems="center">
-                    <S.Input
-                        type="number"
-                        placeholder="1"
-                        style={{width: "180px"}}
-                        value={questionTime.times}
-                        onChange={(e) =>
-                            setQuestionTime({
-                                ...questionTime,
-                                times: parseInt(e.target.value),
-                            })
-                        }
-                    />
+                    {
+                        props.type === "create" ? (
+                            <S.Input
+                                type="number"
+                                placeholder="1"
+                                style={{width: "180px"}}
+                                value={questionTime.times}
+                                onChange={(e) =>
+                                    setQuestionTime({
+                                        ...questionTime,
+                                        times: parseInt(e.target.value),
+                                    })
+                                }
+                            />
+                        ) : (
+                            <S.Name style={{width: "180px"}}>{modeullakBriefState!.remainedHour}</S.Name>
+                        )
+                    }
 
                     <SizedBox width="8px"/>
 
@@ -114,30 +130,41 @@ const Modal: React.FC<ModalProps> = (props) => {
 
                     <SizedBox width="8px"/>
 
-                    <S.Input
-                        type="number"
-                        placeholder="30"
-                        style={{width: "180px"}}
-                        value={questionTime.minutes}
-                        onChange={(e) =>
-                            setQuestionTime({
-                                ...questionTime,
-                                minutes: parseInt(e.target.value),
-                            })
-                        }
-                    />
+                    {
+                        props.type === "create" ? (
+                            <S.Input
+                                type="number"
+                                placeholder="30"
+                                style={{width: "180px"}}
+                                value={questionTime.minutes}
+                                onChange={(e) =>
+                                    setQuestionTime({
+                                        ...questionTime,
+                                        minutes: parseInt(e.target.value),
+                                    })
+                                }
+                            />
+                        ) : (
+                            <S.Name style={{width: "180px"}}>{modeullakBriefState!.remainedMinute}</S.Name>
+                        )
+                    }
 
                     <SizedBox width="8px"/>
 
                     <Sub1 text="분" textAlign="start"/>
                 </Row>
                 <Sub1 text="해시태그" textAlign="start"/>
-                <S.Input
-                    type="text"
-                    placeholder="#Java #C++ #OOP"
-                    onChange={handleLanguageChange}
-                />
-                {/* {userRole === "student" && ( */}
+                {
+                    props.type === "create" ? (
+                        <S.Input
+                            type="text"
+                            placeholder="#Java #C++ #OOP"
+                            onChange={handleLanguageChange}
+                        />
+                    ) : (
+                        <S.Name>{modeullakBriefState!.tags.map(tag => `#${tag}`).join(" ")}</S.Name>
+                    )
+                }
                 {
                     props.type === "join" && (
                         <Sub2

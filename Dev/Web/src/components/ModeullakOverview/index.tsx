@@ -12,8 +12,8 @@ import ModeullakOverviewEmpty from "@/components/ModeullakOverview/ModeullakOver
 export default function ModeullakOverview() {
 
     const dispatch = useDispatch<AppDispatch>();
-    const selectedDate = useSelector((state: RootState) => state.calendarState.selectedDate);
-    const modeullakOverviews = useModeullakOverviews(selectedDate);
+    const calendarState = useSelector((state: RootState) => state.calendarState);
+    const modeullakOverviews = useModeullakOverviews(calendarState.selectedDate);
 
     const handleClick = () => {
         dispatch(updateAnswerModalState(true))
