@@ -1,12 +1,13 @@
 name: Dev - API Server CI/CD
 
 on:
-  push:
-    branches: [ "dev" ]
   pull_request_target:
+    branches: [ "dev" ]
     types: 
-      - labeled
+      - opened
+      - synchronize
       - closed
+      - labeled
 
 jobs:
   # safe tag에 대한 gradlew test && merged에 대한 gradlew build/deploy
