@@ -53,7 +53,7 @@ public class ModeullakOverviewListResponseDto extends SelfValidating<ModeullakOv
 
         @JsonProperty("content")
         @NotNull
-        @Size(min = 1, max = 200)
+        @Size(max = 200)
         private final String content;
 
         @JsonProperty("tags")
@@ -98,7 +98,7 @@ public class ModeullakOverviewListResponseDto extends SelfValidating<ModeullakOv
             return ModeullakOverviewResponseDto.builder()
                     .id(modeullak.getId())
                     .title(modeullak.getTitle())
-                    .content(modeullak.getContent())
+                    .content(modeullak.getContent() == null ? "" : modeullak.getContent())
                     .tags(tagStrings)
                     .startedAt(startedAt)
                     .endedAt(endedAt)

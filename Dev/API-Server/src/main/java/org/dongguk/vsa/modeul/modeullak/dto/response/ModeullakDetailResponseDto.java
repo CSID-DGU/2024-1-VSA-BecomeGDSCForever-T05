@@ -24,8 +24,7 @@ public class ModeullakDetailResponseDto extends SelfValidating<ModeullakDetailRe
     private final String title;
 
     @JsonProperty("content")
-    @NotNull
-    @Size(min = 1, max = 1000)
+    @Size(max = 1000)
     private final String content;
 
     @JsonProperty("tags")
@@ -64,7 +63,7 @@ public class ModeullakDetailResponseDto extends SelfValidating<ModeullakDetailRe
         return ModeullakDetailResponseDto.builder()
                 .id(modeullak.getId())
                 .title(modeullak.getTitle())
-                .content(modeullak.getContent())
+                .content(modeullak.getContent() == null ? "" : modeullak.getContent())
                 .tags(modeullak.getTags().stream().map(tag -> tag.getTag().getName()).toList())
                 .startedAt(DateTimeUtil.convertLocalDateTimeToString(modeullak.getStartedAt()))
                 .endedAt(DateTimeUtil.convertLocalDateTimeToString(modeullak.getEndedAt()))
