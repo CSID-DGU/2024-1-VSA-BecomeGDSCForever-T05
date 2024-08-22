@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import * as Styled from './style';
 import Column from "@/components/Common/Column";
 import H3 from '@/components/Common/Font/Heading/H3';
@@ -16,20 +16,120 @@ import Row from "@/components/Common/Row";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/stores/store.ts";
 import {updateRoomFrameState} from "@/stores/slices/roomFrame.slice.ts";
+import CodeTree from "@/components/Ide/CodeTree";
+import {createStorage} from "@/apis/storage";
 
 export default function IDEPersonal() {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+    const [newItemName, setNewItemName] = useState<string>("");
+    const [isAddingFile, setIsAddingFile] = useState<boolean>(false);
+    const [isAddingDirectory, setIsAddingDirectory] = useState<boolean>(false);
+    const [selectedDirectory, setSelectedDirectory] = useState<string | null>(null); // 선택된 디렉토리 상태
+
     const dispatch = useDispatch<AppDispatch>();
     const roomFrameState = useSelector((state: RootState) => state.roomFrameState);
+
+    useEffect(() => {
+
+    }, []);
 
     const toggleSidebar = () => {
         setIsCollapsed(!isCollapsed);
     };
 
     const handleQuestionButtonClick = () => {
-
         roomFrameState.type === "user" ? dispatch(updateRoomFrameState("default")) : dispatch(updateRoomFrameState("user"));
+    };
+
+    interface FileItem {
+        type: "FILE" | "DIRECTORY";
+        name: string;
+        children?: FileItem[];
     }
+
+    const [fileStructure, setFileStructure] = useState<FileItem[]>([]);
+
+    const handleFileClick = (fileName: string) => {
+        console.log(`File clicked: ${fileName}`);
+    };
+
+    const handleDirectoryClick = (directoryName: string) => {
+        setSelectedDirectory(directoryName); // 디렉토리 선택 시 상태 업데이트
+    };
+
+    const addItem = async (type: "FILE" | "DIRECTORY", name: string, parentDirectory: string | null = null) => {
+        try {
+            // 서버에 새 파일이나 디렉토리 생성 요청
+            const response = await createStorage({
+                parent_storage_id: parentDirectory || "root", // 루트 디렉토리에 생성하려면 "root"를 전달
+                type: type.toLowerCase(), // 서버에서 예상하는 형식에 맞게 변환
+                name: name,
+            });
+            console.log(response);
+
+            const newItem = {
+                type,
+                name,
+                children: type === "DIRECTORY" ? [] : undefined,
+            };
+
+            const newStructure = [...fileStructure];
+
+            const findDirectoryAndAddItem = (directory: FileItem): boolean => {
+                if (directory.name === parentDirectory) {
+                    directory.children?.push(newItem);
+                    return true;
+                } else if (directory.children && directory.children.length > 0) {
+                    for (let i = 0; i < directory.children.length; i++) {
+                        if (directory.children[i].type === "DIRECTORY") {
+                            if (findDirectoryAndAddItem(directory.children[i])) return true;
+                        }
+                    }
+                }
+                return false;
+            };
+
+            if (parentDirectory) {
+                for (let i = 0; i < newStructure.length; i++) {
+                    if (newStructure[i].type === "DIRECTORY") {
+                        if (findDirectoryAndAddItem(newStructure[i])) break;
+                    }
+                }
+            } else {
+                newStructure.push(newItem);
+            }
+
+            setFileStructure(newStructure);
+        } catch (error) {
+            console.error("Error creating item:", error);
+            // 에러 처리 로직 추가 가능 (ex: 사용자에게 에러 메시지 표시)
+        }
+    };
+
+    const handleNewFileClick = () => {
+        setIsAddingFile(!isAddingFile);
+        setIsAddingDirectory(false);
+    };
+
+    const handleNewDirectoryClick = () => {
+        setIsAddingFile(false);
+        setIsAddingDirectory(!isAddingDirectory);
+    };
+
+    const handleAddNewItem = () => {
+        if (newItemName.trim() === "") return;
+
+        if (isAddingFile) {
+            addItem("FILE", newItemName, selectedDirectory); // 선택된 디렉토리 또는 루트에 파일 추가
+        } else if (isAddingDirectory) {
+            addItem("DIRECTORY", newItemName, selectedDirectory); // 선택된 디렉토리 또는 루트에 디렉토리 추가
+        }
+
+        setNewItemName("");
+        setIsAddingFile(false);
+        setIsAddingDirectory(false);
+        setSelectedDirectory(null); // 추가 후 선택 해제
+    };
 
     return (
         <Styled.Container isCollapsed={isCollapsed}>
@@ -73,14 +173,33 @@ export default function IDEPersonal() {
                                       onClick={handleQuestionButtonClick}/>
                     </Styled.MiddleMenuBar>
                     <Styled.BottomMenuBar>
-                        <ProfileImage src={newFileIcon} width={"16px"} height={"16px"}/>
-                        <ProfileImage src={newFolderIcon} width={"14px"} height={"14px"}/>
+                        <ProfileImage src={newFileIcon} width={"16px"} height={"16px"} onClick={handleNewFileClick}/>
+                        <ProfileImage src={newFolderIcon} width={"14px"} height={"14px"}
+                                      onClick={handleNewDirectoryClick}/>
                         <ProfileImage src={refreshIcon} width={"16px"} height={"16px"}/>
                     </Styled.BottomMenuBar>
+                    {(isAddingFile || isAddingDirectory) && (
+                        <Row>
+                            <input
+                                type="text"
+                                value={newItemName}
+                                onChange={(e) => setNewItemName(e.target.value)}
+                                placeholder={isAddingFile ? "Enter file name" : "Enter directory name"}
+                            />
+                            <button onClick={handleAddNewItem}>Add</button>
+                        </Row>
+                    )}
                 </>
             )}
             <Styled.DirectoryList isCollapsed={isCollapsed}>
-                {!isCollapsed && 'Directory List init'}
+                {!isCollapsed && (
+                    <CodeTree
+                        structure={fileStructure}
+                        onFileClick={handleFileClick}
+                        onDirectoryClick={handleDirectoryClick}
+                        onAddItem={addItem}
+                    />
+                )}
             </Styled.DirectoryList>
         </Styled.Container>
     );

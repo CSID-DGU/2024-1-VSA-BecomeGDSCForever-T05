@@ -57,4 +57,8 @@ export const DirectoryList = styled.div<ContainerProps>`
     text-align: center;
     color: white;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
 `;
