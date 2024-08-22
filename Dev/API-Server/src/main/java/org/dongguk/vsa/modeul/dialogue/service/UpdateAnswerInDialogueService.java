@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
-import org.dongguk.vsa.modeul.dialogue.dto.request.UpdateDialogueAnswerRequestDto;
+import org.dongguk.vsa.modeul.dialogue.dto.request.UpdateAnswerInDialogueRequestDto;
 import org.dongguk.vsa.modeul.dialogue.repository.mysql.DialogueRepository;
-import org.dongguk.vsa.modeul.dialogue.usecase.UpdateDialogueAnswerUseCase;
+import org.dongguk.vsa.modeul.dialogue.usecase.UpdateAnswerInDialogueUseCase;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakRole;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
 import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateDialogueAnswerService implements UpdateDialogueAnswerUseCase {
+public class UpdateAnswerInDialogueService implements UpdateAnswerInDialogueUseCase {
 
     private final DialogueRepository dialogueRepository;
     private final UserRepository userRepository;
@@ -27,7 +27,7 @@ public class UpdateDialogueAnswerService implements UpdateDialogueAnswerUseCase 
 
     @Override
     @Transactional
-    public void execute(UpdateDialogueAnswerRequestDto requestDto, Long dialogueId, UUID accountId) {
+    public void execute(UpdateAnswerInDialogueRequestDto requestDto, Long dialogueId, UUID accountId) {
         // 1. 대화 및 사용자 정보 조회
         Dialogue dialogue = dialogueRepository.findDialogueAndModeullakById(dialogueId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));

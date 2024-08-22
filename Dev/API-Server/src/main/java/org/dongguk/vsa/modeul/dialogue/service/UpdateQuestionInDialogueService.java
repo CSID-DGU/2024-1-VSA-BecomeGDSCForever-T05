@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
-import org.dongguk.vsa.modeul.dialogue.dto.request.UpdateDialogueQuestionRequestDto;
+import org.dongguk.vsa.modeul.dialogue.dto.request.UpdateQuestionInDialogueRequestDto;
 import org.dongguk.vsa.modeul.dialogue.repository.mysql.DialogueRepository;
-import org.dongguk.vsa.modeul.dialogue.usecase.UpdateDialogueQuestionUseCase;
+import org.dongguk.vsa.modeul.dialogue.usecase.UpdateQuestionInDialogueUseCase;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserRepository;
 import org.springframework.stereotype.Service;
@@ -16,14 +16,14 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateDialogueQuestionService implements UpdateDialogueQuestionUseCase {
+public class UpdateQuestionInDialogueService implements UpdateQuestionInDialogueUseCase {
 
     private final DialogueRepository dialogueRepository;
     private final UserRepository userRepository;
 
     @Override
     @Transactional
-    public void execute(UpdateDialogueQuestionRequestDto requestDto, UUID accountId, Long dialogueId) {
+    public void execute(UpdateQuestionInDialogueRequestDto requestDto, UUID accountId, Long dialogueId) {
 
         // 1. 대화 및 사용자 정보 조회
         Dialogue dialogue = dialogueRepository.findById(dialogueId)

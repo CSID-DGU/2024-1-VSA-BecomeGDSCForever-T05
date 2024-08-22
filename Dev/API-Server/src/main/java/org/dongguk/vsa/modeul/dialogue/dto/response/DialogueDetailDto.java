@@ -11,7 +11,7 @@ import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
 import java.time.LocalDateTime;
 
 @Getter
-public class DialogueDetailResponseDto extends SelfValidating<DialogueDetailResponseDto> {
+public class DialogueDetailDto extends SelfValidating<DialogueDetailDto> {
 
     @NotNull
     @JsonProperty("id")
@@ -45,7 +45,7 @@ public class DialogueDetailResponseDto extends SelfValidating<DialogueDetailResp
     private final Boolean isAnsweredByLlm;
 
     @Builder
-    public DialogueDetailResponseDto(
+    public DialogueDetailDto(
             Long id,
             String questionShortCode,
             String questionLongCode,
@@ -66,8 +66,8 @@ public class DialogueDetailResponseDto extends SelfValidating<DialogueDetailResp
         validateSelf();
     }
 
-    public static DialogueDetailResponseDto fromEntity(Dialogue dialogue) {
-        return DialogueDetailResponseDto.builder()
+    public static DialogueDetailDto fromEntity(Dialogue dialogue) {
+        return DialogueDetailDto.builder()
                 .id(dialogue.getId())
                 .questionShortCode(dialogue.getQuestionShortCode())
                 .questionLongCode(dialogue.getQuestionLongCode())
