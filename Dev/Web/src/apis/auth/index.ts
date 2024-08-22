@@ -4,10 +4,14 @@ import publicInstance from "@/apis/base/publicInstance.ts";
 export const postFormLogin = async (data: { email: string; password: string }) => {
     const formData = new FormData();
 
-    formData.append("email", data.email);
+    formData.append("serial_id", data.email);
     formData.append("password", data.password);
 
-    const response = await authInstance.post("/auth/login", formData);
+    const response = await authInstance.post("/auth/login", formData, {
+        headers: {
+            "Content-type": "multipart/form-data",
+        }
+    });
 
     return response.data;
 }
