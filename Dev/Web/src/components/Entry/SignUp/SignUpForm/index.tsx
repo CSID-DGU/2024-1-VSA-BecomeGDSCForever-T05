@@ -170,7 +170,7 @@ export default function SignUpForm() {
 
     return (
         <Styled.Container>
-            <SizedBox width={"1160px"} height={"132px"}/>
+            <SizedBox width={"1160px"} height={"60px"}/>
             <Styled.Form>
                 <Styled.Title>회원가입</Styled.Title>
                 <SizedBox width={"600px"} height={"60px"}/>

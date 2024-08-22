@@ -7,7 +7,7 @@ import SubTitle from "@/components/Entry/SvgItem/SubTitle";
 export default function LoginSvg() {
     return (
         <Styled.Container>
-            <SizedBox height={"308px"}/>
+            <SizedBox height={"328px"}/>
             <Styled.Logo>
                 <Logo width={"321.025.px"} height={"304.001px"}/>
             </Styled.Logo>

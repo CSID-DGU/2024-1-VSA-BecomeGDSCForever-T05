@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    height: 1080px;
+    height: 100vh;
     width: 1160px;
     display: flex;
     justify-content: start;
     flex-direction: column;
+    //border: 1px dotted blue;
 `;
 
 export const Form = styled.div`
@@ -19,7 +20,7 @@ export const Title = styled.div`
     width: 600px;
     height: 60px;
     font-size: 3rem;
-    color: ${({ theme }) => theme.colorSystem.black};
+    color: ${({theme}) => theme.colorSystem.black};
     font-family: SUIT, serif;
     font-style: normal;
     font-weight: 700;
@@ -28,11 +29,11 @@ export const Title = styled.div`
 
 export const SignUpTextContainer = styled.div`
     font-size: 1rem;
-    color: ${({ theme }) => theme.colorSystem.black};
+    color: ${({theme}) => theme.colorSystem.black};
 `;
 
 export const SignUpLink = styled.a`
-    color: ${({ theme }) => theme.colorSystem.black};
+    color: ${({theme}) => theme.colorSystem.black};
     text-decoration: underline;
     text-underline-offset: 3px;
 `;
@@ -52,8 +53,8 @@ export const AtMark = styled.div`
     height: 20px;
     padding-left: 12px;
     padding-right: 12px;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
 `;
 
 export const AuthCode = styled.div`

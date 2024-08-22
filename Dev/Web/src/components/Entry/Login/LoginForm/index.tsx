@@ -62,7 +62,7 @@ export default function LoginForm({toggleForm}: SignUpProps) {
 
     return (
         <Styled.Container>
-            <SizedBox width={"760px"} height={"293px"}/>
+            <SizedBox width={"760px"} height={"333px"}/>
             <Styled.Form>
                 <Styled.Title>로그인</Styled.Title>
                 <SizedBox width={"600px"} height={"60px"}/>
