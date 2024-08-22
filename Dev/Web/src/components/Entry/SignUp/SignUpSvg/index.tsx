@@ -1,4 +1,8 @@
 import * as Styled from "./style.ts";
+import SizedBox from "@/components/Common/SizedBox";
+import Logo from "@/components/Entry/SvgItem/Logo";
+import Arrow from "@/components/Entry/SvgItem/Arrow";
+import Title from "@/components/Entry/SvgItem/Title";
 
 interface SignUpProps {
     onClick: () => void;
