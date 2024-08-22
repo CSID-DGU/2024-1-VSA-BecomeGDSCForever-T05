@@ -3,6 +3,8 @@ package org.dongguk.vsa.modeul.core.utility;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
+import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -21,6 +23,10 @@ public class CookieUtil {
      */
     public static Optional<String> refineCookie(HttpServletRequest request, String name) {
         Cookie[] cookies = request.getCookies();
+
+        if (cookies == null) {
+            throw new CommonException(ErrorCode.INVALID_HEADER_ERROR);
+        }
 
         return Arrays.stream(cookies)
                 .filter(cookie -> cookie.getName().equals(name))
