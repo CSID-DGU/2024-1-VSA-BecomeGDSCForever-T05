@@ -1,5 +1,8 @@
 import * as Styled from "./style.ts";
 import SizedBox from "@/components/Common/SizedBox";
+import Logo from "@/components/Entry/SvgItem/Logo";
+import Title from "@/components/Entry/SvgItem/Title";
+import SubTitle from "@/components/Entry/SvgItem/SubTitle";
 
 export default function LoginSvg() {
     return (
@@ -13,8 +16,8 @@ export default function LoginSvg() {
                 <Title width={"681.376px"} height={"54.39px"}/>
             </Styled.Title>
             <SizedBox height={"32.37px"}/>
-            <Styled.SubTitle>
-                <SubTitle/>
+            <Styled.SubTitle/>
+            <SubTitle/>
         </Styled.Container>
     )
 }
