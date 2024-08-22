@@ -21,10 +21,6 @@ export const Title = styled.div`
     height: 60px;
     font-size: 3rem;
     color: ${({theme}) => theme.colorSystem.black};
-    font-family: SUIT, serif;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 60px; /* 125% */
 `;
 
 export const SignUpTextContainer = styled.div`

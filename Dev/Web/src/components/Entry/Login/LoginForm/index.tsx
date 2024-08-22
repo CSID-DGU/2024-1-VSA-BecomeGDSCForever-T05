@@ -8,6 +8,7 @@ import {CONSTANT} from "@/constants/Constant.ts";
 import React, {useEffect, useState} from "react";
 import {postFormLogin} from "@/apis/auth";
 import Alert from "@/components/Common/Alert";
+import H0 from "@/components/Common/Font/Heading/H0";
 
 interface SignUpProps {
     toggleForm: () => void;
@@ -64,7 +65,9 @@ export default function LoginForm({toggleForm}: SignUpProps) {
         <Styled.Container>
             <SizedBox width={"760px"} height={"333px"}/>
             <Styled.Form>
-                <Styled.Title>로그인</Styled.Title>
+                <Styled.TitleWrapper>
+                    <H0 text={"로그인"}/>
+                </Styled.TitleWrapper>
                 <SizedBox width={"600px"} height={"60px"}/>
                 <Label text={"이메일"}/>
                 <SizedBox width={"600px"} height={"8px"}/>
