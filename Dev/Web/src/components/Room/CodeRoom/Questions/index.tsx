@@ -9,6 +9,8 @@ import BlackDoubleRightArrow from "@/assets/icons/CodeIde/BlackDoubleRightArrow.
 import theme from "@/shared/theme.ts";
 import Sub1 from "@/components/Common/Font/Body/Sub1";
 import CustomMarkdown from "@/components/Common/CustomMarkdown";
+import {createDialogue} from "@/apis/dialogue";
+import Alert from "@/components/Common/Alert";
 
 interface Question {
     text: string;
@@ -20,23 +22,34 @@ interface props {
     editorRef: React.RefObject<monaco.editor.IStandaloneCodeEditor>;
     language: string;
     highlightedText: string | null;
+    modeullakId: number;
+    storageId: string;
 }
 
 export default function Questions(props: props) {
     const [question, setQuestion] = useState("");
-    const [questions, setQuestions] = useState<Question[]>([]);
     const [isVisible, setIsVisible] = useState<boolean>(true);
+    const [isAlertOpen, setIsAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
-    const handleAddQuestion = () => {
+    const handleAddQuestion = async () => {
         if (!props.highlightedText || props.highlightedText.trim() === "") {
-            alert("코드를 선택해주세요.");
+            setIsAlertOpen(true);
+            setAlertMessage("코드를 선택해주세요.");
             return;
         }
 
         const codeBlock = `\`\`\`${props.language}\n${props.highlightedText}\n\`\`\``;
 
-        setQuestions([...questions, {text: codeBlock, question, answers: []}]);
-        setQuestion("");
+        try {
+            await createDialogue(props.modeullakId, props.storageId, codeBlock, question);
+
+            setIsVisible(false);
+            setQuestion("");
+        } catch (error) {
+            setIsAlertOpen(true);
+            setAlertMessage(error.response.data.error.message);
+        }
     };
 
     useEffect(() => {
@@ -44,12 +57,6 @@ export default function Questions(props: props) {
             setQuestion("");
         }
     }, [props.highlightedText]);
-
-    const handleQuestionKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            handleAddQuestion();
-        }
-    };
 
     return (
         <Styled.Container isVisible={isVisible}>
@@ -69,7 +76,6 @@ export default function Questions(props: props) {
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
                         placeholder="질문을 입력하세요"
-                        onKeyDown={() => handleQuestionKeyPress}
                     />
                     <SizedBox width={"auto"} height={"40px"}/>
                     <Styled.ButtonWrapper>
@@ -79,6 +85,11 @@ export default function Questions(props: props) {
                     </Styled.ButtonWrapper>
                 </Styled.QuestionInputContainer>
             )}
+            {
+                isAlertOpen && (
+                    <Alert title={alertMessage} onClick={() => setIsAlertOpen(false)}/>
+                )
+            }
         </Styled.Container>
     );
 }
