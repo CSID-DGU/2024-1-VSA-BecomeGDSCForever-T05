@@ -34,15 +34,15 @@ public class SignUpByDefaultService implements SignUpByDefaultUseCase {
     private final JsonWebTokenUtil jsonWebTokenUtil;
 
     @Override
-    public DefaultJsonWebTokenDto execute(String temporaryToken, SignUpByDefaultRequestDto requestDto) {
+    public DefaultJsonWebTokenDto execute(SignUpByDefaultRequestDto requestDto) {
         // Temporary Token 검증
-        Claims claims = jsonWebTokenUtil.validateToken(temporaryToken);
+        Claims claims = jsonWebTokenUtil.validateToken(requestDto.temporaryToken());
 
         // Email 추출
         String email = claims.get(Constants.ACCOUNT_ID_CLAIM_NAME, String.class);
 
         // Temporary Token 존재 여부 확인
-        if (!isEqualsTemporaryToken(email, temporaryToken)) {
+        if (!isEqualsTemporaryToken(email, requestDto.temporaryToken())) {
             throw new CommonException(ErrorCode.INVALID_TOKEN_ERROR);
         }
 

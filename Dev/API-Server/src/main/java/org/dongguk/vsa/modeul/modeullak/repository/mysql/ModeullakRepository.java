@@ -2,6 +2,7 @@ package org.dongguk.vsa.modeul.modeullak.repository.mysql;
 
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
+import org.dongguk.vsa.modeul.user.domain.mysql.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -41,6 +42,18 @@ public interface ModeullakRepository extends JpaRepository<Modeullak, Long> {
     )
     List<Modeullak> findAllModeullaksByAccountIdAndStatusAndWhichAt(
             @Param("accountId") UUID accountId,
+            @Param("status") EModeullakStatus status,
+            @Param("startedAt") LocalDateTime startedAt,
+            @Param("endedAt") LocalDateTime endedAt
+    );
+
+    @Query(
+            "SELECT m " +
+            "FROM Modeullak m JOIN FETCH m.users mu JOIN FETCH mu.user u " +
+            "WHERE mu.user = :user AND m.status = :status AND m.startedAt BETWEEN :startedAt AND :endedAt"
+    )
+    List<Modeullak> findAllByUserAndStatusAndStartedAtBetween(
+            @Param("user") User user,
             @Param("status") EModeullakStatus status,
             @Param("startedAt") LocalDateTime startedAt,
             @Param("endedAt") LocalDateTime endedAt
