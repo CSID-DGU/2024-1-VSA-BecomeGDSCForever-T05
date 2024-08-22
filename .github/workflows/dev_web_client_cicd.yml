@@ -51,8 +51,8 @@ jobs:
           key: ${{ secrets.GATEWAY_SSH_KEY }}
           port: ${{ secrets.GATEWAY_SSH_PORT }}
           script: |
-            rm -rf ${{ secret.GATEWAY_SSH_TARGET }}
-            mkdir -p ${{ secret.GATEWAY_SSH_TARGET }}
+            rm -rf ${{ secrets.GATEWAY_SSH_TARGET }}
+            mkdir -p ${{ secrets.GATEWAY_SSH_TARGET }}
 
       - name: Deploy to Gateway
         uses: appleboy/scp-action@master
