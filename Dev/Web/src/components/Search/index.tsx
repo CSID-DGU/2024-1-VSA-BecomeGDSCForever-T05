@@ -5,7 +5,7 @@ import Sub1 from "@/components/Common/Font/Body/Sub1";
 import theme from "@/shared/theme.ts";
 import Button from "@/components/Search/Button";
 import Modal from "@/components/Modal";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "@/stores/store.ts";
 import {checkModeullakCode} from "@/apis/modeullak";
@@ -20,12 +20,22 @@ export default function Search() {
 
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const [placeHolderMessage, setPlaceHolderMessage] = useState<string>("모들락을 검색해주세요.");
+    const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
 
     const handleAlertClose = () => {
         setIsAlertOpen(false);
     }
 
     const participatedModeullakState = useSelector((state: RootState) => state.participatedModeullakState);
+
+
+    // 참여중인 모들락이 있을 경우, placeholder 메시지 변경
+    useEffect(() => {
+        if (participatedModeullakState.modeullakId !== null)
+            setPlaceHolderMessage("현재 참여중인 모들락이 종료된 후에 다른 모들락에 참여할 수 있습니다.");
+        setIsInputDisabled(true);
+    }, [participatedModeullakState.modeullakId]);
 
     const handleClose = () => {
         setIsOpen(false);
@@ -67,7 +77,8 @@ export default function Search() {
     return (
         <Styled.Container>
             <Styled.Input>
-                <Input placeholder={"모들락을 검색해주세요."} width={"600px"} borderRadius={"30px"} onChange={handleInputChange}/>
+                <Input placeholder={placeHolderMessage} width={"600px"} borderRadius={"30px"}
+                       onChange={handleInputChange} disabled={isInputDisabled}/>
                 <SizedBox width={"600px"} height={"8px"}/>
                 <Styled.Label>
                     <SizedBox width={"30px"} height={"20px"}/>
@@ -82,6 +93,7 @@ export default function Search() {
                     <SizedBox width={"30px"} height={"20px"}/>
                 </Styled.Label>
             </Styled.Input>
+
             <SizedBox width={"80px"} height={"88px"}/>
             <Button onClick={handleJoinOpen} isParticipated={participatedModeullakState.modeullakId !== null}/>
             {
