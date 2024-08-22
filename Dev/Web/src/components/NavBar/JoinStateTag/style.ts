@@ -10,4 +10,6 @@ export const Container = styled.div`
     border-radius: 12px;
     background: ${theme.colorSystem.secondary["500"]};
     color: ${theme.colorSystem.white};
+
+    cursor: pointer;
 `

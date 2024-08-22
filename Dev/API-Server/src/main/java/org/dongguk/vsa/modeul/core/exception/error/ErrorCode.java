@@ -31,6 +31,7 @@ public enum ErrorCode {
     NOT_CREATE_STORAGE_IN_FILE(40009, HttpStatus.BAD_REQUEST, "파일에 저장소를 생성할 수 없습니다."),
     INVALID_PARTICIPATION_CODE(40010, HttpStatus.BAD_REQUEST, "유효하지 않은 참여 코드입니다."),
     INVALID_RESOURCE_TYPE(40011, HttpStatus.BAD_REQUEST, "유효하지 않은 리소스 타입입니다."),
+    INVALID_DIALOGUE_TYPE(40012, HttpStatus.BAD_REQUEST, "유효하지 않은 대화 타입입니다."),
 
     MODEULLAK_NOT_STARTED(40012, HttpStatus.BAD_REQUEST, "진행 중인 모들락이 없습니다."),
     NOT_COMPLETED_LLM_PROCESSING(40009, HttpStatus.BAD_REQUEST, "아직 정리되지 않은 모들락 처리입니다."),
@@ -50,6 +51,9 @@ public enum ErrorCode {
     TOKEN_GENERATION_ERROR(40106, HttpStatus.UNAUTHORIZED, "토큰 생성에 실패하였습니다."),
     TOKEN_UNKNOWN_ERROR(40107, HttpStatus.UNAUTHORIZED, "알 수 없는 토큰입니다."),
 
+    // Locked Error
+    PENDING_DIALOGUE_LOCKED(42300, HttpStatus.LOCKED, "Pending 상태의 대화에 접근할 수 없습니다."),
+
     // Too Many Requests Error
     TOO_FAST_AUTHENTICATION_CODE_REQUESTS(42900, HttpStatus.TOO_MANY_REQUESTS, "인증코드 발급 속도가 너무 빠릅니다."),
     TOO_MANY_AUTHENTICATION_CODE_REQUESTS(42901, HttpStatus.TOO_MANY_REQUESTS, "인증코드 발급 요청이 너무 많습니다."),
@@ -59,9 +63,8 @@ public enum ErrorCode {
     INTERNAL_DATA_ERROR(50001, HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 데이터 에러입니다."),
 
     // External Server Error
-    EXTERNAL_SERVER_ERROR(50200, HttpStatus.BAD_GATEWAY, "서버 외부 에러입니다."),
+    EXTERNAL_SERVER_ERROR(50200, HttpStatus.BAD_GATEWAY, "서버 외부 에러입니다.");
 
-    ;
 
     private final Integer code;
     private final HttpStatus httpStatus;

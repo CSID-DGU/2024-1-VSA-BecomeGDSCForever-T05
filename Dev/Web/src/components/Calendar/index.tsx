@@ -1,107 +1,79 @@
-import {useEffect, useState} from "react";
 import * as S from "./style";
 import {CalendarProps} from "react-calendar";
 
 import Next from "@/assets/icons/NextLabelIcon.svg";
 import Prev from "@/assets/icons/PrevLabelIcon.svg";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "@/stores/store.ts";
-import {updateDate} from "@/stores/slices/date.slice.ts";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "@/stores/store.ts";
+import {updateSelectedDate, updateStartedAtAndEndedAt} from "@/stores/slices/calendar/calendar.slice.ts";
+import {useModeullakCalendarTag} from "@/hooks/modeullak/useModeullakCalendarTag.ts";
+import {convertDateToString} from "@/utils/dateTimeUtil.ts";
+import React from "react";
 
-const MyCalendar = () => {
-    // useState 훅의 초기값으로 현재 날짜를 넣어줌
-    const [today, setToday] = useState<Date>(new Date());
-    const [selectedDate, setSelectedDate] = useState<Date | string | null>();
+export default function ModeullakCalendar() {
 
-    // redux
     const dispatch = useDispatch<AppDispatch>();
+    const calendarState = useSelector((state: RootState) => state.calendarState);
+    const modeullakCalendarTag = useModeullakCalendarTag(calendarState.startedAt, calendarState.endedAt);
 
-    // onChange 이벤트에 넣어줘서 날짜가 지날 때마다 today값이 업데이트 되도록 구현
-    const onChangeToday = (): void => {
-        setToday(today);
-    };
-
+    /* --------------------------------------------------------------------------- */
+    /* Calendar State------------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
     const onClickDate = (value: Date): void => {
-        dispatch(updateDate(value))
-        setSelectedDate(formatDate(value));
+        dispatch(updateSelectedDate(convertDateToString(value)));
     };
-    // 선택 날짜 적용을 위한 useEffect
-    useEffect(() => {
-        if (selectedDate) {
 
-            console.log("selectedDate:", selectedDate);
+    const onActiveStartDateChange = ({action, activeStartDate, view}: {
+        action: string;
+        activeStartDate: Date | null;
+        view: string
+    }) => {
+        if (action !== null && view !== null) {
+            dispatch(updateStartedAtAndEndedAt({
+                startedAt: convertDateToString(new Date(activeStartDate!.getFullYear(), activeStartDate!.getMonth(), 1)),
+                endedAt: convertDateToString(new Date(activeStartDate!.getFullYear(), activeStartDate!.getMonth() + 1, 0))
+            }))
         }
-    }, [selectedDate]);
+    };
 
-    // 요일 이름 길게 만들기(ex. mon, tue, ... -> Monday, Tuesday, ...)
     const formatDay: CalendarProps["formatShortWeekday"] = (locale, date) => {
         return date.toLocaleDateString(locale, {weekday: "long"});
     };
 
-    const formatMonthYear: CalendarProps["formatMonthYear"] = (locale, date) => {
+    const formatMonthYear: CalendarProps["formatMonthYear"] = (_, date) => {
         return date.toLocaleDateString("ko-KR", {year: "numeric", month: "long"});
     };
 
-    const formatYear: CalendarProps["formatYear"] = (locale, date) => {
+    const formatYear: CalendarProps["formatYear"] = (_, date) => {
         return date.toLocaleDateString("ko-KR", {year: "numeric"});
     };
 
-    // 날짜 형식을 yyyy-mm-dd로 변환
-    const formatDate = (date: Date): string => {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
-    };
-
-    // 목데이터
-    const dayList = [
-        "2024-07-02",
-        "2024-07-05",
-        "2024-07-08",
-        "2024-07-10",
-        "2024-07-14",
-        "2024-07-17",
-        "2024-07-20",
-        "2024-07-28",
-    ];
-
-    // 날짜를 비교하는 함수
     const isSameDay = (date1: Date, date2: Date) => {
         const d1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
         const d2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
         return d1.getTime() === d2.getTime();
     };
 
-    // 태그 처리 로직
     const tileContent = ({date, view}: { date: Date; view: string }) => {
-        const contents: any[] = [];
-        const tags = ["C#", "java", "C", "OS", "machineLearning"]; // 태그 더미 데이터
+        const contents: React.ReactNode[] = [];
 
         if (view === "month") {
-            if (date.toDateString() === new Date().toDateString()) {
-                return <S.TodayContainer>오늘</S.TodayContainer>;
-            }
-
-            if (dayList.find((day) => isSameDay(date, new Date(day)))) {
-                const visibleTags = tags.slice(0, 3);
-                const moreTags =
-                    tags.length > 4 ? <span className="more">...</span> : null;
-
-                contents.push(
-                    <S.TagList>
-                        {visibleTags.map((tag, index) => (
-                            <span key={index} className="tag">
-                {tag}
-              </span>
-                        ))}
-                        {moreTags}
-                    </S.TagList>
-                );
-            }
+            modeullakCalendarTag.tags.forEach((tag) => {
+                if (isSameDay(date, new Date(tag.date))) {
+                    contents.push(
+                        <S.TagList>
+                            {tag.tags.map((tag, index) => (
+                                <span key={index} className="tag">
+                                    {tag}
+                                </span>
+                            ))}
+                        </S.TagList>
+                    );
+                }
+            })
         }
 
-        return <div>{contents}</div>;
+        return <>{contents}</>;
     };
 
     return (
@@ -109,9 +81,8 @@ const MyCalendar = () => {
             <S.StyleCalendar
                 locale="en"
                 calendarType="gregory"
-                onChange={onChangeToday}
                 onClickDay={onClickDate}
-                value={today}
+                value={calendarState.selectedDate}
                 formatShortWeekday={formatDay}
                 formatMonthYear={formatMonthYear}
                 formatYear={formatYear}
@@ -121,11 +92,10 @@ const MyCalendar = () => {
                 prev2Label={null}
                 showNeighboringMonth={false}
                 tileContent={tileContent}
-                minDate={new Date(2024, 0, 1)} // 2024년 1월 1일부터
-                maxDate={new Date(2030, 11, 31)} // 2030년 12월 31일까지
+                onActiveStartDateChange={onActiveStartDateChange}
+                minDate={new Date(2024, 0, 1)}
+                maxDate={new Date(2030, 11, 31)}
             />
         </S.CalendarBox>
     );
-};
-
-export default MyCalendar;
+}

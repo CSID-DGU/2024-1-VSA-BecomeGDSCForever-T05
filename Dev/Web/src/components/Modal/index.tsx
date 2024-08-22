@@ -8,10 +8,16 @@ import Row from "../Common/Row";
 import ModalButton from "./ModalButton";
 import theme from "@/shared/theme";
 import SizedBox from "@/components/Common/SizedBox";
+import {useModeullakBrief} from "@/hooks/modeullak/useModeullakBrief.ts";
+import {createModeullak, joinModeullak} from "@/apis/modeullak";
+import {useNavigate} from "react-router-dom";
+import {CONSTANT} from "@/constants/Constant.ts";
+import Alert from "@/components/Common/Alert";
 
 interface ModalProps {
     onClose: () => void;
     type: "create" | "join";
+    modeullakCode?: string;
 }
 
 interface ModuleTime {
@@ -21,13 +27,19 @@ interface ModuleTime {
 
 const Modal: React.FC<ModalProps> = (props) => {
     // const userRole = useSelector((state: any) => state.userRole);
-    const [roomName, setRoomeName] = React.useState<string>("");
+    const [roomName, setRoomName] = React.useState<string>("");
     const [questionTime, setQuestionTime] = React.useState<ModuleTime>({
         times: 1,
         minutes: 30,
     });
     const [languageList, setLanguageList] = React.useState<string[]>([]);
+    const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = React.useState<string>("");
 
+    const navigate = useNavigate();
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const modeullakBriefState = props.modeullakCode ? useModeullakBrief(props.modeullakCode!) : null;
 
     const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -39,6 +51,43 @@ const Modal: React.FC<ModalProps> = (props) => {
             .filter((lang) => lang.length > 0);
         setLanguageList(languages);
     };
+
+    const handleOnClick = async () => {
+
+        if (props.type === "create") {
+
+            try {
+                const response = await createModeullak({
+                    title: roomName,
+                    tags: languageList,
+                    hour: questionTime.times,
+                    minute: questionTime.minutes,
+                })
+
+                if (response.success) {
+                    navigate(CONSTANT.ROUTER.CODE + `/${response.data.id}`);
+                }
+            } catch (error) {
+                setIsAlertOpen(true);
+                setAlertMessage(error.response.data.error.message);
+            }
+        } else if (props.type === "join") {
+
+            try {
+                const response = await joinModeullak({
+                    modeullakId: modeullakBriefState.id,
+                    participationCode: props.modeullakCode!,
+                })
+
+                if (response.success) {
+                    navigate(CONSTANT.ROUTER.CODE + `/${response.data.id}`);
+                }
+            } catch (error) {
+                setIsAlertOpen(true);
+                setAlertMessage(error.response.data.error.message);
+            }
+        }
+    }
 
     // languageList가 업데이트될 때마다 콘솔에 출력
     React.useEffect(() => {
@@ -53,23 +102,6 @@ const Modal: React.FC<ModalProps> = (props) => {
             document.body.style.overflow = "auto";
         }
     }, []);
-
-    // 예시 코드
-    /*
-    const handleCreateSpace = async () => {
-      try {
-        const response = await axios.post("/api/create-space", {
-          roomName,
-          questionTime,
-          languages,
-        });
-        console.log("공간 생성 성공:", response.data);
-        onClose(); // 모달 닫기
-      } catch (error) {
-        console.error("공간 생성 실패:", error);
-      }
-    };
-    */
 
     return (
         <S.ModalBackground>
@@ -87,26 +119,38 @@ const Modal: React.FC<ModalProps> = (props) => {
                     color={theme.colorSystem.neutral["700"]}
                 />
                 <Sub1 text="방 이름" textAlign="start"/>
-                <S.Input
-                    type="text"
-                    placeholder="방 이름을 입력해주세요"
-                    value={roomName}
-                    onChange={(e) => setRoomeName(e.target.value)}
-                />
+                {
+                    props.type === "create" ? (
+                        <S.Input
+                            type="text"
+                            placeholder="방 이름을 입력해주세요"
+                            value={roomName}
+                            onChange={(e) => setRoomName(e.target.value)}
+                        />
+                    ) : (
+                        <S.Name>{modeullakBriefState!.title}</S.Name>
+                    )
+                }
                 <Sub1 text="질문 시간" textAlign="start"/>
                 <Row justifyContent="start" alignItems="center">
-                    <S.Input
-                        type="number"
-                        placeholder="1"
-                        style={{width: "180px"}}
-                        value={questionTime.times}
-                        onChange={(e) =>
-                            setQuestionTime({
-                                ...questionTime,
-                                times: parseInt(e.target.value),
-                            })
-                        }
-                    />
+                    {
+                        props.type === "create" ? (
+                            <S.Input
+                                type="number"
+                                placeholder="1"
+                                style={{width: "180px"}}
+                                value={questionTime.times}
+                                onChange={(e) =>
+                                    setQuestionTime({
+                                        ...questionTime,
+                                        times: parseInt(e.target.value),
+                                    })
+                                }
+                            />
+                        ) : (
+                            <S.Name style={{width: "180px"}}>{modeullakBriefState!.remainedHour}</S.Name>
+                        )
+                    }
 
                     <SizedBox width="8px"/>
 
@@ -114,30 +158,41 @@ const Modal: React.FC<ModalProps> = (props) => {
 
                     <SizedBox width="8px"/>
 
-                    <S.Input
-                        type="number"
-                        placeholder="30"
-                        style={{width: "180px"}}
-                        value={questionTime.minutes}
-                        onChange={(e) =>
-                            setQuestionTime({
-                                ...questionTime,
-                                minutes: parseInt(e.target.value),
-                            })
-                        }
-                    />
+                    {
+                        props.type === "create" ? (
+                            <S.Input
+                                type="number"
+                                placeholder="30"
+                                style={{width: "180px"}}
+                                value={questionTime.minutes}
+                                onChange={(e) =>
+                                    setQuestionTime({
+                                        ...questionTime,
+                                        minutes: parseInt(e.target.value),
+                                    })
+                                }
+                            />
+                        ) : (
+                            <S.Name style={{width: "180px"}}>{modeullakBriefState!.remainedMinute}</S.Name>
+                        )
+                    }
 
                     <SizedBox width="8px"/>
 
                     <Sub1 text="분" textAlign="start"/>
                 </Row>
                 <Sub1 text="해시태그" textAlign="start"/>
-                <S.Input
-                    type="text"
-                    placeholder="#Java #C++ #OOP"
-                    onChange={handleLanguageChange}
-                />
-                {/* {userRole === "student" && ( */}
+                {
+                    props.type === "create" ? (
+                        <S.Input
+                            type="text"
+                            placeholder="#Java #C++ #OOP"
+                            onChange={handleLanguageChange}
+                        />
+                    ) : (
+                        <S.Name>{modeullakBriefState!.tags.map(tag => `#${tag}`).join(" ")}</S.Name>
+                    )
+                }
                 {
                     props.type === "join" && (
                         <Sub2
@@ -151,10 +206,15 @@ const Modal: React.FC<ModalProps> = (props) => {
                 <ModalButton onClick={props.onClose} color={theme.colorSystem.neutral["200"]}>
                     취소하기
                 </ModalButton>
-                <ModalButton onClick={props.onClose} color={theme.colorSystem.primary["600"]}>
+                <ModalButton onClick={handleOnClick} color={theme.colorSystem.primary["600"]}>
                     {props.type === "create" ? "개설하기" : "참여하기"}
                 </ModalButton>
             </S.ModalContainer>
+            {
+                isAlertOpen && (
+                    <Alert title={alertMessage} onClick={() => setIsAlertOpen(false)}/>
+                )
+            }
         </S.ModalBackground>
     );
 };

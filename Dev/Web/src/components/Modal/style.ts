@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import theme from "@/shared/theme.ts";
 
 export const ModalBackground = styled.div`
     position: fixed;
@@ -32,4 +33,14 @@ export const Input = styled.input`
     box-sizing: border-box;
     border: 1px solid #D4D4E3;
     border-radius: 12px;
+`;
+
+export const Name = styled.div`
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #D4D4E3;
+    border-radius: 12px;
+
+    color: ${theme.colorSystem.neutral["700"]};
 `;

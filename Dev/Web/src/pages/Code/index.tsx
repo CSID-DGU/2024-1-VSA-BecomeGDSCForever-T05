@@ -5,10 +5,14 @@ import DefaultRoom from "@/components/Room/DefaultRoom";
 import UserRoom from "@/components/Room/UserRoom";
 import {useSelector} from "react-redux";
 import {RootState} from "@/stores/store.ts";
-
+import {useParams} from "react-router-dom";
 
 export default function Code() {
 
+    /* --------------------------------------------------------------------------- */
+    /* Modeullak State ----------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
+    const modeullakId = useParams().id;
     const RoomFrameState = useSelector((state: RootState) => state.roomFrameState.type);
 
     return (
@@ -16,7 +20,8 @@ export default function Code() {
             <IDEMulti/>
             <IDEPersonal/>
             {
-                RoomFrameState === "default" ? <DefaultRoom/> : <UserRoom/>
+                RoomFrameState === "default" ? <DefaultRoom modeullakId={parseInt(modeullakId)}/> :
+                    <UserRoom modeullakId={parseInt(modeullakId)}/>
             }
         </Styled.Container>
     );

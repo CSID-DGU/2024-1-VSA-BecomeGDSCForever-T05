@@ -7,14 +7,19 @@ import ProfileImage from "@/components/Common/ProfileImage";
 import DefaultProfile from "@/assets/icons/Profile/DefaultProfile.svg"
 import H3 from "@/components/Common/Font/Heading/H3";
 import JoinStateTag from "@/components/NavBar/JoinStateTag";
-import {useParticipatingModeul} from "@/hooks/useParticipatingModeul.ts";
+import {useParticipatedModeullak} from "@/hooks/modeullak/useParticipatedModeullak.ts";
+import {useNavigate} from "react-router-dom";
+import {CONSTANT} from "@/constants/Constant.ts";
 
 const NavBar: React.FC = () => {
 
-    const participatingModeulState = useParticipatingModeul();
+    const participatedModeullak = useParticipatedModeullak();
+    const navigate = useNavigate();
 
     const onLogoClick = (): void => {
-        alert("logo clicked!");
+        // reload
+        window.location.reload();
+        navigate(CONSTANT.ROUTER.HOME);
     }
 
     const onProfileCLick = (): void => {
@@ -31,9 +36,9 @@ const NavBar: React.FC = () => {
                 </Styled.NavMenuButton>
             </Styled.NavBarLeftSection>
             <Styled.NavBarRightSection>
-                {participatingModeulState.isParticipating ?
-                    <JoinStateTag text={`${participatingModeulState.name} 참여 중`}
-                                  id={participatingModeulState.id}/> : null
+                {participatedModeullak.modeullakId !== null ?
+                    <JoinStateTag text={`${participatedModeullak.modeullakTitle} 참여 중`}
+                                  id={participatedModeullak.modeullakId}/> : null
                 }
                 <ProfileImage src={DefaultProfile} onClick={onProfileCLick} width={"58.667px"} height={"58.667px"}/>
             </Styled.NavBarRightSection>

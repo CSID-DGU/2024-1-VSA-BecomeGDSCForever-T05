@@ -48,10 +48,7 @@ public class AuthController {
             HttpServletResponse response,
             @RequestBody @Valid SignUpByDefaultRequestDto requestDto
     ) throws IOException {
-        String temporaryToken = HeaderUtil.refineHeader(request, Constants.AUTHORIZATION_HEADER, Constants.BEARER_PREFIX)
-                .orElseThrow(() -> new CommonException(ErrorCode.INVALID_HEADER_ERROR));
-
-        DefaultJsonWebTokenDto tokenDto = signUpByDefaultUseCase.execute(temporaryToken, requestDto);
+        DefaultJsonWebTokenDto tokenDto = signUpByDefaultUseCase.execute(requestDto);
 
         // User-Agent 헤더를 통해 요청이 브라우저에서 온 것인지 확인
         String userAgent = request.getHeader("User-Agent");

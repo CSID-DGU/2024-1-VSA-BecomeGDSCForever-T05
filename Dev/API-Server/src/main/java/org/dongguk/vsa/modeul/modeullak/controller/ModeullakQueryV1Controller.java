@@ -20,7 +20,7 @@ public class ModeullakQueryV1Controller {
     private final ReadModeullakDetailUseCase readModeullakDetailUseCase;
 
     @GetMapping("/modeullaks/briefs")
-    public ResponseDto<?> readModeullakSummary(
+    public ResponseDto<?> readModeullakBrief(
             @RequestParam(value = "code") String participationCode
     ) {
         return ResponseDto.ok(readModeullakBriefUseCase.execute(participationCode));

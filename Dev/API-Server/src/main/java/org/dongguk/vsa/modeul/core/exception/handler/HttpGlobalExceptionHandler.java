@@ -112,15 +112,8 @@ public class HttpGlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     public ResponseDto<?> handleException(Exception e) {
         log.error("ExceptionHandler catch Exception : {}", e.getMessage());
-        if (isRunningOnLocal()) {
-            e.printStackTrace();
-        } else {
-            Sentry.captureException(e);
-        }
+        e.printStackTrace();
+        Sentry.captureException(e);
         return ResponseDto.fail(new CommonException(ErrorCode.INTERNAL_SERVER_ERROR));
-    }
-
-    private Boolean isRunningOnLocal() {
-        return SystemProperties.getProperty("spring.profiles.active") == null || SystemProperties.getProperty("spring.profiles.active").equals("local");
     }
 }
