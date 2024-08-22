@@ -1,0 +1,67 @@
+name: Dev - Web Client CI/CD
+
+on:
+  pull_request_target:
+    branches: ["dev"]
+    types:
+      - opened
+      - synchronize
+      - closed
+      - labeled
+
+jobs:
+  build:
+    if: contains(github.event.pull_request.labels.*.name, 'safe to web client 🚀') && github.event.pull_request.merged == true
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cache Node Modules
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: |
+          cd ./Dev/Web
+          npm install
+
+      - name: Create Environment File
+        run: |
+          cd ./Dev/Web
+          echo VITE_APP_SERVER_URL=${{ secrets.API_SERVER_URL }} >> .env
+
+      - name: Build Application
+        run: |
+          cd ./Dev/Web
+          npm run build
+
+      - name: Remove Original Files
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.GATEWAY_SSH_HOST }}
+          username: ${{ secrets.GATEWAY_SSH_USERNAME }}
+          password: ${{ secrets.GATEWAY_SSH_PASSWORD }}
+          key: ${{ secrets.GATEWAY_SSH_KEY }}
+          port: ${{ secrets.GATEWAY_SSH_PORT }}
+          script: |
+            rm -rf ${{ secret.GATEWAY_SSH_TARGET }}
+            mkdir -p ${{ secret.GATEWAY_SSH_TARGET }}
+
+      - name: Deploy to Gateway
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.GATEWAY_SSH_HOST }}
+          username: ${{ secrets.GATEWAY_SSH_USERNAME }}
+          password: ${{ secrets.GATEWAY_SSH_PASSWORD }}
+          key: ${{ secrets.GATEWAY_SSH_KEY }}
+          port: ${{ secrets.GATEWAY_SSH_PORT }}
+          source: "./Dev/Web/dist/*"
+          strip-components: 2
+          target: ${{ secrets.GATEWAY_SSH_TARGET }}
