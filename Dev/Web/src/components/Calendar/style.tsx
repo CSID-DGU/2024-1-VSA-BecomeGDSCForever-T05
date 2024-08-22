@@ -52,7 +52,7 @@ export const StyleCalendar = styled(Calendar)`
     }
 
     .react-calendar__navigation button:disabled {
-        background-color: #e8e8e8;
+        background: none;
     }
 
     .react-calendar__navigation button:enabled:hover,
