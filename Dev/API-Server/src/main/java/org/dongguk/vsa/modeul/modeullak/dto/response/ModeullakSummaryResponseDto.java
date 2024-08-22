@@ -31,7 +31,7 @@ public class ModeullakSummaryResponseDto extends SelfValidating<ModeullakSummary
 
     @JsonProperty("participation_code")
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z0-9]{10}$")
+    @Pattern(regexp = "^[a-zA-Z0-9]{6,14}$")
     private final String participationCode;
 
     @JsonProperty("total_time")
