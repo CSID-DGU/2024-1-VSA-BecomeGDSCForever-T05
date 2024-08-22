@@ -68,12 +68,16 @@ export default function DefaultRoom(props: props) {
             <SizedBox height={"28px"}/>
             <DefaultQuestionSummary modeullakId={props.modeullakId}/>
             <SizedBox height={"184px"}/>
-            <Row>
-                <Spacer flex={1} direction={"horizontal"}/>
-                <Styled.Button onClick={handleClose}>
-                    <H1 color={theme.colorSystem.white} text={"종료하기"}/>
-                </Styled.Button>
-            </Row>
+            {
+                modeullakSummaries.isHost && (
+                    <Row>
+                        <Spacer flex={1} direction={"horizontal"}/>
+                        <Styled.Button onClick={handleClose}>
+                            <H1 color={theme.colorSystem.white} text={"종료하기"}/>
+                        </Styled.Button>
+                    </Row>
+                )
+            }
             {
                 isAlertOpen && (
                     <Alert title={alertMessage} onClick={() => setIsAlertOpen(false)}/>

@@ -71,7 +71,35 @@ export const fetchModeullakKeywords = createAsyncThunk(
 )
 
 export const exitModeullak = async (modeullakId: number) => {
-    const response = await authInstance.patch(`/api/v1/modeullaks/${modeullakId}/statuses`);
+    const response = await authInstance.patch(`/api/v1/modeullaks/${modeullakId}`);
+
+    return response.data;
+}
+
+export const createModeullak = async (data: {
+    title: string,
+    hour: number,
+    minute: number,
+    tags: string[]
+}) => {
+    const response = await authInstance.post(`/api/v1/modeullaks`, {
+        title: data.title,
+        hour: data.hour,
+        minute: data.minute,
+        tags: data.tags,
+    });
+
+    return response.data;
+}
+
+export const joinModeullak = async (data: {
+    modeullakId: number,
+    participationCode: string
+}) => {
+    const response = await authInstance.post(`/api/v1/modeullaks/users`, {
+        modeullak_id: data.modeullakId,
+        participation_code: data.participationCode,
+    })
 
     return response.data;
 }
