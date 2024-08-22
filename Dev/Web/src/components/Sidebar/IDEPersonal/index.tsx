@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import * as Styled from './style';
 import Column from "@/components/Common/Column";
 import H3 from '@/components/Common/Font/Heading/H3';
@@ -27,6 +27,10 @@ export default function IDEPersonal() {
 
     const dispatch = useDispatch<AppDispatch>();
     const roomFrameState = useSelector((state: RootState) => state.roomFrameState);
+
+    useEffect(() => {
+
+    }, []);
 
     const toggleSidebar = () => {
         setIsCollapsed(!isCollapsed);

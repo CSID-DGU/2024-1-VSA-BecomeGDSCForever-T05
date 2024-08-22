@@ -12,7 +12,7 @@ interface FileItem {
     children?: FileItem[];
 }
 
-
+/* 목 데이터 리렉토리 구조
 const initialFileStructure: FileItem[] = [
     {
         type: "DIRECTORY",
@@ -31,11 +31,12 @@ const initialFileStructure: FileItem[] = [
             {type: "FILE", name: "useLocalStorage.js"},
         ],
     },
-    // 추가적인 디렉토리 및 파일들
 ];
 
+ */
+
 const CodeEditor: React.FC = () => {
-    const [fileStructure, setFileStructure] = useState<FileItem[]>(initialFileStructure);
+    // const [fileStructure, setFileStructure] = useState<FileItem[]>(initialFileStructure);
     const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
     const [value, setValue] = useState<string>(CODE_SNIPPETS["javascript"]);
     const [language, setLanguage] = useState<string>("javascript");
@@ -53,6 +54,7 @@ const CodeEditor: React.FC = () => {
                 setHighlightedText(null);
             }
         });
+
     };
 
     const onSelect = (selectedLanguage: string) => {
@@ -74,19 +76,20 @@ const CodeEditor: React.FC = () => {
                 <LanguageSelector language={language} onSelect={onSelect}/>
                 <Editor
                     height="75vh"
-                    theme="vs-dark"
+                    theme="vs"
                     defaultValue={CODE_SNIPPETS[language]}
                     language={language}
                     onMount={handleEditorMount}
                     value={value}
                     onChange={(val) => setValue(val || "")}
                 />
-                <Questions
-                    editorRef={editorRef}
-                    language={language}
-                    highlightedText={highlightedText}
-                />
+
             </Styled.EditorContainer>
+            <Questions
+                editorRef={editorRef}
+                language={language}
+                highlightedText={highlightedText}
+            />
         </Styled.Container>
     );
 };
