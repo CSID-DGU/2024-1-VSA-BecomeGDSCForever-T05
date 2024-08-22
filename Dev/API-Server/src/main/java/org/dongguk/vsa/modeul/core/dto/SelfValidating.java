@@ -1,5 +1,6 @@
 package org.dongguk.vsa.modeul.core.dto;
 
+import io.sentry.Sentry;
 import jakarta.validation.*;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
@@ -27,6 +28,7 @@ public abstract class SelfValidating<T> {
     protected void validateSelf() {
         Set<ConstraintViolation<T>> violations = validator.validate((T) this);
         if (!violations.isEmpty()) {
+            Sentry.captureException(new ConstraintViolationException(violations));
             throw new CommonException(ErrorCode.INTERNAL_DATA_ERROR);
         }
     }
