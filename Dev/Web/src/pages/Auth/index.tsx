@@ -3,7 +3,7 @@ import Login from "@/components/Entry/Login";
 import {useState} from "react";
 import SignUp from "@/components/Entry/SignUp";
 
-export default function Entry() {
+export default function Auth() {
     const [isLoginForm, setIsLoginForm] = useState<boolean>(true);
 
     const toggleForm = () => {
@@ -12,7 +12,7 @@ export default function Entry() {
 
     return (
         <Styled.Container>
-            {isLoginForm ? <Login toggleForm={toggleForm} /> : <SignUp onClick={toggleForm} />}
+            {isLoginForm ? <Login toggleForm={toggleForm}/> : <SignUp onClick={toggleForm}/>}
         </Styled.Container>
     );
 }
