@@ -7,6 +7,7 @@ interface props {
     width?: string;
     borderRadius?: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    disabled?: boolean;
 }
 
 export default function Input(props: props) {
@@ -14,7 +15,7 @@ export default function Input(props: props) {
     return (
         <Styled.InputFieldContainer>
             <Styled.InputContainer width={props.width} placeholder={props.placeholder} borderRadius={props.borderRadius}
-                                   onChange={props.onChange}/>
+                                   onChange={props.onChange} disabled={props.disabled}/>
         </Styled.InputFieldContainer>
     );
 }

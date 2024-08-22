@@ -28,12 +28,15 @@ export const ButtonContainer = styled.div`
 export const Container = styled.div`
     width: 30rem;
     height: auto;
+    min-height: 10rem;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     padding: 2rem;
     border-radius: 16px;
     background-color: ${theme.colorSystem.white};
     z-index: 8100;
+    border: none;
 `;
 
 export const StyledButton = styled.button`
@@ -41,6 +44,6 @@ export const StyledButton = styled.button`
     border-radius: 20px;
     padding: 1rem 2rem;
     cursor: pointer;
-
+    border: none;
     background-color: ${theme.colorSystem.primary["500"]};
 `;

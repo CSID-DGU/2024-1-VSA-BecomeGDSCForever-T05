@@ -4,18 +4,17 @@ import SizedBox from "@/components/Common/SizedBox";
 export default function LoginSvg() {
     return (
         <Styled.Container>
-            <SizedBox height={"308px"}/>
-            {/*<Styled.Logo>*/}
-            {/*    <Logo width={"321.025.px"} height={"304.001px"}/>*/}
-            {/*</Styled.Logo>*/}
-            {/*<SizedBox height={"30.17px"}/>*/}
-            {/*<Styled.Title>*/}
-            {/*    <Title width={"681.376px"} height={"54.39px"}/>*/}
-            {/*</Styled.Title>*/}
-            {/*<SizedBox height={"32.37px"}/>*/}
-            {/*<Styled.SubTitle>*/}
-            {/*    <SubTitle/>*/}
-            {/*</Styled.SubTitle>*/}
+            <SizedBox height={"328px"}/>
+            <Styled.Logo>
+                <Logo width={"321.025.px"} height={"304.001px"}/>
+            </Styled.Logo>
+            <SizedBox height={"30.17px"}/>
+            <Styled.Title>
+                <Title width={"681.376px"} height={"54.39px"}/>
+            </Styled.Title>
+            <SizedBox height={"32.37px"}/>
+            <Styled.SubTitle>
+                <SubTitle/>
         </Styled.Container>
     )
 }

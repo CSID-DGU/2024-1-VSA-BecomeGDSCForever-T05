@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 public class TagsWithDateListDto extends SelfValidating<TagsWithDateListDto> {
 
+    @JsonProperty("tags")
     @NotNull
     private final List<TagsWithDateDto> tagsWithDateList;
 

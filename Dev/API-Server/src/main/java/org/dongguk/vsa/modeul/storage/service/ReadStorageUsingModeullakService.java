@@ -42,7 +42,7 @@ public class ReadStorageUsingModeullakService implements ReadStorageUsingModeull
         }
 
         // 2. 조회할 UserModeullak 정보 조회
-        if (isHavenRole(user, modeullak)) {
+        if (isNotHavenRole(user, modeullak)) {
             throw new CommonException(ErrorCode.ACCESS_DENIED);
         }
 
@@ -59,7 +59,7 @@ public class ReadStorageUsingModeullakService implements ReadStorageUsingModeull
         return StorageDetailResponseDto.fromEntity(storage);
     }
 
-    private Boolean isHavenRole(User user, Modeullak modeullak) {
-        return userModeullakRepository.findByUserAndModeullak(user, modeullak).isPresent();
+    private Boolean isNotHavenRole(User user, Modeullak modeullak) {
+        return userModeullakRepository.findByUserAndModeullak(user, modeullak).isEmpty();
     }
 }

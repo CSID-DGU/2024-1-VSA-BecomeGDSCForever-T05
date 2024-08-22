@@ -9,6 +9,7 @@ import {CONSTANT} from "@/constants/Constant.ts";
 import React, {useEffect, useState} from "react";
 import {postRegister, validateAuthCode, validateEmail} from "@/apis/auth";
 import Alert from "@/components/Common/Alert";
+import H0 from "@/components/Common/Font/Heading/H0";
 
 
 export default function SignUpForm() {
@@ -170,9 +171,11 @@ export default function SignUpForm() {
 
     return (
         <Styled.Container>
-            <SizedBox width={"1160px"} height={"132px"}/>
+            <SizedBox width={"1160px"} height={"60px"}/>
             <Styled.Form>
-                <Styled.Title>회원가입</Styled.Title>
+                <Styled.Title>
+                    <H0 text={"회원가입"}/>
+                </Styled.Title>
                 <SizedBox width={"600px"} height={"60px"}/>
                 <Label text={"이름"}/>
                 <SizedBox width={"600px"} height={"8px"}/>
