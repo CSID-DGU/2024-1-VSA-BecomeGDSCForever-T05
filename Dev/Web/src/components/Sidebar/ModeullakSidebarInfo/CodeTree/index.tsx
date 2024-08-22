@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styled from "styled-components";
+import {ModeullakStorageBriefState} from "@/interfaces/states/storage/ModeullakStorageBriefState.ts";
 
 interface FileItem {
     type: "FILE" | "DIRECTORY";
@@ -8,7 +9,7 @@ interface FileItem {
 }
 
 interface FileTreeProps {
-    structure: FileItem[];
+    structure: ModeullakStorageBriefState[];
     level?: number;
     onFileClick: (fileName: string) => void;
     onDirectoryClick: (directoryName: string) => void;

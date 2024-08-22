@@ -2,7 +2,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import answerModalSlice from "@/stores/slices/modal/answerModal.slice.ts";
 import participatingModeulSlice from "@/stores/slices/modeullak/participatedModeullak.slice.ts";
 import keywordModalSlice from "@/stores/slices/modal/keywordModal.slice.ts";
-import roomFrameSlice from "@/stores/slices/roomFrame.slice.ts";
+import roomFrameSlice from "@/stores/slices/global/roomFrame.slice.ts";
 import modeullakSummariesSlice from "@/stores/slices/modeullak/modeullakSummaries.slice.ts";
 import modeullakDetailSlice from "@/stores/slices/modeullak/modeullakDetail.slice.ts";
 import modeullakBriefSlice from "@/stores/slices/modeullak/modeullakBrief.slice.ts";
@@ -17,6 +17,14 @@ import modeullakDialogueTemporarySummarySlice
     from "@/stores/slices/dialogue/modeullakDialogueTemporarySummary.slice.ts";
 import modeullakUserDialogueTemporarySummarySlice
     from "@/stores/slices/dialogue/modeullakUserDialogueTemporarySummary.slice.ts";
+import modeullakUserBriefSlice from "@/stores/slices/modeullak/modeullakUserBrief.slice.ts";
+import modeullakUserDependentDialogueTemporarySummarySlice
+    from "@/stores/slices/modeullak/modeullakUserDependentDialogueTemporarySummary.slice.ts";
+import hostSlice from "@/stores/slices/global/host.slice.ts";
+import selectedUserIdSlice from "@/stores/slices/global/selectedUserId.slice.ts";
+import modeullakStorageBriefSlice from "@/stores/slices/storage/modeullakStorageBrief.slice.ts";
+import selectedLanguageSlice from "@/stores/slices/global/selectedLanguage.slice.ts";
+import selectedStorageIdSlice from "@/stores/slices/global/selectedStorageId.slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -31,6 +39,7 @@ export const store = configureStore({
         modeullakBriefState: modeullakBriefSlice,
         modeullakOverviewsState: modeullakOverviewsSlice,
         modeullakKeywordState: modeullakKeywordSlice,
+        modeullakUserBriefState: modeullakUserBriefSlice,
 
         // Dialogue
         modeullakUserDialogueSummaryState: modeullakUserDialogueSummarySlice,
@@ -38,12 +47,21 @@ export const store = configureStore({
         dialogueKeywordBriefState: dialogueKeywordBriefSlice,
         modeullakDialogueTemporarySummaryState: modeullakDialogueTemporarySummarySlice,
         modeullakUserDialogueTemporarySummaryState: modeullakUserDialogueTemporarySummarySlice,
+        modeullakUserDependentDialogueSummaryState: modeullakUserDependentDialogueTemporarySummarySlice,
+
+        // Storage
+        modeullakStorageBriefState: modeullakStorageBriefSlice,
 
         // Modal
         answerModalState: answerModalSlice,
         keywordModalState: keywordModalSlice,
 
+        // Global
         roomFrameState: roomFrameSlice,
+        hostState: hostSlice,
+        selectedUserState: selectedUserIdSlice,
+        selectedLanguageState: selectedLanguageSlice,
+        selectedStorageState: selectedStorageIdSlice,
     },
 });
 

@@ -1,8 +1,8 @@
-import {RoomFrameState} from "@/interfaces/states/RoomFrameState.ts";
+import {RoomFrameState} from "@/interfaces/states/global/RoomFrameState.ts";
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState: RoomFrameState = {
-    type: "default"
+    type: "default",
 }
 
 export const roomFrameSlice = createSlice({

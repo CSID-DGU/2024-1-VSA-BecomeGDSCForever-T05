@@ -2,6 +2,7 @@ import ReactMarkdown from "react-markdown";
 import * as Styled from "./style";
 import {githubGist} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import {useState} from "react";
+import {decodeMarkdown} from "@/utils/serializeUtil.ts";
 
 interface props {
     shortCode: string;
@@ -45,7 +46,7 @@ export default function CustomMarkdown(props: props) {
                     },
                 }}
             >
-                {isShortCode ? props.shortCode : props.longCode}
+                {isShortCode ? decodeMarkdown(props.shortCode) : decodeMarkdown(props.longCode || "")}
             </ReactMarkdown>
         </Styled.MarkdownContainer>
     );

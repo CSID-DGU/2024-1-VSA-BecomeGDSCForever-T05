@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const ProfileImageWrapper = styled.div`
     position: relative;
     display: inline-block;
+
+    cursor: pointer;
 `;
 
 export interface ProfileImageProps {

@@ -202,7 +202,6 @@ const Modal: React.FC<ModalProps> = (props) => {
                         />
                     )
                 }
-                {/* )} */}
                 <ModalButton onClick={props.onClose} color={theme.colorSystem.neutral["200"]}>
                     취소하기
                 </ModalButton>

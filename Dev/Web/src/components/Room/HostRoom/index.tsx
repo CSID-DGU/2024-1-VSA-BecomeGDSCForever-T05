@@ -8,16 +8,22 @@ import Row from "@/components/Common/Row";
 import Column from "@/components/Common/Column";
 import QuestionDetail from "@/components/Room/UserRoom/QuestionDetail";
 import AnswerInput from "@/components/Room/UserRoom/AnswerInput";
-import {useModeullakUserDialogueTemporarySummary} from "@/hooks/dialogue/useModeullakUserDialogueTemporarySummary.ts";
+import {useSelector} from "react-redux";
+import {RootState} from "@/stores/store.ts";
+import {
+    useModeullakUserDependentDialogueTemporarySummary
+} from "@/hooks/dialogue/useModeullakUserDependentDialogueTemporarySummary.ts";
 import H4 from "@/components/Common/Font/Heading/H4";
 
 interface props {
     modeullakId: number;
 }
 
-export default function UserRoom(props: props) {
+export default function HostRoom(props: props) {
 
-    const modeullakUserDialogueTemporarySummary = useModeullakUserDialogueTemporarySummary(props.modeullakId);
+    const user = useSelector((state: RootState) => state.selectedUserState);
+
+    const modeullakUserDialogueTemporarySummary = useModeullakUserDependentDialogueTemporarySummary(props.modeullakId, user.id);
 
     const [clickedQuestionId, setClickedQuestionId] = useState<number>(-1);
 
@@ -28,7 +34,7 @@ export default function UserRoom(props: props) {
     return (
         <Styled.Container>
             <Column>
-                <H0 color={theme.colorSystem.primary["900"]} textAlign={"start"} text={"나의 질문"}/>
+                <H0 color={theme.colorSystem.primary["900"]} textAlign={"start"} text={`${user.nickname}의 질문`}/>
                 <SizedBox height={"32px"}/>
                 <Row>
                     <Column width={"800px"}>
