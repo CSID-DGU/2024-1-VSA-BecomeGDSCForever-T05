@@ -9,6 +9,10 @@ import ModalButton from "./ModalButton";
 import theme from "@/shared/theme";
 import SizedBox from "@/components/Common/SizedBox";
 import {useModeullakBrief} from "@/hooks/modeullak/useModeullakBrief.ts";
+import {createModeullak, joinModeullak} from "@/apis/modeullak";
+import {useNavigate} from "react-router-dom";
+import {CONSTANT} from "@/constants/Constant.ts";
+import Alert from "@/components/Common/Alert";
 
 interface ModalProps {
     onClose: () => void;
@@ -23,12 +27,16 @@ interface ModuleTime {
 
 const Modal: React.FC<ModalProps> = (props) => {
     // const userRole = useSelector((state: any) => state.userRole);
-    const [roomName, setRoomeName] = React.useState<string>("");
+    const [roomName, setRoomName] = React.useState<string>("");
     const [questionTime, setQuestionTime] = React.useState<ModuleTime>({
         times: 1,
         minutes: 30,
     });
     const [languageList, setLanguageList] = React.useState<string[]>([]);
+    const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = React.useState<string>("");
+
+    const navigate = useNavigate();
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const modeullakBriefState = props.modeullakCode ? useModeullakBrief(props.modeullakCode!) : null;
@@ -44,6 +52,43 @@ const Modal: React.FC<ModalProps> = (props) => {
         setLanguageList(languages);
     };
 
+    const handleOnClick = async () => {
+
+        if (props.type === "create") {
+
+            try {
+                const response = await createModeullak({
+                    title: roomName,
+                    tags: languageList,
+                    hour: questionTime.times,
+                    minute: questionTime.minutes,
+                })
+
+                if (response.success) {
+                    navigate(CONSTANT.ROUTER.CODE + `/${response.data.id}`);
+                }
+            } catch (error) {
+                setIsAlertOpen(true);
+                setAlertMessage(error.response.data.error.message);
+            }
+        } else if (props.type === "join") {
+
+            try {
+                const response = await joinModeullak({
+                    modeullakId: modeullakBriefState.id,
+                    participationCode: props.modeullakCode!,
+                })
+
+                if (response.success) {
+                    navigate(CONSTANT.ROUTER.CODE + `/${response.data.id}`);
+                }
+            } catch (error) {
+                setIsAlertOpen(true);
+                setAlertMessage(error.response.data.error.message);
+            }
+        }
+    }
+
     // languageList가 업데이트될 때마다 콘솔에 출력
     React.useEffect(() => {
         console.log("리스트:", languageList);
@@ -57,23 +102,6 @@ const Modal: React.FC<ModalProps> = (props) => {
             document.body.style.overflow = "auto";
         }
     }, []);
-
-    // 예시 코드
-    /*
-    const handleCreateSpace = async () => {
-      try {
-        const response = await axios.post("/api/create-space", {
-          roomName,
-          questionTime,
-          languages,
-        });
-        console.log("공간 생성 성공:", response.data);
-        onClose(); // 모달 닫기
-      } catch (error) {
-        console.error("공간 생성 실패:", error);
-      }
-    };
-    */
 
     return (
         <S.ModalBackground>
@@ -97,7 +125,7 @@ const Modal: React.FC<ModalProps> = (props) => {
                             type="text"
                             placeholder="방 이름을 입력해주세요"
                             value={roomName}
-                            onChange={(e) => setRoomeName(e.target.value)}
+                            onChange={(e) => setRoomName(e.target.value)}
                         />
                     ) : (
                         <S.Name>{modeullakBriefState!.title}</S.Name>
@@ -178,10 +206,15 @@ const Modal: React.FC<ModalProps> = (props) => {
                 <ModalButton onClick={props.onClose} color={theme.colorSystem.neutral["200"]}>
                     취소하기
                 </ModalButton>
-                <ModalButton onClick={props.onClose} color={theme.colorSystem.primary["600"]}>
+                <ModalButton onClick={handleOnClick} color={theme.colorSystem.primary["600"]}>
                     {props.type === "create" ? "개설하기" : "참여하기"}
                 </ModalButton>
             </S.ModalContainer>
+            {
+                isAlertOpen && (
+                    <Alert title={alertMessage} onClick={() => setIsAlertOpen(false)}/>
+                )
+            }
         </S.ModalBackground>
     );
 };

@@ -1,6 +1,8 @@
 import * as Styled from "./style.ts"
 import H3 from "@/components/Common/Font/Heading/H3";
 import theme from "@/shared/theme.ts";
+import {useNavigate} from "react-router-dom";
+import {CONSTANT} from "@/constants/Constant.ts";
 
 interface joinStateProps {
     text?: string;
@@ -9,8 +11,18 @@ interface joinStateProps {
 
 export default function JoinStateTag(props: joinStateProps) {
 
+    /* --------------------------------------------------------------------------- */
+    /* Window State -------------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
+    const navigate = useNavigate();
+
+    /**
+     * Click on Join State Tag
+     */
     const handleOnClick = () => {
-        alert(`${props.id} clicked!`);
+        if (props.id !== undefined && props.id !== null) {
+            navigate(CONSTANT.ROUTER.CODE + `/${props.id}`);
+        }
     }
 
     return (

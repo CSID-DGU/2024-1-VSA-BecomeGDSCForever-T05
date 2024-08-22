@@ -2,18 +2,21 @@ import * as Styled from './style';
 import H0 from "@/components/Common/Font/Heading/H0";
 import theme from "@/shared/theme.ts";
 import SizedBox from "@/components/Common/SizedBox";
-import {useUserQuestionBrief} from "@/hooks/useUserQuestionBrief.ts";
 import QuestionBrief from "@/components/Room/UserRoom/QuestionBrief";
 import {useState} from "react";
 import Row from "@/components/Common/Row";
 import Column from "@/components/Common/Column";
 import QuestionDetail from "@/components/Room/UserRoom/QuestionDetail";
-import AnswerDetail from "@/components/Room/UserRoom/AnswerDetail";
 import AnswerInput from "@/components/Room/UserRoom/AnswerInput";
+import {useModeullakUserDialogueTemporarySummary} from "@/hooks/dialogue/useModeullakUserDialogueTemporarySummary.ts";
 
-export default function UserRoom() {
+interface props {
+    modeullakId: number;
+}
 
-    const userQuestionBrief = useUserQuestionBrief();
+export default function UserRoom(props: props) {
+
+    const modeullakUserDialogueTemporarySummary = useModeullakUserDialogueTemporarySummary(props.modeullakId);
     const [clickedQuestionId, setClickedQuestionId] = useState<number>(-1);
 
     const handleClick = (index: number) => () => {
@@ -28,14 +31,13 @@ export default function UserRoom() {
                 <Row>
                     <Column width={"800px"}>
                         {
-                            userQuestionBrief.map((question, index) => {
+                            modeullakUserDialogueTemporarySummary.dialogues.map((dialogue, index) => {
                                 return (
                                     <>
                                         {
                                             index !== 0 && <SizedBox height={"20px"}/>
                                         }
-                                        <QuestionBrief keyword={question.keyword} description={question.description}
-                                                       createdAt={question.createdAt}
+                                        <QuestionBrief state={dialogue}
                                                        isClicked={clickedQuestionId === index}
                                                        onClick={handleClick(index)}/>
                                     </>

@@ -1,3 +1,9 @@
+/**
+ * @date 2024-08-22
+ * @author Changseop Yun
+ * @description Date Value to "yyyy-MM-dd" String
+ * @param date
+ */
 export const convertDateToString = (date: Date): string => {
     const year = date.getFullYear()
     const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -6,10 +12,22 @@ export const convertDateToString = (date: Date): string => {
     return `${year}-${month}-${day}`
 }
 
+/**
+ * @date 2024-08-22
+ * @author Changseop Yun
+ * @description "yyyy-MM-dd" String to Date Value
+ * @param date
+ */
 export const convertStringToDate = (date: string): Date => {
     return new Date(date)
 };
 
+/**
+ * @date 2024-08-22
+ * @author Changseop Yun
+ * @description Date Value to Korean String
+ * @param date
+ */
 export const convertDateToKoreanString = (date: Date): string => {
     const year = date.getFullYear()
     const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -18,16 +36,25 @@ export const convertDateToKoreanString = (date: Date): string => {
     return `${year}년 ${parseInt(month)}월 ${parseInt(day)}일`
 }
 
+/**
+ * @date 2024-08-22
+ * @author Changseop Yun
+ * @description "HH:mm" String to Minute Value
+ * @param time
+ */
 export const convertStringToTime = (time: string): number => {
     const [hour, minute] = time.split(':').map((time) => parseInt(time))
     return hour * 60 + minute
 }
 
 /**
- * @description 날짜를 받아서 해당 날짜의 시간읠 계산합니다.
+ * @date 2024-08-22
+ * @author Changseop Yun
+ * @description Calculate Time Difference
+ * @param date
  */
 export const calculateTime = (date: Date): string => {
-    const milliSeconds = new Date().getDate() - date.getDate();
+    const milliSeconds = new Date().getTime() - date.getTime();
 
     const seconds = milliSeconds / 1000;
 

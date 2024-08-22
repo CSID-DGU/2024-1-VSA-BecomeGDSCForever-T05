@@ -42,6 +42,8 @@ export const modeullakCalendarTagSlice = createSlice({
                 } else {
                     state.error = response.message as string;
                 }
+
+                state.loading = false;
             })
     }
 })

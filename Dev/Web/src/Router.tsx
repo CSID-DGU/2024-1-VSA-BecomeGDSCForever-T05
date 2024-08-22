@@ -1,5 +1,5 @@
 import {Route, Routes} from "react-router-dom";
-import Entry from "@/pages/Entry";
+import Auth from "@/pages/Auth";
 import Home from "@/pages/Home";
 import {CONSTANT} from "@/constants/Constant.ts";
 import Code from "@/pages/Code";
@@ -7,9 +7,9 @@ import Code from "@/pages/Code";
 export default function Router() {
     return (
         <Routes>
-            <Route path={CONSTANT.ROUTER.ENTRY} element={<Entry/>}/>
+            <Route path={CONSTANT.ROUTER.ENTRY} element={<Auth/>}/>
             <Route path={CONSTANT.ROUTER.HOME} element={<Home/>}/>
-            <Route path={CONSTANT.ROUTER.CODE} element={<Code/>}/>
+            <Route path={CONSTANT.ROUTER.CODE + "/:id"} element={<Code/>}/>
         </Routes>
     )
 }

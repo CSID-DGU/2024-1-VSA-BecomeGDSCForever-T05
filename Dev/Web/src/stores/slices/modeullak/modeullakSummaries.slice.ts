@@ -20,6 +20,7 @@ const initialState: ModeullakSummariesStatePayload = {
     participationCode: "",
     totalTime: "",
     remainedTime: "",
+    isHost: false,
     loading: false,
     error: null
 }

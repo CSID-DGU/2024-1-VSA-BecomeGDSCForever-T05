@@ -8,6 +8,7 @@ interface props {
     longCode?: string;
 }
 
+// ts-config.json
 export default function CustomMarkdown(props: props) {
 
     const [isShortCode, setIsShortCode] = useState<boolean>(true);
@@ -17,12 +18,12 @@ export default function CustomMarkdown(props: props) {
             setIsShortCode(!isShortCode);
         }
     }
-    
+
     return (
-        <Styled.MarkdownContainer onClick={handleClick} longCode={props.longCode}>
+        <Styled.MarkdownContainer onClick={handleClick} longCode={props.longCode != null}>
             <ReactMarkdown
                 components={{
-                    code({node, inline, className, children, ...props}) {
+                    code({node, inline, className, children, ...props}: any) {
                         const match = /language-(\w+)/.exec(className || '');
                         return !inline && match ? (
                             <Styled.CustomSyntaxHighlighter

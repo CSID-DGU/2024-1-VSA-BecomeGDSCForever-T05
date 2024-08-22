@@ -5,6 +5,7 @@ export interface ModeullakSummaryState {
     participationCode: string;
     totalTime: string;
     remainedTime: string;
+    isHost: boolean;
 }
 
 export interface ModeullakSummaryJson {
@@ -14,6 +15,7 @@ export interface ModeullakSummaryJson {
     participation_code: string;
     total_time: string;
     remained_time: string;
+    is_host: boolean;
 }
 
 export function copyWith(
@@ -27,6 +29,7 @@ export function copyWith(
         participationCode: overrides.participationCode ?? state.participationCode,
         totalTime: overrides.totalTime ?? state.totalTime,
         remainedTime: overrides.remainedTime ?? state.remainedTime,
+        isHost: overrides.isHost ?? state.isHost,
     }
 }
 
@@ -38,5 +41,6 @@ export function fromJson(json: ModeullakSummaryJson): ModeullakSummaryState {
         participationCode: json.participation_code as string,
         totalTime: json.total_time as string,
         remainedTime: json.remained_time as string,
+        isHost: json.is_host as boolean,
     }
 }

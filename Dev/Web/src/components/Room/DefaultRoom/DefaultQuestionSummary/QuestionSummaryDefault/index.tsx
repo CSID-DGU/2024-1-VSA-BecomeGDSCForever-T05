@@ -7,20 +7,18 @@ import H6 from "@/components/Common/Font/Heading/H6";
 import SizedBox from "@/components/Common/SizedBox";
 import Sub3 from "@/components/Common/Font/Body/Sub3";
 import {
-    ModeullakUserDialogueTemporarySummaryState
-} from "@/interfaces/states/dialogue/ModeullakUserDialogueTemporarySummaryState.ts";
+    ModeullakDialogueTemporarySummaryState
+} from "@/interfaces/states/dialogue/ModeullakDialogueTemporarySummaryState.ts";
 import {calculateTime, convertStringToDate} from "@/utils/dateTimeUtil.ts";
 
 interface props {
-    state: ModeullakUserDialogueTemporarySummaryState;
-    isClicked: boolean;
-    onClick: () => void;
+    state: ModeullakDialogueTemporarySummaryState;
 }
 
-export default function QuestionBrief(props: props) {
+export default function QuestionSummaryDefault(props: props) {
 
     return (
-        <Styled.Container isClicked={props.isClicked} onClick={props.onClick}>
+        <Styled.Container>
             <Row>
                 <H3 color={theme.colorSystem.black} text={props.state.keywordName}/>
                 <Spacer flex={1} direction={"horizontal"}/>

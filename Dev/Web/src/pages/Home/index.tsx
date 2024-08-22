@@ -12,6 +12,9 @@ import ModeullakDetail from "@/components/ModeullakDetail";
 
 export default function Home() {
 
+    /* --------------------------------------------------------------------------- */
+    /* Global Modal State -------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
     const isOpen = useSelector((state: RootState) => state.answerModalState.isOpen);
     const keywordModalState = useSelector((state: RootState) => state.keywordModalState);
 
