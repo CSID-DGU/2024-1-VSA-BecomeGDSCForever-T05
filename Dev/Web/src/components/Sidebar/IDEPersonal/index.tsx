@@ -17,6 +17,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/stores/store.ts";
 import {updateRoomFrameState} from "@/stores/slices/roomFrame.slice.ts";
 import CodeTree from "@/components/Ide/CodeTree";
+import {createStorage} from "@/apis/storage";
 
 export default function IDEPersonal() {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
@@ -56,42 +57,53 @@ export default function IDEPersonal() {
         setSelectedDirectory(directoryName); // 디렉토리 선택 시 상태 업데이트
     };
 
-    const addItem = (type: "FILE" | "DIRECTORY", name: string, parentDirectory: string | null = null) => {
-        const newStructure = [...fileStructure];
+    const addItem = async (type: "FILE" | "DIRECTORY", name: string, parentDirectory: string | null = null) => {
+        try {
+            // 서버에 새 파일이나 디렉토리 생성 요청
+            const response = await createStorage({
+                parent_storage_id: parentDirectory || "root", // 루트 디렉토리에 생성하려면 "root"를 전달
+                type: type.toLowerCase(), // 서버에서 예상하는 형식에 맞게 변환
+                name: name,
+            });
+            console.log(response);
 
-        const findDirectoryAndAddItem = (directory: FileItem): boolean => {
-            if (directory.name === parentDirectory) {
-                directory.children?.push({
-                    type: type,
-                    name: name,
-                    children: type === "DIRECTORY" ? [] : undefined,
-                });
-                return true;
-            } else if (directory.children && directory.children.length > 0) {
-                for (let i = 0; i < directory.children.length; i++) {
-                    if (directory.children[i].type === "DIRECTORY") {
-                        if (findDirectoryAndAddItem(directory.children[i])) return true;
+            const newItem = {
+                type,
+                name,
+                children: type === "DIRECTORY" ? [] : undefined,
+            };
+
+            const newStructure = [...fileStructure];
+
+            const findDirectoryAndAddItem = (directory: FileItem): boolean => {
+                if (directory.name === parentDirectory) {
+                    directory.children?.push(newItem);
+                    return true;
+                } else if (directory.children && directory.children.length > 0) {
+                    for (let i = 0; i < directory.children.length; i++) {
+                        if (directory.children[i].type === "DIRECTORY") {
+                            if (findDirectoryAndAddItem(directory.children[i])) return true;
+                        }
                     }
                 }
-            }
-            return false;
-        };
+                return false;
+            };
 
-        if (parentDirectory) {
-            for (let i = 0; i < newStructure.length; i++) {
-                if (newStructure[i].type === "DIRECTORY") {
-                    if (findDirectoryAndAddItem(newStructure[i])) break;
+            if (parentDirectory) {
+                for (let i = 0; i < newStructure.length; i++) {
+                    if (newStructure[i].type === "DIRECTORY") {
+                        if (findDirectoryAndAddItem(newStructure[i])) break;
+                    }
                 }
+            } else {
+                newStructure.push(newItem);
             }
-        } else {
-            newStructure.push({
-                type: type,
-                name: name,
-                children: type === "DIRECTORY" ? [] : undefined,
-            });
-        }
 
-        setFileStructure(newStructure);
+            setFileStructure(newStructure);
+        } catch (error) {
+            console.error("Error creating item:", error);
+            // 에러 처리 로직 추가 가능 (ex: 사용자에게 에러 메시지 표시)
+        }
     };
 
     const handleNewFileClick = () => {
