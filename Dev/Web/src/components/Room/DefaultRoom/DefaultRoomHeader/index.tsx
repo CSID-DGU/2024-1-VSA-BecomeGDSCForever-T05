@@ -8,6 +8,8 @@ import Spacer from "@/components/Common/Spacer";
 import H1 from "@/components/Common/Font/Heading/H1";
 import SvgButton from "@/components/Common/SvgButton";
 import CopyButton from "@/assets/icons/CopyButton.svg";
+import {useState} from "react";
+import Alert from "@/components/Common/Alert";
 
 interface props {
     title: string,
@@ -17,12 +19,17 @@ interface props {
 
 export default function DefaultRoomHeader(props: props) {
 
+    const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState("");
+
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(props.code);
-            alert("복사되었습니다.");
+            setIsAlertOpen(true);
+            setAlertMessage("복사되었습니다.");
         } catch (error) {
-            console.error("Copy failed", error);
+            setIsAlertOpen(true);
+            setAlertMessage("복사에 실패하였습니다.");
         }
     }
 
@@ -45,6 +52,11 @@ export default function DefaultRoomHeader(props: props) {
                 <SizedBox width={"8px"}/>
                 <SvgButton src={CopyButton} width={"30px"} height={"30px"} onClick={handleCopy}/>
             </Row>
+            {
+                isAlertOpen && (
+                    <Alert title={alertMessage} onClick={() => setIsAlertOpen(false)}/>
+                )
+            }
         </Styled.Container>
     )
 }

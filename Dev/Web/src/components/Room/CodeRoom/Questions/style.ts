@@ -85,7 +85,11 @@ export const Input = styled.textarea`
     border: none;
     resize: none;
     min-height: 100px;
-    max-height: 450px;
+    height: 800px;
+
+    &:focus {
+        outline: none;
+    }
 `;
 
 export const ButtonWrapper = styled.div`
