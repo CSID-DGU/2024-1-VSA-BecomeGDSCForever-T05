@@ -3,7 +3,6 @@ import answerModalSlice from "@/stores/slices/modal/answerModal.slice.ts";
 import participatingModeulSlice from "@/stores/slices/modeullak/participatedModeullak.slice.ts";
 import keywordModalSlice from "@/stores/slices/modal/keywordModal.slice.ts";
 import roomFrameSlice from "@/stores/slices/roomFrame.slice.ts";
-import userQuestionBriefSlice from "@/stores/slices/userQuestionBrief.slice.ts";
 import modeullakSummariesSlice from "@/stores/slices/modeullak/modeullakSummaries.slice.ts";
 import modeullakDetailSlice from "@/stores/slices/modeullak/modeullakDetail.slice.ts";
 import modeullakBriefSlice from "@/stores/slices/modeullak/modeullakBrief.slice.ts";
@@ -16,6 +15,8 @@ import dialogueDetailSlice from "@/stores/slices/dialogue/dialogueDetail.slice.t
 import dialogueKeywordBriefSlice from "@/stores/slices/dialogue/dialogueKeyword.slice.ts";
 import modeullakDialogueTemporarySummarySlice
     from "@/stores/slices/dialogue/modeullakDialogueTemporarySummary.slice.ts";
+import modeullakUserDialogueTemporarySummarySlice
+    from "@/stores/slices/dialogue/modeullakUserDialogueTemporarySummary.slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -36,13 +37,13 @@ export const store = configureStore({
         dialogueDetailState: dialogueDetailSlice,
         dialogueKeywordBriefState: dialogueKeywordBriefSlice,
         modeullakDialogueTemporarySummaryState: modeullakDialogueTemporarySummarySlice,
+        modeullakUserDialogueTemporarySummaryState: modeullakUserDialogueTemporarySummarySlice,
 
         // Modal
         answerModalState: answerModalSlice,
         keywordModalState: keywordModalSlice,
 
         roomFrameState: roomFrameSlice,
-        userQuestionBriefState: userQuestionBriefSlice,
     },
 });
 

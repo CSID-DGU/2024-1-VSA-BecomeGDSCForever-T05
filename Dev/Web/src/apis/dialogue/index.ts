@@ -36,3 +36,12 @@ export const fetchModeullakDialogueTemporarySummary = createAsyncThunk(
         return response.data;
     }
 )
+
+export const fetchModeullakUserDialogueTemporarySummary = createAsyncThunk(
+    "fetchModeullakUserDialogueTemporarySummary",
+    async (modeullakId: number) => {
+        const response = await authInstance.get(`/api/v1/modeullaks/${modeullakId}/users/dialogues/temporary-summaries`);
+
+        return response.data;
+    }
+)

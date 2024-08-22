@@ -1,4 +1,4 @@
-export interface DialogueTemporarySummaryState {
+export interface ModeullakUserDialogueTemporarySummaryState {
     id: number;
     keywordName: string;
     questionContent: string;
@@ -6,7 +6,7 @@ export interface DialogueTemporarySummaryState {
     isQuestion: boolean;
 }
 
-export interface DialogueTemporarySummaryJson {
+export interface ModeullakUserDialogueTemporarySummaryJson {
     id: number;
     keyword_name: string;
     question_content: string;
@@ -15,9 +15,9 @@ export interface DialogueTemporarySummaryJson {
 }
 
 export function copyWith(
-    state: DialogueTemporarySummaryState,
-    override: Partial<DialogueTemporarySummaryState>
-): DialogueTemporarySummaryState {
+    state: ModeullakUserDialogueTemporarySummaryState,
+    override: Partial<ModeullakUserDialogueTemporarySummaryState>
+): ModeullakUserDialogueTemporarySummaryState {
     return {
         id: override.id ?? state.id,
         keywordName: override.keywordName ?? state.keywordName,
@@ -27,7 +27,7 @@ export function copyWith(
     }
 }
 
-export function fromJson(json: DialogueTemporarySummaryJson): DialogueTemporarySummaryState {
+export function fromJson(json: ModeullakUserDialogueTemporarySummaryJson): ModeullakUserDialogueTemporarySummaryState {
     return {
         id: json.id,
         keywordName: json.keyword_name,

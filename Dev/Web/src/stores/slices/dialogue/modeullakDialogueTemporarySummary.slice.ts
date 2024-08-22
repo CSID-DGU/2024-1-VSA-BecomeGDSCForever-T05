@@ -1,14 +1,14 @@
 import {
-    DialogueTemporarySummaryJson,
-    DialogueTemporarySummaryState,
-    fromJson
-} from "@/interfaces/states/dialogue/DialogueTemporarySummaryState.ts";
+    fromJson,
+    ModeullakDialogueTemporarySummaryJson,
+    ModeullakDialogueTemporarySummaryState
+} from "@/interfaces/states/dialogue/ModeullakDialogueTemporarySummaryState.ts";
 import {createSlice} from "@reduxjs/toolkit";
 import {fetchModeullakDialogueTemporarySummary} from "@/apis/dialogue";
 import {ResponseWrapper} from "@/interfaces/wrappers/ResponseWrapper.ts";
 
 type ModeullakDialogueTemporarySummaryStatePayload = {
-    dialogues: DialogueTemporarySummaryState[];
+    dialogues: ModeullakDialogueTemporarySummaryState[];
     loading: boolean;
     error: string | null;
 }
@@ -20,7 +20,7 @@ export const initialState: ModeullakDialogueTemporarySummaryStatePayload = {
 }
 
 interface JsonWrapper {
-    dialogues: DialogueTemporarySummaryJson[]
+    dialogues: ModeullakDialogueTemporarySummaryJson[]
 }
 
 export const modeullakDialogueTemporarySummarySlice = createSlice({
@@ -43,7 +43,7 @@ export const modeullakDialogueTemporarySummarySlice = createSlice({
                 } else {
                     state.error = response.message as string;
                 }
-                
+
                 state.loading = false;
             });
     }

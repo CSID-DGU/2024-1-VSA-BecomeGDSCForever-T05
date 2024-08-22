@@ -8,6 +8,11 @@ import Spacer from "@/components/Common/Spacer";
 import theme from "@/shared/theme.ts";
 import H1 from "@/components/Common/Font/Heading/H1";
 import {useModeullakSummaries} from "@/hooks/modeullak/useModeullakSummaries.ts";
+import {exitModeullak} from "@/apis/modeullak";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {CONSTANT} from "@/constants/Constant.ts";
+import Alert from "@/components/Common/Alert";
 
 interface props {
     modeullakId: number;
@@ -15,10 +20,43 @@ interface props {
 
 export default function DefaultRoom(props: props) {
 
+    /* --------------------------------------------------------------------------- */
+    /* Window State -------------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
+    const navigate = useNavigate();
+
+    /* --------------------------------------------------------------------------- */
+    /* Alert State --------------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
+    const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState("");
+
+    /* --------------------------------------------------------------------------- */
+    /* Modeullak State ----------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
     const modeullakSummaries = useModeullakSummaries(props.modeullakId);
 
-    const handleClose = () => {
-        alert("back");
+    /**
+     * @date 2024-08-22
+     * @author Changseop Yun
+     * @description Exit Modeullak Button Click Event
+     */
+    const handleClose = async () => {
+
+        try {
+            const response = await exitModeullak(props.modeullakId);
+
+            if (response.success) {
+                setIsAlertOpen(true);
+                setAlertMessage("모드락이 종료되었습니다.");
+
+                navigate(CONSTANT.ROUTER.HOME);
+                window.location.reload();
+            }
+        } catch (error) {
+            setIsAlertOpen(true);
+            setAlertMessage(error.response.data.error.message);
+        }
     }
 
     return (
@@ -36,6 +74,11 @@ export default function DefaultRoom(props: props) {
                     <H1 color={theme.colorSystem.white} text={"종료하기"}/>
                 </Styled.Button>
             </Row>
+            {
+                isAlertOpen && (
+                    <Alert title={alertMessage} onClick={() => setIsAlertOpen(false)}/>
+                )
+            }
         </Styled.Container>
     )
 }

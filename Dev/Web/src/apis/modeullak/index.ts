@@ -69,3 +69,9 @@ export const fetchModeullakKeywords = createAsyncThunk(
         return response.data;
     }
 )
+
+export const exitModeullak = async (modeullakId: number) => {
+    const response = await authInstance.patch(`/api/v1/modeullaks/${modeullakId}/statuses`);
+
+    return response.data;
+}

@@ -4,8 +4,17 @@ import {useState} from "react";
 import SignUp from "@/components/Entry/SignUp";
 
 export default function Auth() {
+
+    /* --------------------------------------------------------------------------- */
+    /* Login Form State ---------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
     const [isLoginForm, setIsLoginForm] = useState<boolean>(true);
 
+    /**
+     * @date 2024-08-22
+     * @author Changseop Yun
+     * @description Login Toggle Form
+     */
     const toggleForm = () => {
         setIsLoginForm(!isLoginForm);
     };

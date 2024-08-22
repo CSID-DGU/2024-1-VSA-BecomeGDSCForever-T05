@@ -6,11 +6,13 @@ import Spacer from "@/components/Common/Spacer";
 import H6 from "@/components/Common/Font/Heading/H6";
 import SizedBox from "@/components/Common/SizedBox";
 import Sub3 from "@/components/Common/Font/Body/Sub3";
-import {DialogueTemporarySummaryState} from "@/interfaces/states/dialogue/DialogueTemporarySummaryState.ts";
+import {
+    ModeullakDialogueTemporarySummaryState
+} from "@/interfaces/states/dialogue/ModeullakDialogueTemporarySummaryState.ts";
 import {calculateTime, convertStringToDate} from "@/utils/dateTimeUtil.ts";
 
 interface props {
-    state: DialogueTemporarySummaryState;
+    state: ModeullakDialogueTemporarySummaryState;
 }
 
 export default function QuestionSummaryDefault(props: props) {

@@ -14,13 +14,14 @@ export default function Code() {
     /* ----------------------------------------------------------------------------*/
     const modeullakId = useParams().id;
     const RoomFrameState = useSelector((state: RootState) => state.roomFrameState.type);
-    
+
     return (
         <Styled.Container>
             <IDEMulti/>
             <IDEPersonal/>
             {
-                RoomFrameState === "default" ? <DefaultRoom modeullakId={parseInt(modeullakId)}/> : <UserRoom/>
+                RoomFrameState === "default" ? <DefaultRoom modeullakId={parseInt(modeullakId)}/> :
+                    <UserRoom modeullakId={parseInt(modeullakId)}/>
             }
         </Styled.Container>
     );

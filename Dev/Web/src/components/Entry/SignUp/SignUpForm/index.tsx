@@ -105,9 +105,6 @@ export default function SignUpForm() {
 
                 if (response.success) {
                     setIsIssued(true);
-
-                    setTemporaryToken(response.data.temporary_token);
-
                     setIsAlertOpen(true);
                     setAlertMessage("인증번호가 발송되었습니다.");
                 }
@@ -130,6 +127,7 @@ export default function SignUpForm() {
 
                 if (response.success) {
                     setIsVerification(true);
+                    setTemporaryToken(response.data.temporary_token);
                     setIsAlertOpen(true);
                     setAlertMessage("인증되었습니다.");
                 }
