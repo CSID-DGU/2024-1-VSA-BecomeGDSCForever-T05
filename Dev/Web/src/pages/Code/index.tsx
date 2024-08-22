@@ -1,10 +1,13 @@
 import * as Styled from "./style.ts"
-import IDEMulti from "@/components/Sidebar/IDEMulti";
-import IDEPersonal from "@/components/Sidebar/IDEPersonal";
+import ModeullakSidebarUser from "@/components/Sidebar/ModeullakSidebarUser";
+import ModeullakSidebarInfo from "@/components/Sidebar/ModeullakSidebarInfo";
 import {useSelector} from "react-redux";
 import {RootState} from "@/stores/store.ts";
 import {useParams} from "react-router-dom";
-import CodeIde from "@/components/Ide/CodeIde";
+import DefaultRoom from "@/components/Room/DefaultRoom";
+import UserRoom from "@/components/Room/UserRoom";
+import HostRoom from "@/components/Room/HostRoom";
+import CodeRoom from "@/components/Room/CodeRoom";
 
 
 export default function Code() {
@@ -17,16 +20,17 @@ export default function Code() {
 
     return (
         <Styled.Container>
-            <IDEMulti/>
-            <IDEPersonal/>
+            <ModeullakSidebarUser modeullakId={parseInt(modeullakId)}/>
+            <ModeullakSidebarInfo modeullakId={parseInt(modeullakId)}/>
             {
-                // RoomFrameState === "default" ? <DefaultRoom modeullakId={parseInt(modeullakId)}/> :
-                //     <UserRoom modeullakId={parseInt(modeullakId)}/>
-
-                // RoomFrameState === "default" ? <DefaultRoom/> : <UserRoom/>
-
+                RoomFrameState === "default"
+                    ? <DefaultRoom modeullakId={parseInt(modeullakId)}/>
+                    : RoomFrameState === "user"
+                        ? <UserRoom modeullakId={parseInt(modeullakId)}/>
+                        : RoomFrameState === "host"
+                            ? <HostRoom modeullakId={parseInt(modeullakId)}/> :
+                            <CodeRoom modeullakId={parseInt(modeullakId)}/>
             }
-            <CodeIde/>
         </Styled.Container>
     );
 }

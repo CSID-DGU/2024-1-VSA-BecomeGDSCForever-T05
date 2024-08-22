@@ -9,16 +9,24 @@ import theme from "@/shared/theme.ts";
 import H1 from "@/components/Common/Font/Heading/H1";
 import {useModeullakSummaries} from "@/hooks/modeullak/useModeullakSummaries.ts";
 import {exitModeullak} from "@/apis/modeullak";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {CONSTANT} from "@/constants/Constant.ts";
 import Alert from "@/components/Common/Alert";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "@/stores/store.ts";
+import {updateHostState} from "@/stores/slices/global/host.slice.ts";
 
 interface props {
     modeullakId: number;
 }
 
 export default function DefaultRoom(props: props) {
+
+    /* --------------------------------------------------------------------------- */
+    /* Dispatch ------------------------------------------------------------------ */
+    /* ----------------------------------------------------------------------------*/
+    const dispatch = useDispatch<AppDispatch>();
 
     /* --------------------------------------------------------------------------- */
     /* Window State -------------------------------------------------------------- */
@@ -35,6 +43,10 @@ export default function DefaultRoom(props: props) {
     /* Modeullak State ----------------------------------------------------------- */
     /* ----------------------------------------------------------------------------*/
     const modeullakSummaries = useModeullakSummaries(props.modeullakId);
+
+    useEffect(() => {
+        dispatch(updateHostState(modeullakSummaries.isHost));
+    }, [modeullakSummaries.isHost]);
 
     /**
      * @date 2024-08-22

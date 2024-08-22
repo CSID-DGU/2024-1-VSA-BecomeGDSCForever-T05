@@ -103,3 +103,18 @@ export const joinModeullak = async (data: {
 
     return response.data;
 }
+
+export const fetchModeullakUserBrief = createAsyncThunk(
+    "fetchModeullakUserBrief",
+    async (modeullakId: number) => {
+        const response = await authInstance.get(`/api/v1/modeullaks/${modeullakId}/users/briefs`);
+
+        return response.data;
+    }
+)
+
+export const fetchModeullakUser = async (modeullakId: number) => {
+    const response = await authInstance.get(`/api/v1/modeullaks/${modeullakId}/users/brief`);
+
+    return response.data;
+}
