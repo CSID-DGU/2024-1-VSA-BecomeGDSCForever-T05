@@ -32,9 +32,11 @@ export default function Search() {
 
     // 참여중인 모들락이 있을 경우, placeholder 메시지 변경
     useEffect(() => {
-        if (participatedModeullakState.modeullakId !== null)
+        if (participatedModeullakState.modeullakId !== null) {
             setPlaceHolderMessage("현재 참여중인 모들락이 종료된 후에 다른 모들락에 참여할 수 있습니다.");
-        setIsInputDisabled(true);
+            setIsInputDisabled(true);
+        }
+
     }, [participatedModeullakState.modeullakId]);
 
     const handleClose = () => {
