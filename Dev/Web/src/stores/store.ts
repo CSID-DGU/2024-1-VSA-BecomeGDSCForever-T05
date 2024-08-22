@@ -14,6 +14,8 @@ import modeullakUserDialogueSummarySlice from "@/stores/slices/dialogue/modeulla
 import modeullakKeywordSlice from "@/stores/slices/modeullak/modeullakKeyword.slice.ts";
 import dialogueDetailSlice from "@/stores/slices/dialogue/dialogueDetail.slice.ts";
 import dialogueKeywordBriefSlice from "@/stores/slices/dialogue/dialogueKeyword.slice.ts";
+import modeullakDialogueTemporarySummarySlice
+    from "@/stores/slices/dialogue/modeullakDialogueTemporarySummary.slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -33,6 +35,7 @@ export const store = configureStore({
         modeullakUserDialogueSummaryState: modeullakUserDialogueSummarySlice,
         dialogueDetailState: dialogueDetailSlice,
         dialogueKeywordBriefState: dialogueKeywordBriefSlice,
+        modeullakDialogueTemporarySummaryState: modeullakDialogueTemporarySummarySlice,
 
         // Modal
         answerModalState: answerModalSlice,

@@ -7,12 +7,20 @@ import RadiusButton from "@/components/Entry/FormItem/Button/RadiusButton";
 import {useNavigate} from "react-router-dom";
 import {CONSTANT} from "@/constants/Constant.ts";
 import React, {useEffect, useState} from "react";
+import {postRegister, validateAuthCode, validateEmail} from "@/apis/auth";
+import Alert from "@/components/Common/Alert";
 
 
 export default function SignUpForm() {
 
+    /* --------------------------------------------------------------------------- */
+    /* Window State -------------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
     const navigate = useNavigate();
 
+    /* --------------------------------------------------------------------------- */
+    /* Sign Up Form State -------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
     const [name, setName] = useState<string>("");
     const [serialId, setSerialId] = useState<string>("");
     const [domain, setDomain] = useState<string>("");
@@ -25,6 +33,14 @@ export default function SignUpForm() {
     const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
     const [isValidAuthCode, setIsValidAuthCode] = useState<boolean>(false);
     const [isVerification, setIsVerification] = useState<boolean>(false);
+
+    const [temporaryToken, setTemporaryToken] = useState<string>("");
+
+    /* --------------------------------------------------------------------------- */
+    /* Alert State---------------------------------------------------------------- */
+    /* ----------------------------------------------------------------------------*/
+    const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>("");
 
     const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -80,28 +96,77 @@ export default function SignUpForm() {
         }
     }, [name, password, passwordCheck])
 
-    const handleAuthCodeButtonClick = () => {
+    const handleAuthCodeButtonClick = async () => {
 
         if (isValidEmail && !isIssued) {
-            alert("인증번호가 발송되었습니다.")
-            setIsIssued(true);
-        }
 
+            try {
+                const response = await validateEmail(email);
+
+                if (response.success) {
+                    setIsIssued(true);
+
+                    setTemporaryToken(response.data.temporary_token);
+
+                    setIsAlertOpen(true);
+                    setAlertMessage("인증번호가 발송되었습니다.");
+                }
+            } catch (error) {
+                setIsAlertOpen(true);
+                setAlertMessage(error.response.data.error.message);
+            }
+        } else {
+            setIsAlertOpen(true);
+            setAlertMessage("올바르지 않은 이메일 형식입니다.");
+        }
     }
 
-    const handleVerificationButtonClick = () => {
+    const handleVerificationButtonClick = async () => {
 
         if (authCode !== "" && isIssued && !isVerification && CONSTANT.REGEX.AUTH_CODE.test(authCode)) {
-            alert("인증되었습니다.");
-            setIsVerification(true);
+
+            try {
+                const response = await validateAuthCode(email, authCode);
+
+                if (response.success) {
+                    setIsVerification(true);
+                    setIsAlertOpen(true);
+                    setAlertMessage("인증되었습니다.");
+                }
+            } catch (error) {
+                setIsAlertOpen(true);
+                setAlertMessage(error.response.data.error.message);
+            }
+        } else {
+            setIsAlertOpen(true);
+            setAlertMessage("올바르지 않은 인증번호 형식입니다.");
         }
     }
 
-    const handleSubmitButtonClick = () => {
+    const handleSubmitButtonClick = async () => {
 
         if (isValid) {
-            alert("회원가입이 완료되었습니다.");
-            navigate(CONSTANT.ROUTER.HOME);
+
+            try {
+                const response = await postRegister({
+                    nickname: name,
+                    password: password,
+                    temporaryToken: temporaryToken
+                });
+
+                if (response.success) {
+                    setIsAlertOpen(true);
+                    setAlertMessage("회원가입이 완료되었습니다.");
+
+                    navigate(CONSTANT.ROUTER.HOME);
+                }
+            } catch (error) {
+                setIsAlertOpen(true);
+                setAlertMessage(error.response.data.error.message);
+            }
+        } else {
+            setIsAlertOpen(true);
+            setAlertMessage("입력값을 확인해주세요.");
         }
     }
 
@@ -147,6 +212,9 @@ export default function SignUpForm() {
                 <SizedBox width={"600px"} height={"48px"}/>
                 <RadiusButton content={"가입하기"} onClick={handleSubmitButtonClick} isValid={isValid}/>
             </Styled.Form>
+            {
+                isAlertOpen && <Alert title={alertMessage} onClick={() => setIsAlertOpen(false)}/>
+            }
         </Styled.Container>
     );
 }

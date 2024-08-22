@@ -1,4 +1,3 @@
-import {ResponseWrapper} from "@/interfaces/wrappers/ResponseWrapper.ts";
 import authInstance from "@/apis/base/authInstance.ts";
 import publicInstance from "@/apis/base/publicInstance.ts";
 
@@ -14,8 +13,9 @@ export const postFormLogin = async (data: { email: string; password: string }) =
 }
 
 export const validateEmail = async (email: string) => {
-    const response: ResponseWrapper<{ tryCnt: number }> = await publicInstance.post("/auth/validations/email", {
-        email: email
+    const response = await publicInstance.post("/auth/validations/email", {
+        email: email,
+        is_duplicate_check: true,
     });
 
     return response.data;

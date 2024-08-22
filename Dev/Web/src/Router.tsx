@@ -9,7 +9,7 @@ export default function Router() {
         <Routes>
             <Route path={CONSTANT.ROUTER.ENTRY} element={<Auth/>}/>
             <Route path={CONSTANT.ROUTER.HOME} element={<Home/>}/>
-            <Route path={CONSTANT.ROUTER.CODE} element={<Code/>}/>
+            <Route path={CONSTANT.ROUTER.CODE + "/:id"} element={<Code/>}/>
         </Routes>
     )
 }

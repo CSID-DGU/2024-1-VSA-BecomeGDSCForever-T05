@@ -9,9 +9,13 @@ import theme from "@/shared/theme.ts";
 import H1 from "@/components/Common/Font/Heading/H1";
 import {useModeullakSummaries} from "@/hooks/modeullak/useModeullakSummaries.ts";
 
-export default function DefaultRoom() {
+interface props {
+    modeullakId: number;
+}
 
-    const modeullakSummaries = useModeullakSummaries(1);
+export default function DefaultRoom(props: props) {
+
+    const modeullakSummaries = useModeullakSummaries(props.modeullakId);
 
     const handleClose = () => {
         alert("back");
@@ -24,7 +28,7 @@ export default function DefaultRoom() {
             <SizedBox height={"40px"}/>
             <DefaultRoomProgress total={modeullakSummaries.totalTime} remained={modeullakSummaries.remainedTime}/>
             <SizedBox height={"28px"}/>
-            <DefaultQuestionSummary/>
+            <DefaultQuestionSummary modeullakId={props.modeullakId}/>
             <SizedBox height={"184px"}/>
             <Row>
                 <Spacer flex={1} direction={"horizontal"}/>

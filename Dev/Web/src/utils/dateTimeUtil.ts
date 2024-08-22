@@ -27,7 +27,7 @@ export const convertStringToTime = (time: string): number => {
  * @description 날짜를 받아서 해당 날짜의 시간읠 계산합니다.
  */
 export const calculateTime = (date: Date): string => {
-    const milliSeconds = new Date().getDate() - date.getDate();
+    const milliSeconds = new Date().getTime() - date.getTime();
 
     const seconds = milliSeconds / 1000;
 
