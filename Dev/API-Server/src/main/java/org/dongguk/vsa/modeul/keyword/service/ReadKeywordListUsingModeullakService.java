@@ -67,7 +67,7 @@ public class ReadKeywordListUsingModeullakService implements ReadKeywordListUsin
                 .map(ModeullakKeyword::getKeyword)
                 .toList();
 
-        List<Dialogue> dialogues = dialogueRepository.findWithKeywordAllByKeywordInAndModeullak(keywords, modeullak);
+        List<Dialogue> dialogues = dialogueRepository.findAllWithKeywordAllByKeywordInAndModeullak(keywords, modeullak);
 
         // 5. 데이터 정제
         Map<Long, String> descriptionMap = modeullakKeywords.getContent().stream()

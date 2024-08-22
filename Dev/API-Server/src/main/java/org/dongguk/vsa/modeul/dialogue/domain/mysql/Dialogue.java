@@ -84,7 +84,6 @@ public class Dialogue {
             String questionShortCode,
             String questionLongCode,
             String questionContent,
-            EDialogueStatus status,
             User user,
             Modeullak modeullak
     ) {
@@ -92,8 +91,10 @@ public class Dialogue {
         this.questionLongCode = questionLongCode;
         this.questionContent = questionContent;
         this.status = EDialogueStatus.PENDING;
+
         this.user = user;
         this.modeullak = modeullak;
+
         this.askedAt = LocalDateTime.now();
     }
 
