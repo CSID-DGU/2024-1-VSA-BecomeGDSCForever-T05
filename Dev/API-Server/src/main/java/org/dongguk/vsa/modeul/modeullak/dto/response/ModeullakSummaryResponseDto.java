@@ -42,6 +42,9 @@ public class ModeullakSummaryResponseDto extends SelfValidating<ModeullakSummary
     @TimeValue
     private final String remainedTime;
 
+    @JsonProperty("is_host")
+    private final Boolean isHost;
+
     @Builder
     public ModeullakSummaryResponseDto(
             Long id,
@@ -49,7 +52,8 @@ public class ModeullakSummaryResponseDto extends SelfValidating<ModeullakSummary
             List<String> tags,
             String participationCode,
             String totalTime,
-            String remainedTime
+            String remainedTime,
+            Boolean isHost
     ) {
         this.id = id;
         this.title = title;
@@ -59,10 +63,12 @@ public class ModeullakSummaryResponseDto extends SelfValidating<ModeullakSummary
         this.totalTime = totalTime;
         this.remainedTime = remainedTime;
 
+        this.isHost = isHost;
+
         validateSelf();
     }
 
-    public static ModeullakSummaryResponseDto fromEntity(Modeullak modeullak) {
+    public static ModeullakSummaryResponseDto fromEntity(Modeullak modeullak, Boolean isHost) {
         LocalDateTime startedAt = modeullak.getStartedAt();
         LocalDateTime endedAt = modeullak.getEndedAt();
         LocalDateTime now = LocalDateTime.now();
@@ -77,6 +83,7 @@ public class ModeullakSummaryResponseDto extends SelfValidating<ModeullakSummary
                 .participationCode(modeullak.getParticipationCode())
                 .totalTime(formatDuration(totalDuration))
                 .remainedTime(formatDuration(remainedDuration))
+                .isHost(isHost)
                 .build();
     }
 

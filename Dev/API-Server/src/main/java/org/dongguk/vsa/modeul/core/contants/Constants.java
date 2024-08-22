@@ -30,6 +30,69 @@ public class Constants {
     public static final String MODEULLAK_USER_STORAGE_ROUTING_KEY = "modeullaks.*.users.*.storages";
     public static final String MODEULLAK_USER_DIALOGUE_ROUTING_KEY = "modeullaks.*.users.*.dialogues";
 
+    // 형용사 List
+    public static List<String> ADJECTIVES = List.of(
+            "행복한",
+            "슬픈",
+            "화난",
+            "무서운",
+            "즐거운",
+            "힘든",
+            "편안한",
+            "불안한",
+            "놀라운",
+            "지루한",
+            "신나는",
+            "짜증나는",
+            "피곤한"
+    );
+
+    // 동물 명사 List
+    public static List<String> ANIMALS = List.of(
+            "사자",
+            "호랑이",
+            "곰",
+            "늑대",
+            "여우",
+            "너구리",
+            "쥐",
+            "토끼",
+            "고양이",
+            "강아지",
+            "말",
+            "돼지",
+            "소",
+            "양",
+            "닭",
+            "오리",
+            "참새",
+            "독수리",
+            "까마귀",
+            "비둘기",
+            "참치",
+            "고래",
+            "상어",
+            "문어",
+            "오징어",
+            "랍스터",
+            "게",
+            "새우",
+            "바다표범",
+            "코끼리",
+            "코뿔소",
+            "기린",
+            "낙타",
+            "캥거루",
+            "코알라",
+            "판다",
+            "고릴라",
+            "오랑우탄",
+            "침팬지",
+            "표범",
+            "치타",
+            "악어"
+    );
+
     /**
      * 인증이 필요 없는 URL
      */

@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakRole;
 import org.dongguk.vsa.modeul.modeullak.dto.response.ModeullakSummaryResponseDto;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
 import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakSummaryUseCase;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
+import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserModeullakRepository;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserRepository;
 import org.springframework.stereotype.Service;
@@ -31,20 +33,9 @@ public class ReadModeullakSummaryService implements ReadModeullakSummaryUseCase 
         Modeullak modeullak = modeullakRepository.findWithTagsById(modeullakId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        if (isNotHadRole(user, modeullak)) {
-            throw new CommonException(ErrorCode.ACCESS_DENIED);
-        }
+        UserModeullak userModeullak = userModeullakRepository.findByUserAndModeullak(user, modeullak)
+                .orElseThrow(() -> new CommonException(ErrorCode.ACCESS_DENIED));
 
-        return ModeullakSummaryResponseDto.fromEntity(modeullak);
-    }
-
-    /**
-     * 해당 유저가 모들락의 멤버 중 한명인지 확인
-     * @param user 사용자
-     * @param modeullak 모들락
-     * @return 해당 유저가 모들락의 Host인지 여부
-     */
-    private Boolean isNotHadRole(User user, Modeullak modeullak) {
-        return userModeullakRepository.findByUserAndModeullak(user, modeullak).isEmpty();
+        return ModeullakSummaryResponseDto.fromEntity(modeullak, userModeullak.getRole() == EModeullakRole.HOST);
     }
 }

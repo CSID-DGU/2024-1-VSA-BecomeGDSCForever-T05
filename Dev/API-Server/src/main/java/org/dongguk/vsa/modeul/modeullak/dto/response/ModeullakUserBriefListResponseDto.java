@@ -3,12 +3,14 @@ package org.dongguk.vsa.modeul.modeullak.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
+import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.dto.SelfValidating;
 import org.dongguk.vsa.modeul.user.domain.mysql.User;
 import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Getter
@@ -65,9 +67,12 @@ public class ModeullakUserBriefListResponseDto extends SelfValidating<ModeullakU
         }
 
         public static ModeullakUserBriefDto fromEntity(User user) {
+            int randomAdjectiveIndex = new Random().nextInt(Constants.ADJECTIVES.size());
+            int randomAnimalIndex = new Random().nextInt(Constants.ANIMALS.size());
+
             return ModeullakUserBriefDto.builder()
                     .id(user.getId())
-                    .nickname(user.getNickname())
+                    .nickname(Constants.ADJECTIVES.get(randomAdjectiveIndex) + " " + Constants.ANIMALS.get(randomAnimalIndex))
                     .profileImageUrl(user.getProfileImageUrl())
                     .build();
         }
