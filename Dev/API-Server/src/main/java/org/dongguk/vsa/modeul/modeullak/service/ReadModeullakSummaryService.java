@@ -5,6 +5,7 @@ import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
 import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakRole;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakStatus;
 import org.dongguk.vsa.modeul.modeullak.dto.response.ModeullakSummaryResponseDto;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
 import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakSummaryUseCase;
@@ -35,6 +36,10 @@ public class ReadModeullakSummaryService implements ReadModeullakSummaryUseCase 
 
         UserModeullak userModeullak = userModeullakRepository.findByUserAndModeullak(user, modeullak)
                 .orElseThrow(() -> new CommonException(ErrorCode.ACCESS_DENIED));
+
+        if (modeullak.getStatus() != EModeullakStatus.STARTED) {
+            throw new CommonException(ErrorCode.MODEULLAK_NOT_STARTED);
+        }
 
         return ModeullakSummaryResponseDto.fromEntity(modeullak, userModeullak.getRole() == EModeullakRole.HOST);
     }
