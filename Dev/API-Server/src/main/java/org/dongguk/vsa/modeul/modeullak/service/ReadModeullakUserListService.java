@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
+import org.dongguk.vsa.modeul.modeullak.domain.type.EModeullakRole;
 import org.dongguk.vsa.modeul.modeullak.dto.response.ModeullakUserBriefListResponseDto;
 import org.dongguk.vsa.modeul.modeullak.repository.mysql.ModeullakRepository;
 import org.dongguk.vsa.modeul.modeullak.usecase.ReadModeullakUserListUseCase;
@@ -37,8 +38,35 @@ public class ReadModeullakUserListService implements ReadModeullakUserListUseCas
                 .orElseThrow(() -> new CommonException(ErrorCode.ACCESS_DENIED));
 
         // 3. 모들락 사용자 목록 조회(본인 제외)
-        List<UserModeullak> otherModeullaks = userModeullakRepository.findAllWithUserByModeullakAndUserNot(modeullak, user);
+        List<UserModeullak> otherModeullaks = getOtherModeullaks(user, modeullak, selfModeullak.getRole());
 
         return ModeullakUserBriefListResponseDto.fromEntities(selfModeullak, otherModeullaks);
+    }
+
+    /**
+     * 모들락 사용자 목록 조회
+     *
+     * @param user 사용자
+     * @param modeullak 모들락
+     * @param role 권한
+     *
+     * @return 모들락 사용자 목록
+     */
+    private List<UserModeullak> getOtherModeullaks(
+            User user,
+            Modeullak modeullak,
+            EModeullakRole role
+    ) {
+        // 1. 모들락 사용자 목록 조회(본인 제외)
+        List<UserModeullak> otherModeullaks = userModeullakRepository.findAllWithUserByModeullakAndUserNot(modeullak, user);
+
+        // 2. 호스트일 경우 모든 사용자 목록 반환
+        if (role == EModeullakRole.HOST) {
+            return otherModeullaks;
+        } else {
+            return otherModeullaks.stream()
+                    .filter(userModeullak -> userModeullak.getRole() == EModeullakRole.HOST)
+                    .toList();
+        }
     }
 }
