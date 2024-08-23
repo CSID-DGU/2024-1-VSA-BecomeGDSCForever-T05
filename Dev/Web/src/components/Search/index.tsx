@@ -97,12 +97,12 @@ export default function Search() {
             </Styled.Input>
 
             <SizedBox width={"80px"} height={"88px"}/>
-            <Button onClick={handleJoinOpen} isParticipated={participatedModeullakState.modeullakId !== null}/>
+            <Button onClick={handleJoinOpen} isParticipated={participatedModeullakState.modeullakId !== null}
+                    disabled={participatedModeullakState.modeullakId !== null}/>
             {
                 isOpen && !participatedModeullakState.modeullakId !== null &&
                 <Modal onClose={handleClose} type={modalType} modeullakCode={modeullakCode}/>
             }
-
             {
                 isAlertOpen && <Alert title={alertMessage} onClick={handleAlertClose}/>
             }
