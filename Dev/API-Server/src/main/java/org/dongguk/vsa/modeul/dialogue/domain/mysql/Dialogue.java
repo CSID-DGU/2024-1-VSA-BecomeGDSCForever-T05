@@ -58,7 +58,7 @@ public class Dialogue {
     @Column(name = "asked_at", nullable = false, updatable = false)
     private LocalDateTime askedAt;
 
-    @Column(name = "replied_at", updatable = false)
+    @Column(name = "replied_at")
     private LocalDateTime repliedAt;
 
     /* -------------------------------------------- */
