@@ -20,7 +20,7 @@ public class DialogueListener {
     @Async
     @EventListener(classes = {CreateDialogueEvent.class})
     public void handleCreateDialogueEvent(CreateDialogueEvent event){
-        kafkaTemplate.send("answer_topic", event.toPayload());
+        kafkaTemplate.send("question_topic", event.toPayload());
     }
 
     @Async

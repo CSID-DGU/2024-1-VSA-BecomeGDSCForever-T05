@@ -23,14 +23,14 @@ public class DialogueConsumerController {
     ) {
         Map<String, Object> payload = record.value();
 
-        Long requestDialogId = (Long) payload.get("request_dialogue_id");
-        Long similarDialogId = (Long) payload.get("similar_dialogue_id");
+        Integer requestDialogId = (Integer) payload.get("request_dialogue_id");
+        Integer similarDialogId = (Integer) payload.get("similar_dialogue_id");
         String answer = (String) payload.get("answer");
         String keyword = (String) payload.get("keyword");
 
         updateAnswerInDialogueUseCase.execute(
-                requestDialogId,
-                similarDialogId,
+                requestDialogId.longValue(),
+                similarDialogId.longValue(),
                 answer,
                 keyword
         );
