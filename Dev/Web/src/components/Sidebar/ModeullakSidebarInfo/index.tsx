@@ -23,7 +23,7 @@ import {useModeullakStorageBrief} from "@/hooks/storage/useModeullakStorageBrief
 import {updateSelectedLanguage} from "@/stores/slices/global/selectedLanguage.slice.ts";
 import {extensionUtil} from "@/utils/extensionUtil.ts";
 import CodeTree from "@/components/Sidebar/ModeullakSidebarInfo/CodeTree";
-import {addModeullakStorage, updateModeullakStorage} from "@/stores/slices/storage/modeullakStorageBrief.slice.ts";
+import {updateModeullakStorage} from "@/stores/slices/storage/modeullakStorageBrief.slice.ts";
 import {ModeullakUserBriefState} from "@/interfaces/states/modeullak/ModeullakUserBriefState.ts";
 import {updateSelectedStorageId} from "@/stores/slices/global/selectedStorageId.slice.ts";
 import {fetchModeullakUser} from "@/apis/modeullak";
@@ -125,19 +125,18 @@ export default function ModeullakSidebarInfo(props: props) {
     const addItem = async (type: "FILE" | "DIRECTORY", name: string, parentDirectory: string | null = null) => {
         try {
             // 서버에 새 파일이나 디렉토리 생성 요청
-            const response = await createModeullakStorage({
+            await createModeullakStorage({
                 modeullakId: props.modeullakId,
                 parentStorageId: parentDirectory || null, // 루트 디렉토리에 생성하려면 "root"를 전달
                 type: type, // 서버에서 예상하는 형식에 맞게 변환
                 name: name,
             });
 
-            console.log(response);
+            const response = await fetchModeullakUserStorageBrief(props.modeullakId, selectedUser.id);
 
-            dispatch(addModeullakStorage({
-                type: "FILE",
-                name: name,
-            }));
+            if (response.success) {
+                dispatch(updateModeullakStorage(response.data.storages));
+            }
 
             const newItem = {
                 type,
@@ -172,6 +171,7 @@ export default function ModeullakSidebarInfo(props: props) {
             }
 
             setFileStructure(newStructure);
+
         } catch (error) {
             console.error("Error creating item:", error);
             // 에러 처리 로직 추가 가능 (ex: 사용자에게 에러 메시지 표시)
@@ -232,12 +232,6 @@ export default function ModeullakSidebarInfo(props: props) {
                         <Row width={"auto"}>
                             <ProfileImage src={settingIcon} width={"24px"} height={"24px"}
                                           onClick={handleSettingButtonClick}/>
-                            {/*<ProfileImage*/}
-                            {/*    src={doubleLeftIcon}*/}
-                            {/*    width={"24px"}*/}
-                            {/*    height={"24px"}*/}
-                            {/*    onClick={toggleSidebar}*/}
-                            {/*/>*/}
                         </Row>
                     </>
                 )}

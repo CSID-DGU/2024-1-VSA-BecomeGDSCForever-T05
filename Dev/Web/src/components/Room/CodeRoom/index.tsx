@@ -74,7 +74,6 @@ export default function CodeRoom(props: props) {
         editorRef.current = editor;
 
         editor.focus();
-
         editor.onMouseUp(() => {
             const selectedText = window.getSelection()?.toString();
 
@@ -100,9 +99,9 @@ export default function CodeRoom(props: props) {
                 />
             </Styled.EditorContainer>
             {
-                highlightedText && isHost &&
+                highlightedText && !isHost &&
                 <Questions editorRef={editorRef} language={extension} highlightedText={highlightedText}
-                           modeullakId={props.modeullakId} storageId={storageId}/>
+                           modeullakId={props.modeullakId} storageId={storageId} entireCode={value}/>
             }
             {
                 isAlertOpen && (

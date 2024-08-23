@@ -23,7 +23,7 @@ export const Wrapper = styled.div`
     overflow: scroll;
 `;
 
-export const SvgButton = styled.button<SvgButtonProps>`
+export const SvgButton = styled.img<SvgButtonProps>`
     background-image: url(${(props) => props.src});
     background-size: cover;
     width: ${(props) => props.width || "24px"};
@@ -34,6 +34,6 @@ export const SvgButton = styled.button<SvgButtonProps>`
     bottom: ${(props) => props.bottom || "0"};
     left: ${(props) => props.left || "0"};
     border: none;
-    
+
     cursor: pointer;
 `;

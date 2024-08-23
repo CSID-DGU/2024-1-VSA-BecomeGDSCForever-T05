@@ -11,6 +11,9 @@ import {useModeullakUserDialogueTemporarySummary} from "@/hooks/dialogue/useMode
 import H4 from "@/components/Common/Font/Heading/H4";
 import {useDialogueDetail} from "@/hooks/dialogue/useDialogueDetail.ts";
 import AnswerDetail from "@/components/Room/UserRoom/AnswerDetail";
+import {resetDialogueDetailState} from "@/stores/slices/dialogue/dialogueDetail.slice.ts";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "@/stores/store.ts";
 
 interface props {
     modeullakId: number;
@@ -18,6 +21,7 @@ interface props {
 
 export default function UserRoom(props: props) {
 
+    const dispatch = useDispatch<AppDispatch>();
     const modeullakUserDialogueTemporarySummary = useModeullakUserDialogueTemporarySummary(props.modeullakId);
 
     const [clickedQuestionId, setClickedQuestionId] = useState<number>(-1);
@@ -26,6 +30,7 @@ export default function UserRoom(props: props) {
 
         if (clickedQuestionId !== -1 && clickedQuestionId === index) {
             setClickedQuestionId(-1);
+            dispatch(resetDialogueDetailState());
         } else {
             setClickedQuestionId(index);
         }
@@ -36,6 +41,7 @@ export default function UserRoom(props: props) {
     return (
         <Styled.Container>
             <Column>
+                <SizedBox height={"20px"}/>
                 <H0 color={theme.colorSystem.primary["900"]} textAlign={"start"} text={"나의 질문"}/>
                 <SizedBox height={"32px"}/>
                 <Row>
