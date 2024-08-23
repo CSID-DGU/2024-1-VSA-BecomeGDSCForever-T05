@@ -13,8 +13,6 @@ interface props {
 
 export default function BriefAnswer(props: props) {
 
-    const answeredBy = props.isAnsweredByLlm ? "### AI가 작성한 답변입니다.\n\n" : "### 조교가 작성한 답변입니다.\n\n";
-
     return (
         <Row alignItems={"end"}>
             <Spacer flex={1} direction={"horizontal"}/>
@@ -24,7 +22,7 @@ export default function BriefAnswer(props: props) {
                      borderColor={theme.colorSystem.neutral["300"]} border={"1px solid"} borderRadius={"12px"}
                      width={"800px"}>
                 <Styled.Container>
-                    <CustomMarkdown shortCode={answeredBy + props.answer}/>
+                    <CustomMarkdown shortCode={props.answer}/>
                 </Styled.Container>
             </Padding>
         </Row>

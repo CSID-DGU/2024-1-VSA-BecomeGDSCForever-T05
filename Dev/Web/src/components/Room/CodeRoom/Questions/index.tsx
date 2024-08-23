@@ -12,18 +12,13 @@ import CustomMarkdown from "@/components/Common/CustomMarkdown";
 import {createDialogue} from "@/apis/dialogue";
 import Alert from "@/components/Common/Alert";
 
-interface Question {
-    text: string;
-    question: string;
-    answers: string[];
-}
-
 interface props {
     editorRef: React.RefObject<monaco.editor.IStandaloneCodeEditor>;
     language: string;
     highlightedText: string | null;
     modeullakId: number;
     storageId: string;
+    entireCode: string;
 }
 
 export default function Questions(props: props) {

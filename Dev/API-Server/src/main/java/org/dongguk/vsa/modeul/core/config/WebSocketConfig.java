@@ -60,7 +60,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws")
+        registry.addEndpoint("/ws-stomp")
                 .setAllowedOriginPatterns("*"); // TODO: 개발 전용이므로 추후에 수정 필요
 
         // TODO: CRDT 개발 시 StompSecurityExceptionHandler 추가
