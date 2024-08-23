@@ -6,13 +6,12 @@ interface ContainerProps {
 
 export const Container = styled.div<ContainerProps>`
 
-    min-height: 1080px;
-
     height: 100vh;
 
     margin: 0 0 auto 0;
 
     width: ${(props) => (props.isCollapsed ? '60px' : '240px')};
+    max-width: ${(props) => (props.isCollapsed ? '60px' : '240px')};
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -41,11 +40,13 @@ export const MiddleMenuBar = styled.div`
 export const BottomMenuBar = styled.div`
     display: flex;
     width: 224px;
+    height: 30px;
     padding: 8px;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
+
 `;
 
 export const DirectoryList = styled.div<ContainerProps>`
@@ -61,4 +62,22 @@ export const DirectoryList = styled.div<ContainerProps>`
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+
 `;
+
+export const AddFileInput = styled.input`
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;
+    border-color: ${({theme}) => theme.colorSystem.neutral["100"]};
+    background: ${({theme}) => theme.colorSystem.neutral["100"]};
+`
+
+export const AddFileButton = styled.button`
+    width: 52px;
+    height: 23px;
+    border-radius: 8px;
+    border-color: ${({theme}) => theme.colorSystem.neutral["200"]};
+    background: ${({theme}) => theme.colorSystem.neutral["200"]};
+    color: ${({theme}) => theme.colorSystem.neutral["900"]};
+`

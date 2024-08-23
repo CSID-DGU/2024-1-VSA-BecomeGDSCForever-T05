@@ -11,6 +11,7 @@ import doubleLeftIcon from "@/assets/icons/Sidebar/doubleLeftIcon.svg";
 import doubleRightIcon from "@/assets/icons/Sidebar/doubleRightIcon.svg";
 import newFileIcon from "@/assets/icons/Sidebar/newFileIcon.svg";
 import refreshIcon from "@/assets/icons/Sidebar/refreshIcon.svg";
+import Sub2 from "@/components/Common/Font/Body/Sub2";
 import Row from "@/components/Common/Row";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/stores/store.ts";
@@ -27,6 +28,7 @@ import {addModeullakStorage, updateModeullakStorage} from "@/stores/slices/stora
 import {ModeullakUserBriefState} from "@/interfaces/states/modeullak/ModeullakUserBriefState.ts";
 import {updateSelectedStorageId} from "@/stores/slices/global/selectedStorageId.slice.ts";
 import {fetchModeullakUser} from "@/apis/modeullak";
+import theme from "@/shared/theme.ts";
 
 interface props {
     modeullakId: number;
@@ -249,14 +251,18 @@ export default function ModeullakSidebarInfo(props: props) {
                     </Styled.MiddleMenuBar>
                     <Styled.BottomMenuBar>
                         {(isAddingFile) && (
-                            <Row>
-                                <input
+                            <Row gap={"5px"}>
+                                {/* 이거 스타일로 바꾸고*/}
+                                <Styled.AddFileInput
                                     type="text"
                                     value={newItemName}
                                     onChange={(e) => setNewItemName(e.target.value)}
                                     placeholder={isAddingFile ? "Enter file name" : "Enter directory name"}
                                 />
-                                <button onClick={handleAddNewItem}>Add</button>
+                                {/* 여기도 스타일로 바꾸면 될듯?*/}
+                                <Styled.AddFileButton onClick={handleAddNewItem}>
+                                    <Sub2 text={"추가"} color={theme.colorSystem.neutral["800"]}/>
+                                </Styled.AddFileButton>
                             </Row>
                         )}
                         {
