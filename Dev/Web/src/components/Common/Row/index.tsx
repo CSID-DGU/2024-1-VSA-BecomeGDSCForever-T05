@@ -7,11 +7,13 @@ interface RowProps {
     alignItems?: string;
     width?: string;
     onClick?: () => void;
+    gap?: string;
 }
 
 export default function Row(props: RowProps) {
     return (
-        <Styled.Row justifyContent={props.justifyContent} alignItems={props.alignItems} width={props.width} onClick={props.onClick}>
+        <Styled.Row justifyContent={props.justifyContent} alignItems={props.alignItems} width={props.width}
+                    onClick={props.onClick} gap={props.gap}>
             {props.children}
         </Styled.Row>
     )

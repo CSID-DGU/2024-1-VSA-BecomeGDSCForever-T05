@@ -9,6 +9,7 @@ import JoinStateTag from "@/components/NavBar/JoinStateTag";
 import {useParticipatedModeullak} from "@/hooks/modeullak/useParticipatedModeullak.ts";
 import {useNavigate} from "react-router-dom";
 import {CONSTANT} from "@/constants/Constant.ts";
+import HomeLogo from "@/assets/icons/Logo/HomeLogo.svg";
 
 const NavBar: React.FC = () => {
 
@@ -28,7 +29,7 @@ const NavBar: React.FC = () => {
     return (
         <Styled.NavBarContainer>
             <Styled.NavBarLeftSection>
-                {/*<ProfileImage src={Logo} alt="Logo" onClick={onLogoClick} width={"195px"} height={"80px"}/>*/}
+                <ProfileImage src={HomeLogo} alt="Logo" onClick={onLogoClick} width={"195px"} height={"80px"}/>
                 <Styled.NavMenuButton>
                     <ProfileImage src={FilledLeaf} width={"28px"} height={"28px"}/>
                     <H3 text={"모들락"} color={theme.colorSystem.secondary["700"]}/>

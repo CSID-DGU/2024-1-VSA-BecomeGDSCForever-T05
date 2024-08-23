@@ -6,6 +6,7 @@ interface RowProps {
     justifyContent?: string;
     alignItems?: string;
     width?: string;
+    gap?: string;
 }
 
 export const Row = styled.div<RowProps>`
@@ -14,4 +15,5 @@ export const Row = styled.div<RowProps>`
     justify-content: ${(props) => props.justifyContent || "flex-start"};
     align-items: ${(props) => props.alignItems || "flex-start"};
     width: ${(props) => props.width || "100%"};
+    gap: ${(props) => props.gap || "0"};
 `;

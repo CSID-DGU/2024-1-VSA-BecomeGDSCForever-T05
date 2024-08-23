@@ -17,7 +17,7 @@ export const Container = styled.div`
 
 export const EditorContainer = styled.div`
     width: 100%;
-    min-width: 1080px;
+    min-width: 900px;
 
     padding: 10px;
 `;
