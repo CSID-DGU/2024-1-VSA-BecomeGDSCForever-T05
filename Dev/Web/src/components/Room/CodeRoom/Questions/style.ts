@@ -85,7 +85,7 @@ export const Input = styled.textarea`
     border: none;
     resize: none;
     min-height: 100px;
-    height: 800px;
+    height: 500px;
 
     &:focus {
         outline: none;
@@ -100,11 +100,13 @@ export const ButtonWrapper = styled.div`
 
 export const Button = styled.button`
     display: flex;
-    width: 100px;
+    width: 10rem;
+    height: 3rem;
     padding: 4px 12px;
     justify-content: center;
     align-items: center;
     background: ${theme.colorSystem.primary["600"]};
     border: none;
     border-radius: 4px;
+    margin-right: 30px;
 `;
