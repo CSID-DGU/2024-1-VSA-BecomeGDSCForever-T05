@@ -76,6 +76,8 @@ export const MarkdownContainer = styled.div`
     padding: 16px;
     border-radius: 8px;
     margin-bottom: 8px;
+    max-height: 600px;
+    overflow-y: scroll;
 `;
 
 export const Input = styled.textarea`
@@ -84,8 +86,8 @@ export const Input = styled.textarea`
     margin-top: 8px;
     border: none;
     resize: none;
-    min-height: 100px;
-    height: 500px;
+    min-height: 400px;
+    max-height: 430px;
 
     &:focus {
         outline: none;

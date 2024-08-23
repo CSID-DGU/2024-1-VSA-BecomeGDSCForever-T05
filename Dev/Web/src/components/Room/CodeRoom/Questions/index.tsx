@@ -68,7 +68,7 @@ export default function Questions(props: props) {
                         <SizedBox height={"20px"}/>
                         <H1 text={"질문하기"}/>
                     </Column>
-                    <SizedBox width={"auto"} height={"40px"}/>
+                    <SizedBox width={"auto"} height={"10px"}/>
                     <Styled.MarkdownContainer>
                         <CustomMarkdown shortCode={`\`\`\`${props.language}\n${props.highlightedText}\n\`\`\``}/>
                     </Styled.MarkdownContainer>
@@ -77,7 +77,7 @@ export default function Questions(props: props) {
                         onChange={(e) => setQuestion(e.target.value)}
                         placeholder="질문을 입력하세요"
                     />
-                    <SizedBox width={"auto"} height={"40px"}/>
+                    <SizedBox width={"auto"} height={"20px"}/>
                     <Styled.ButtonWrapper>
                         <Styled.Button onClick={handleAddQuestion}>
                             <H3 text={"질문 남기기"} color={theme.colorSystem.white}/>
