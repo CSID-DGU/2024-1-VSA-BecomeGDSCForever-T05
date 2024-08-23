@@ -38,35 +38,8 @@ public class RabbitMQConfig {
         return new Queue(Constants.MODEUL_USER_QUEUE_NAME, true);
     }
 
-    @Bean
-    public Queue dialogueQueue() {
-        return new Queue(Constants.MODEUL_DIALOGUE_QUEUE_NAME, true);
-    }
-
-    @Bean
-    public Queue storageQueue() {
-        return new Queue(Constants.MODEUL_STORAGE_QUEUE_NAME, true);
-    }
-
-    @Bean
-    public Binding dialogueBinding(Queue dialogueQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(dialogueQueue).to(exchange).with(Constants.MODEULLAK_DIALOGUE_ROUTING_KEY);
-    }
-
-    @Bean Binding storageContentBinding(Queue storageQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(storageQueue).to(exchange).with(Constants.MODEULLAK_STORAGE_CONTENT_ROUTING_KEY);
-    }
-
     @Bean Binding userBinding(Queue userQueue, TopicExchange exchange) {
         return BindingBuilder.bind(userQueue).to(exchange).with(Constants.MODEULLAK_USER_ROUTING_KEY);
-    }
-
-    @Bean Binding userStorageBinding(Queue storageQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(storageQueue).to(exchange).with(Constants.MODEULLAK_USER_STORAGE_ROUTING_KEY);
-    }
-
-    @Bean Binding userDialogueBinding(Queue dialogueQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(dialogueQueue).to(exchange).with(Constants.MODEULLAK_USER_DIALOGUE_ROUTING_KEY);
     }
 
 

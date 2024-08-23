@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -85,7 +86,11 @@ public class ReadKeywordListUsingModeullakService implements ReadKeywordListUsin
         Map<Long, List<Long>> representativeDialogueIdsMap = dialogues.stream()
                 .collect(Collectors.toMap(
                         dialogue -> dialogue.getKeyword().getId(),
-                        dialogue -> List.of(dialogue.getId())
+                        dialogue -> new ArrayList<>(List.of(dialogue.getId())),
+                        (existingList, newList) -> {
+                            existingList.addAll(newList);
+                            return existingList;
+                        }
                 ));
 
         return ModeullakKeywordDetailPagingDto.fromEntities(
