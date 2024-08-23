@@ -257,7 +257,7 @@ export default function ModeullakSidebarInfo(props: props) {
                                     type="text"
                                     value={newItemName}
                                     onChange={(e) => setNewItemName(e.target.value)}
-                                    placeholder={isAddingFile ? "Enter file name" : "Enter directory name"}
+                                    
                                 />
                                 {/* 여기도 스타일로 바꾸면 될듯?*/}
                                 <Styled.AddFileButton onClick={handleAddNewItem}>
