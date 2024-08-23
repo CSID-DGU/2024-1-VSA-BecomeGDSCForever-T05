@@ -3,7 +3,6 @@ import * as Styled from "./style.ts"
 import theme from "@/shared/theme.ts";
 import FilledLeaf from "@/assets/icons/FilledLeaf.svg"
 import ProfileImage from "@/components/Common/ProfileImage";
-import DefaultProfile from "@/assets/icons/Profile/DefaultProfile.svg"
 import H3 from "@/components/Common/Font/Heading/H3";
 import JoinStateTag from "@/components/NavBar/JoinStateTag";
 import {useParticipatedModeullak} from "@/hooks/modeullak/useParticipatedModeullak.ts";
@@ -22,11 +21,6 @@ const NavBar: React.FC = () => {
         navigate(CONSTANT.ROUTER.HOME);
     }
 
-    const onProfileCLick = (): void => {
-        navigate(CONSTANT.ROUTER.ENTRY);
-        window.location.reload();
-    }
-
     return (
         <Styled.NavBarContainer>
             <Styled.NavBarLeftSection>
@@ -41,7 +35,6 @@ const NavBar: React.FC = () => {
                     <JoinStateTag text={`${participatedModeullak.modeullakTitle} 참여 중`}
                                   id={participatedModeullak.modeullakId}/> : null
                 }
-                <ProfileImage src={DefaultProfile} onClick={onProfileCLick} width={"58.667px"} height={"58.667px"}/>
             </Styled.NavBarRightSection>
         </Styled.NavBarContainer>
     );
