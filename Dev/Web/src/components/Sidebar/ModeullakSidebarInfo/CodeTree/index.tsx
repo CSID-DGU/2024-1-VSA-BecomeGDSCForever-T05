@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import styled from "styled-components";
+import * as Styled from "./style.ts"
 import {ModeullakStorageBriefState} from "@/interfaces/states/storage/ModeullakStorageBriefState.ts";
 
 interface FileItem {
@@ -16,34 +16,6 @@ interface FileTreeProps {
     onAddItem: (type: "FILE" | "DIRECTORY", name: string, parentDirectory?: string) => void;
 }
 
-const TreeContainer = styled.ul<{ level: number }>`
-    padding-left: ${(props) => props.level * 10}px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-`;
-
-const TreeItem = styled.li<{ isDirectory: boolean }>`
-    list-style-type: ${(props) => (props.isDirectory ? "disc" : "none")};
-    cursor: pointer;
-    font-weight: ${(props) => (props.isDirectory ? "bold" : "normal")};
-    padding-left: ${(props) => (props.isDirectory ? "0" : "20px")};
-    display: contents;
-`;
-
-const Input = styled.input`
-    margin: 5px 0;
-    padding: 5px;
-    font-size: 0.875rem;
-`;
-
-const Button = styled.button`
-    margin-left: 5px;
-    padding: 5px 10px;
-    font-size: 0.75rem;
-    cursor: pointer;
-`;
 
 const FileTree: React.FC<FileTreeProps> = ({
                                                structure,
@@ -76,9 +48,9 @@ const FileTree: React.FC<FileTreeProps> = ({
     };
 
     return (
-        <TreeContainer level={level}>
+        <Styled.TreeContainer level={level}>
             {structure.map((item, index) => (
-                <TreeItem key={index} isDirectory={item.type === "DIRECTORY"}>
+                <Styled.TreeItem key={index} isDirectory={item.type === "DIRECTORY"}>
                     {item.type === "DIRECTORY" ? (
                         <>
                             <span onClick={() => handleDirectoryClick(item.name)}>
@@ -95,13 +67,14 @@ const FileTree: React.FC<FileTreeProps> = ({
                             }
                         </>
                     ) : (
-                        <span onClick={() => onFileClick(item.name)}>
+                        // <Sub2 text={item.name} onClick={() => onFileClick(item.name)} />
+                        <span onClick={() => onFileClick(item.name)} style={{fontSize: "18px"}}>
                              ㅤ {item.name}
                         </span>
                     )}
-                </TreeItem>
+                </Styled.TreeItem>
             ))}
-        </TreeContainer>
+        </Styled.TreeContainer>
     );
 };
 

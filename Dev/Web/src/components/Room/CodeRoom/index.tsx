@@ -17,6 +17,8 @@ export default function CodeRoom(props: props) {
     const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
     const [highlightedText, setHighlightedText] = useState<string | null>(null);
 
+    const isHost = useSelector((state: RootState) => state.hostState.isHost);
+
     const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string>("");
 
@@ -98,7 +100,7 @@ export default function CodeRoom(props: props) {
                 />
             </Styled.EditorContainer>
             {
-                highlightedText &&
+                highlightedText && isHost &&
                 <Questions editorRef={editorRef} language={extension} highlightedText={highlightedText}
                            modeullakId={props.modeullakId} storageId={storageId}/>
             }

@@ -23,7 +23,12 @@ export default function UserRoom(props: props) {
     const [clickedQuestionId, setClickedQuestionId] = useState<number>(-1);
 
     const handleClick = (index: number) => () => {
-        setClickedQuestionId(index);
+
+        if (clickedQuestionId !== -1 && clickedQuestionId === index) {
+            setClickedQuestionId(-1);
+        } else {
+            setClickedQuestionId(index);
+        }
     }
 
     const dialogueDetail = useDialogueDetail(clickedQuestionId);
@@ -50,7 +55,7 @@ export default function UserRoom(props: props) {
                                             index !== 0 && <SizedBox height={"20px"}/>
                                         }
                                         <QuestionBrief state={dialogue}
-                                                       isClicked={clickedQuestionId === index}
+                                                       isClicked={clickedQuestionId === dialogue.id}
                                                        onClick={handleClick(dialogue.id)}/>
                                     </>
                                 )

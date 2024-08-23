@@ -80,7 +80,7 @@ const Modal: React.FC<ModalProps> = (props) => {
                 })
 
                 if (response.success) {
-                    navigate(CONSTANT.ROUTER.CODE + `/${response.data.id}`);
+                    navigate(CONSTANT.ROUTER.CODE + `/${modeullakBriefState.id}`);
                 }
             } catch (error) {
                 setIsAlertOpen(true);
