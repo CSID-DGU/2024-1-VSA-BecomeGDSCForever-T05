@@ -88,7 +88,7 @@ export default function CodeRoom(props: props) {
         <Styled.Container>
             <Styled.EditorContainer>
                 <Editor
-                    height="75vh"
+                    height="100vh"
                     theme="vs"
                     defaultValue={value}
                     language={extension}

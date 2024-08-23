@@ -56,6 +56,11 @@ export default function Search() {
     }
 
     const handleJoinOpen = async () => {
+
+        if (participatedModeullakState.modeullakId !== null) {
+            return;
+        }
+
         if (modeullakCode === "") {
             setIsAlertOpen(true);
             setAlertMessage("모들락 코드를 입력해주세요.");
@@ -70,7 +75,7 @@ export default function Search() {
             return;
         }
 
-        if (participatedModeullakState.modeullakId === null && modeullakCode !== "") {
+        if (modeullakCode !== "") {
             setModalType("join")
             setIsOpen(true);
         }
