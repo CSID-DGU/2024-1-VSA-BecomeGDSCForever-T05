@@ -2,6 +2,7 @@ package org.dongguk.vsa.modeul.dialogue.usecase;
 
 import org.dongguk.vsa.modeul.core.annotation.bean.UseCase;
 import org.dongguk.vsa.modeul.dialogue.dto.response.DialogueSummaryListDto;
+import org.dongguk.vsa.modeul.dialogue.dto.response.DialogueTemporarySummaryListDto;
 
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ public interface ReadDialogueTemporarySummaryListUseCase {
      *
      * @return 대화 요약 리스트 DTO
      */
-    DialogueSummaryListDto execute(
+    DialogueTemporarySummaryListDto execute(
             UUID accountId,
             Long modeullakId
     );
@@ -27,7 +28,7 @@ public interface ReadDialogueTemporarySummaryListUseCase {
      * @param modeullakId 모을락 ID
      * @return 대화 요약 리스트 DTO
      */
-    DialogueSummaryListDto execute(
+    DialogueTemporarySummaryListDto execute(
             UUID accountId,
             UUID userId,
             Long modeullakId
