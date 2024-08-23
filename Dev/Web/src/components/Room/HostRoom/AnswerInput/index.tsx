@@ -4,11 +4,19 @@ import Padding from "@/components/Common/Padding";
 import theme from "@/shared/theme.ts";
 import * as Styled from "./style.ts";
 import React, {useEffect, useRef, useState} from "react";
+import {createDialogueAnswer} from "@/apis/dialogue";
+import Alert from "@/components/Common/Alert";
 
-export default function AnswerInput() {
+interface props {
+    dialogueId: number;
+}
+
+export default function AnswerInput(props: props) {
 
     const [text, setText] = useState<string>("");
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+    const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
         if (textareaRef.current) {
@@ -21,8 +29,16 @@ export default function AnswerInput() {
         setText(event.target.value);
     }
 
-    const handleButtonClick = () => {
-        alert("답변하기 버튼이 클릭되었습니다.");
+    const handleButtonClick = async () => {
+        try {
+            await createDialogueAnswer(props.dialogueId, text);
+            setText("");
+            window.location.reload();
+
+        } catch (error) {
+            setIsAlertOpen(true);
+            setAlertMessage("답변을 등록하는데 실패했습니다.");
+        }
     }
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -58,6 +74,11 @@ export default function AnswerInput() {
                     <Styled.Button onClick={handleButtonClick}>답변하기</Styled.Button>
                 </Row>
             </Padding>
+            {
+                isAlertOpen && (
+                    <Alert title={alertMessage} onClick={() => setIsAlertOpen(false)}/>
+                )
+            }
         </Row>
     )
 }

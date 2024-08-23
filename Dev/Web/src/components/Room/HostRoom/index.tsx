@@ -2,18 +2,20 @@ import * as Styled from './style';
 import H0 from "@/components/Common/Font/Heading/H0";
 import theme from "@/shared/theme.ts";
 import SizedBox from "@/components/Common/SizedBox";
-import QuestionBrief from "@/components/Room/UserRoom/QuestionBrief";
+import QuestionBrief from "@/components/Room/HostRoom/QuestionBrief";
 import {useState} from "react";
 import Row from "@/components/Common/Row";
 import Column from "@/components/Common/Column";
-import QuestionDetail from "@/components/Room/UserRoom/QuestionDetail";
-import AnswerInput from "@/components/Room/UserRoom/AnswerInput";
+import AnswerInput from "@/components/Room/HostRoom/AnswerInput";
 import {useSelector} from "react-redux";
 import {RootState} from "@/stores/store.ts";
 import {
     useModeullakUserDependentDialogueTemporarySummary
 } from "@/hooks/dialogue/useModeullakUserDependentDialogueTemporarySummary.ts";
 import H4 from "@/components/Common/Font/Heading/H4";
+import {useDialogueDetail} from "@/hooks/dialogue/useDialogueDetail.ts";
+import AnswerDetail from "@/components/Room/HostRoom/AnswerDetail";
+import QuestionDetail from "@/components/Room/HostRoom/QuestionDetail";
 
 interface props {
     modeullakId: number;
@@ -27,9 +29,18 @@ export default function HostRoom(props: props) {
 
     const [clickedQuestionId, setClickedQuestionId] = useState<number>(-1);
 
+    const isHost = useSelector((state: RootState) => state.hostState.isHost);
+
     const handleClick = (index: number) => () => {
-        setClickedQuestionId(index);
+
+        if (clickedQuestionId !== -1 && clickedQuestionId === index) {
+            setClickedQuestionId(-1);
+        } else {
+            setClickedQuestionId(index);
+        }
     }
+
+    const dialogueDetail = useDialogueDetail(clickedQuestionId);
 
     return (
         <Styled.Container>
@@ -53,21 +64,29 @@ export default function HostRoom(props: props) {
                                             index !== 0 && <SizedBox height={"20px"}/>
                                         }
                                         <QuestionBrief state={dialogue}
-                                                       isClicked={clickedQuestionId === index}
-                                                       onClick={handleClick(index)}/>
+                                                       isClicked={clickedQuestionId === dialogue.id}
+                                                       onClick={handleClick(dialogue.id)}/>
                                     </>
                                 )
                             })
                         }
                     </Column>
-                    <Column>
+                    <Column width={"1200px"}>
                         {
                             clickedQuestionId !== -1 && (
                                 <>
-                                    <QuestionDetail/>
+                                    <QuestionDetail dialogueDetail={dialogueDetail}/>
                                     <SizedBox height={"40px"}/>
-                                    {/*<AnswerDetail/>*/}
-                                    <AnswerInput/>
+                                    {
+                                        dialogueDetail.answer !== null && dialogueDetail.answer && (
+                                            <AnswerDetail dialogueDetail={dialogueDetail}/>
+                                        )
+                                    }
+                                    {
+                                        !dialogueDetail.answer && isHost && (
+                                            <AnswerInput dialogueId={dialogueDetail.id}/>
+                                        )
+                                    }
                                 </>
                             )
                         }
