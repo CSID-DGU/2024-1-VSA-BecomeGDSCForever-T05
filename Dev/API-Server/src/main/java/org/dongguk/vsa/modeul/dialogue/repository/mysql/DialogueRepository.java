@@ -16,8 +16,8 @@ import java.util.Optional;
 @Repository
 public interface DialogueRepository extends JpaRepository<Dialogue, Long> {
 
-    @EntityGraph(attributePaths = {"modeullak"})
-    Optional<Dialogue> findDialogueAndModeullakById(
+    @EntityGraph(attributePaths = {"modeullak", "user"})
+    Optional<Dialogue> findDialogueAndModeullakAndUserById(
             Long dialogueId
     );
 
@@ -60,5 +60,5 @@ public interface DialogueRepository extends JpaRepository<Dialogue, Long> {
     );
 
     @EntityGraph(attributePaths = {"modeullak"})
-    Optional<Dialogue> findWithModeullakById(Long requestDialogId);
+    Optional<Dialogue> findWithModeullakAndUserById(Long requestDialogId);
 }

@@ -102,8 +102,8 @@ public class Constants {
             "/ws-stomp",
 
             // Stomp
-            "/pub",
-            "/exchange",
+            "/pub/**",
+            "/exchange/**",
 
             // Authentication/Authorization
             "/auth/validations/email",

@@ -1,6 +1,7 @@
 package org.dongguk.vsa.modeul.dialogue.service;
 
 import lombok.RequiredArgsConstructor;
+import org.dongguk.vsa.modeul.core.contants.Constants;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
@@ -19,10 +20,12 @@ import org.dongguk.vsa.modeul.user.domain.mysql.User;
 import org.dongguk.vsa.modeul.user.domain.mysql.UserModeullak;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserModeullakRepository;
 import org.dongguk.vsa.modeul.user.repository.mysql.UserRepository;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -38,12 +41,13 @@ public class UpdateAnswerInDialogueService implements UpdateAnswerInDialogueUseC
     private final ModeullakKeywordRepository modeullakKeywordRepository;
 
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final RabbitTemplate rabbitTemplate;
 
     @Override
     @Transactional
     public void execute(UpdateAnswerInDialogueRequestDto requestDto, Long dialogueId, UUID accountId) {
         // 1. 대화 및 사용자 정보 조회
-        Dialogue dialogue = dialogueRepository.findDialogueAndModeullakById(dialogueId)
+        Dialogue dialogue = dialogueRepository.findDialogueAndModeullakAndUserById(dialogueId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
@@ -58,6 +62,17 @@ public class UpdateAnswerInDialogueService implements UpdateAnswerInDialogueUseC
         // 3. 대화 답변 업데이트 (조교의 답변)
         dialogue.updateAnswer(requestDto.content(), Boolean.FALSE);
         dialogue.updateStatus(EDialogueStatus.COMPLETED);
+
+        rabbitTemplate.convertAndSend(
+                Constants.MODEUL_EXCHANGE_NAME,
+                String.format("modeullaks.%d.users", dialogue.getModeullak().getId()),
+                Map.of(
+                        "type", "DIALOGUE",
+                        "data", Map.of(
+                                "user_id", dialogue.getUser().getId()
+                        )
+                )
+        );
 
         // 4. UpdateAnswerInDialogueEvent 발생
         applicationEventPublisher.publishEvent(
@@ -78,7 +93,7 @@ public class UpdateAnswerInDialogueService implements UpdateAnswerInDialogueUseC
             String keywordStr
     ) {
         // 1. 분석을 요청했던 대화를 조회한다. 이때 모들락도 같이 조회한다.
-        Dialogue requestDialogue = dialogueRepository.findWithModeullakById(requestDialogId)
+        Dialogue requestDialogue = dialogueRepository.findWithModeullakAndUserById(requestDialogId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
         Modeullak modeullak = requestDialogue.getModeullak();
 
@@ -102,13 +117,27 @@ public class UpdateAnswerInDialogueService implements UpdateAnswerInDialogueUseC
         requestDialogue.updateKeyword(keyword);
 
         // 4. 모들락과 핵심 키워드를 연결시켜준다.
-        ModeullakKeyword modeullakKeyword = ModeullakKeyword.builder()
-                .modeullak(modeullak)
-                .keyword(keyword)
-                .description("아직 정리되지 않은 키워드입니다.")
-                .build();
+        if (modeullakKeywordRepository.findByModeullakAndKeyword(modeullak, keyword).isEmpty()) {
+            ModeullakKeyword modeullakKeyword = ModeullakKeyword.builder()
+                    .modeullak(modeullak)
+                    .keyword(keyword)
+                    .description("아직 정리되지 않은 키워드입니다.")
+                    .build();
 
-        modeullakKeywordRepository.save(modeullakKeyword);
+            modeullakKeywordRepository.save(modeullakKeyword);
+        }
+
+        // PROCESSING 아니면 COMPLETED이니 Stomp 발생
+        rabbitTemplate.convertAndSend(
+                Constants.MODEUL_EXCHANGE_NAME,
+                String.format("modeullaks.%d.users", requestDialogue.getModeullak().getId()),
+                Map.of(
+                        "type", "DIALOGUE",
+                        "data", Map.of(
+                                "user_id", requestDialogue.getUser().getId()
+                        )
+                )
+        );
     }
 
     private Keyword createOrUpdateKeyword(String keywordStr) {
