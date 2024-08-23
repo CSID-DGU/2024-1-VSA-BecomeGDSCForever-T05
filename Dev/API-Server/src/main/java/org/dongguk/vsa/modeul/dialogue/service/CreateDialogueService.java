@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.dongguk.vsa.modeul.core.exception.error.ErrorCode;
 import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
-import org.dongguk.vsa.modeul.dialogue.domain.type.EDialogueStatus;
 import org.dongguk.vsa.modeul.dialogue.dto.request.CreateDialogueRequestDto;
 import org.dongguk.vsa.modeul.dialogue.event.CreateDialogueEvent;
 import org.dongguk.vsa.modeul.dialogue.repository.mysql.DialogueRepository;
@@ -20,16 +19,21 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class CreateDialogueService implements CreateDialogueUseCase {
 
-    private final ModeullakRepository modeullakRepository;
-    private final DialogueRepository dialogueRepository;
     private final UserRepository userRepository;
+    private final ModeullakRepository modeullakRepository;
+
+    private final DialogueRepository dialogueRepository;
+
     private final StorageRepository storageRepository;
+
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     @Transactional
@@ -51,7 +55,7 @@ public class CreateDialogueService implements CreateDialogueUseCase {
         }
 
         // 4. questionLongCode 설정 (Storage가 File 타입일 경우)
-        String questionLongCode = ((File) storage).getContent();
+        String questionLongCode = getMarkdownForm((File) storage);
 
         // 5. Dialogue 생성
         Dialogue dialogue = Dialogue.builder()
@@ -66,6 +70,34 @@ public class CreateDialogueService implements CreateDialogueUseCase {
         dialogueRepository.save(dialogue);
 
         // 7. CreateDialogueEvent 발생
-        // TODO CreateDialogueEvent 발생
+        applicationEventPublisher.publishEvent(
+                CreateDialogueEvent.builder()
+                        .dialogueId(dialogue.getId())
+                        .questionLongCode(dialogue.getQuestionLongCode())
+                        .questionShortCode(dialogue.getQuestionShortCode())
+                        .questionContent(dialogue.getQuestionContent())
+                        .build()
+        );
+    }
+
+    private String getMarkdownForm(File file) {
+        String extension = file.getExtension();
+
+        if (Objects.equals(extension, "js")) {
+            return "javascript";
+        } else if (Objects.equals(extension, "c")) {
+            return "c";
+        } else if (Objects.equals(extension, "java")) {
+            return "java";
+        } else if (Objects.equals(extension, "py")) {
+            return "python";
+        } else if (Objects.equals(extension, "cpp")) {
+            return "cpp";
+        }
+
+        String prefix = "```" + extension + "\n";
+        String postfix = "\n```";
+
+        return prefix + file.getContent() + postfix;
     }
 }

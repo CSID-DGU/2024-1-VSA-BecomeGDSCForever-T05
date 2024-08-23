@@ -6,7 +6,6 @@ import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.security.domain.mysql.Account;
 import org.dongguk.vsa.modeul.security.info.CustomUserPrincipal;
 import org.dongguk.vsa.modeul.security.repository.mysql.AccountRepository;
-import org.dongguk.vsa.modeul.security.repository.redis.RefreshTokenRepository;
 import org.dongguk.vsa.modeul.security.usecase.AuthenticateJsonWebTokenUseCase;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +17,10 @@ public class AuthenticateJsonWebTokenService implements AuthenticateJsonWebToken
 
     private final AccountRepository accountRepository;
 
-    private final RefreshTokenRepository refreshTokenRepository;
-
     @Override
     public CustomUserPrincipal execute(UUID accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
-
-        refreshTokenRepository.findById(accountId)
-                .orElseThrow(() -> new CommonException(ErrorCode.NOT_LOGIN_USER));
 
         return CustomUserPrincipal.create(account);
     }

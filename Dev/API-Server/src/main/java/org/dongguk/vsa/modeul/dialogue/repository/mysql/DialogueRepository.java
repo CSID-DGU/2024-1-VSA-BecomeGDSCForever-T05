@@ -21,6 +21,11 @@ public interface DialogueRepository extends JpaRepository<Dialogue, Long> {
             Long dialogueId
     );
 
+    @EntityGraph(attributePaths = {"keyword"})
+    Optional<Dialogue> findWithKeywordById(
+            Long similarDialogId
+    );
+
     @EntityGraph(attributePaths = {"user"})
     List<Dialogue> findAllByKeywordAndModeullakAndStatus(
             Keyword keyword,
@@ -53,4 +58,7 @@ public interface DialogueRepository extends JpaRepository<Dialogue, Long> {
             Modeullak modeullak,
             EDialogueStatus eDialogueStatus
     );
+
+    @EntityGraph(attributePaths = {"modeullak"})
+    Optional<Dialogue> findWithModeullakById(Long requestDialogId);
 }

@@ -20,4 +20,18 @@ public interface UpdateAnswerInDialogueUseCase {
             Long dialogueId,
             UUID accountId
     );
+
+    /**
+     * 대화의 답변을 업데이트합니다.
+     * @param requestDialogId 대화 ID
+     * @param similarDialogId 유사 대화 ID
+     * @param answer 답변
+     * @param keyword 키워드
+     */
+    void execute(
+            Long requestDialogId,
+            Long similarDialogId,
+            String answer,
+            String keyword
+    );
 }

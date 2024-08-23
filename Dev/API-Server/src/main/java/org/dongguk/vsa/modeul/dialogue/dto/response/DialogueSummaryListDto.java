@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import org.dongguk.vsa.modeul.core.annotation.validation.DateTimeValue;
 import org.dongguk.vsa.modeul.core.dto.SelfValidating;
+import org.dongguk.vsa.modeul.core.utility.DateTimeUtil;
 import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -50,25 +53,34 @@ public class DialogueSummaryListDto extends SelfValidating<DialogueSummaryListDt
         @NotNull
         private final Boolean isAnsweredByLLM;
 
+        @JsonProperty("updated_at")
+        @DateTimeValue
+        private final String updatedAt;
+
         @Builder
         public DialogueSummaryDto(
                 Long id,
                 String keywordName,
                 String questionContent,
-                Boolean isAnsweredByLLM
+                Boolean isAnsweredByLLM,
+                String updatedAt
         ) {
             this.id = id;
             this.keywordName = keywordName;
             this.questionContent = questionContent;
             this.isAnsweredByLLM = isAnsweredByLLM;
+            this.updatedAt = updatedAt;
         }
 
         public static DialogueSummaryDto fromEntity(Dialogue entity) {
+            LocalDateTime updatedAt = entity.getRepliedAt() == null ? entity.getAskedAt() : entity.getRepliedAt();
+
             return DialogueSummaryDto.builder()
                     .id(entity.getId())
                     .keywordName(entity.getKeyword().getName())
                     .questionContent(entity.getQuestionContent())
                     .isAnsweredByLLM(entity.getIsAnsweredByLlm())
+                    .updatedAt(DateTimeUtil.convertLocalDateTimeToString(updatedAt))
                     .build();
         }
     }
