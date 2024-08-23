@@ -89,11 +89,6 @@ const Modal: React.FC<ModalProps> = (props) => {
         }
     }
 
-    // languageList가 업데이트될 때마다 콘솔에 출력
-    React.useEffect(() => {
-        console.log("리스트:", languageList);
-    }, [languageList]);
-
     // 모달이 열릴 때 body의 스크롤을 막음
     useEffect(() => {
         document.body.style.overflow = "hidden";

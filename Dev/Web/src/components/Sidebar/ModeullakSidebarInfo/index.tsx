@@ -16,7 +16,7 @@ import Row from "@/components/Common/Row";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/stores/store.ts";
 import {updateRoomFrameState} from "@/stores/slices/global/roomFrame.slice.ts";
-import {createModeullakStorage, fetchModeullakStorageBrief, fetchModeullakUserStorageBrief} from "@/apis/storage";
+import {createModeullakStorage, fetchModeullakUserStorageBrief} from "@/apis/storage";
 import {useNavigate} from "react-router-dom";
 import {CONSTANT} from "@/constants/Constant.ts";
 import {useModeullakUserBrief} from "@/hooks/modeullak/useModeullakUserBrief.ts";
@@ -76,6 +76,10 @@ export default function ModeullakSidebarInfo(props: props) {
             console.error("Error fetching modeullak user:", error);
         }
     }
+
+    useEffect(() => {
+        loadUserStorageBrief().then(r => r);
+    }, [dispatch]);
 
     useEffect(() => {
         loadModeullakUser().then(r => r);
@@ -177,7 +181,9 @@ export default function ModeullakSidebarInfo(props: props) {
 
     const handleNewFileClick = () => {
 
-        if (selectedUser.id === modeullakUserBrief.selfUser.id) {
+        setIsAddingFile(!isAddingFile);
+
+        if (spaceUser.id === modeullakUserBrief.selfUser.id) {
             setIsAddingFile(!isAddingFile);
         }
     };
@@ -199,7 +205,9 @@ export default function ModeullakSidebarInfo(props: props) {
     }
 
     const handleRefreshClick = () => {
-        dispatch(fetchModeullakStorageBrief(props.modeullakId));
+        loadUserStorageBrief().then(r => r);
+        // dispatch()
+        // dispatch(fetchModeullakStorageBrief(props.modeullakId));
     }
 
     return (
@@ -266,7 +274,7 @@ export default function ModeullakSidebarInfo(props: props) {
                             </Row>
                         )}
                         {
-                            selectedUser.id === modeullakUserBrief.selfUser.id && (
+                            spaceUser.id === modeullakUserBrief.selfUser.id && (
                                 <ProfileImage src={newFileIcon} width={"16px"} height={"16px"}
                                               onClick={handleNewFileClick}/>
                             )

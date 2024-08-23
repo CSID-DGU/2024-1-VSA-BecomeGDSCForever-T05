@@ -99,7 +99,8 @@ export default function CodeRoom(props: props) {
             </Styled.EditorContainer>
             {
                 highlightedText &&
-                <Questions editorRef={editorRef} language={extension} highlightedText={highlightedText}/>
+                <Questions editorRef={editorRef} language={extension} highlightedText={highlightedText}
+                           modeullakId={props.modeullakId} storageId={storageId}/>
             }
             {
                 isAlertOpen && (

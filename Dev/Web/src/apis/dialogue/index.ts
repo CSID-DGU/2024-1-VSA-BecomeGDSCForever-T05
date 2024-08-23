@@ -57,3 +57,19 @@ export const fetchModeullakUserDependentDialogueTemporarySummary = createAsyncTh
         return response.data;
     }
 )
+
+export const createDialogue = async (
+    modeullakId: number,
+    storageId: string,
+    shortCode: string,
+    content: string
+) => {
+    const response = await authInstance.post(`/api/v1/dialogues`, {
+        modeullak_id: modeullakId,
+        storage_id: storageId,
+        short_code: shortCode,
+        content: content
+    })
+
+    return response.data;
+}

@@ -28,6 +28,17 @@ export default function ModeullakSidebarUser(props: props) {
             dispatch(updateRoomFrameState("host"));
             dispatch(updateSelectedUser(user));
         }
+
+        dispatch(updateSelectedUser(user));
+    }
+
+    const handleSelfUserProfileClick = () => {
+        if (isHost) {
+            dispatch(updateRoomFrameState("default"));
+            dispatch(updateSelectedUser(modeullakUserBrief.selfUser));
+        }
+
+        dispatch(updateSelectedUser(modeullakUserBrief.selfUser));
     }
 
     return (
@@ -35,7 +46,7 @@ export default function ModeullakSidebarUser(props: props) {
             <SizedBox height={"18x"}/>
             <Styled.MyProfile>
                 <ProfileImage src={DefaultProfile} width={"56px"} height={"56px"}
-                              onClick={() => handleUserProfileClick(modeullakUserBrief.selfUser)}/>
+                              onClick={handleSelfUserProfileClick}/>
             </Styled.MyProfile>
             <Styled.Hr/>
             <Styled.UserProfileList>
@@ -44,7 +55,7 @@ export default function ModeullakSidebarUser(props: props) {
                         return (
                             <Styled.UserProfile key={user.id} onClick={() => handleUserProfileClick(user)}>
                                 <ProfileImage src={DefaultProfile} width={"56px"} height={"56px"}
-                                              alt={"Profile"}/>
+                                              alt={"Profile"} new={true}/>
                             </Styled.UserProfile>
                         )
                     })

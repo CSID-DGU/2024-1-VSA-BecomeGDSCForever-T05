@@ -114,7 +114,7 @@ export const fetchModeullakUserBrief = createAsyncThunk(
 )
 
 export const fetchModeullakUser = async (modeullakId: number) => {
-    const response = await authInstance.get(`/api/v1/modeullaks/${modeullakId}/users/brief`);
+    const response = await authInstance.get(`/api/v1/modeullaks/${modeullakId}/users/briefs`);
 
     return response.data;
 }

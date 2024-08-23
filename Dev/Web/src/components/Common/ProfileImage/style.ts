@@ -24,7 +24,7 @@ export const ProfileImage = styled.img<ProfileImageProps>`
     align-items: center;
     gap: 12px;
     flex-shrink: 0;
-    cursor: ${(props) => (props.onClick ? "pointer" : "default")};
+    cursor: pointer;
 `;
 
 export const NotificationDot = styled.div`
