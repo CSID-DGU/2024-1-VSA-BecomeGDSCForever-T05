@@ -73,3 +73,14 @@ export const createDialogue = async (
 
     return response.data;
 }
+
+export const createDialogueAnswer = async (
+    dialogueId: number,
+    content: string
+) => {
+    const response = await authInstance.put(`/api/v1/dialogues/${dialogueId}/answers`, {
+        content: content
+    });
+
+    return response.data;
+}
