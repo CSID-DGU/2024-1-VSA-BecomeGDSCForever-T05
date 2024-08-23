@@ -76,6 +76,8 @@ export const MarkdownContainer = styled.div`
     padding: 16px;
     border-radius: 8px;
     margin-bottom: 8px;
+    max-height: 600px;
+    overflow-y: scroll;
 `;
 
 export const Input = styled.textarea`
@@ -84,8 +86,8 @@ export const Input = styled.textarea`
     margin-top: 8px;
     border: none;
     resize: none;
-    min-height: 100px;
-    height: 800px;
+    min-height: 400px;
+    max-height: 430px;
 
     &:focus {
         outline: none;
@@ -100,11 +102,13 @@ export const ButtonWrapper = styled.div`
 
 export const Button = styled.button`
     display: flex;
-    width: 100px;
+    width: 10rem;
+    height: 3rem;
     padding: 4px 12px;
     justify-content: center;
     align-items: center;
     background: ${theme.colorSystem.primary["600"]};
     border: none;
     border-radius: 4px;
+    margin-right: 30px;
 `;

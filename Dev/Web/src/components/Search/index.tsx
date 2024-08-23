@@ -2,6 +2,7 @@ import * as Styled from "./style.ts";
 import Input from "@/components/Search/Input";
 import SizedBox from "@/components/Common/SizedBox";
 import Sub1 from "@/components/Common/Font/Body/Sub1";
+import Sub3 from "@/components/Common/Font/Body/Sub3";
 import theme from "@/shared/theme.ts";
 import Button from "@/components/Search/Button";
 import Modal from "@/components/Modal";
@@ -93,7 +94,7 @@ export default function Search() {
                     <SizedBox width={"20px"} height={"20px"}/>
                     <Styled.RoomMaker onClick={handleCreateOpen}
                                       isParticipated={participatedModeullakState.modeullakId !== null}>
-                        <Sub1
+                        <Sub3
                             color={participatedModeullakState.modeullakId !== null ? theme.colorSystem.neutral[400] : theme.colorSystem.neutral["700"]}
                             text={"개설하기"}/>
                     </Styled.RoomMaker>

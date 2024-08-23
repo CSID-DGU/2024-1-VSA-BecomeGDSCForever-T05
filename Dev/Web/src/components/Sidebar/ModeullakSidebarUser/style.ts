@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    width: 80px;
+    width: 66px;
     max-width: 80px;
     height: 100vh;
 
@@ -19,7 +19,7 @@ export const MyProfile = styled.div`
     flex-shrink: 0;
     align-self: stretch;
     position: relative;
-    padding-left: 10px; /* 컨텐츠와 border 사이의 간격 조정 */
+    padding-left: 4px; /* 컨텐츠와 border 사이의 간격 조정 */
 
     &::before {
         content: "";
@@ -27,7 +27,7 @@ export const MyProfile = styled.div`
         top: 0;
         left: 0;
         height: 100%;
-        width: 4px;
+        width: 2px;
         border-radius: 0px 2px 2px 0px;
         background: ${({theme}) => theme.colorSystem.primary["500"]};
     }

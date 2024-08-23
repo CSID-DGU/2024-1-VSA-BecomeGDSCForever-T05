@@ -4,10 +4,10 @@ import * as monaco from "monaco-editor";
 import Column from "@/components/Common/Column";
 import SizedBox from "@/components/Common/SizedBox";
 import H1 from "@/components/Common/Font/Heading/H1";
+import H3 from "@/components/Common/Font/Heading/H3";
 import SvgButton from "@/components/Common/SvgButton";
 import BlackDoubleRightArrow from "@/assets/icons/CodeIde/BlackDoubleRightArrow.svg";
 import theme from "@/shared/theme.ts";
-import Sub1 from "@/components/Common/Font/Body/Sub1";
 import CustomMarkdown from "@/components/Common/CustomMarkdown";
 import {createDialogue} from "@/apis/dialogue";
 import Alert from "@/components/Common/Alert";
@@ -63,7 +63,7 @@ export default function Questions(props: props) {
                         <SizedBox height={"20px"}/>
                         <H1 text={"질문하기"}/>
                     </Column>
-                    <SizedBox width={"auto"} height={"40px"}/>
+                    <SizedBox width={"auto"} height={"10px"}/>
                     <Styled.MarkdownContainer>
                         <CustomMarkdown shortCode={`\`\`\`${props.language}\n${props.highlightedText}\n\`\`\``}/>
                     </Styled.MarkdownContainer>
@@ -72,10 +72,10 @@ export default function Questions(props: props) {
                         onChange={(e) => setQuestion(e.target.value)}
                         placeholder="질문을 입력하세요"
                     />
-                    <SizedBox width={"auto"} height={"40px"}/>
+                    <SizedBox width={"auto"} height={"20px"}/>
                     <Styled.ButtonWrapper>
                         <Styled.Button onClick={handleAddQuestion}>
-                            <Sub1 text={"질문 남기기"} color={theme.colorSystem.white}/>
+                            <H3 text={"질문 남기기"} color={theme.colorSystem.white}/>
                         </Styled.Button>
                     </Styled.ButtonWrapper>
                 </Styled.QuestionInputContainer>
