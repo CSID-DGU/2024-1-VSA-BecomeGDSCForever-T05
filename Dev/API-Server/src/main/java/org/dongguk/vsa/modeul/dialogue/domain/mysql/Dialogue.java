@@ -101,6 +101,7 @@ public class Dialogue {
     public void updateAnswer(String answer, Boolean isAnsweredByLlm) {
         this.answer = answer;
         this.isAnsweredByLlm = isAnsweredByLlm;
+
         this.repliedAt = LocalDateTime.now();
     }
 
@@ -112,4 +113,7 @@ public class Dialogue {
         this.status = status;
     }
 
+    public void updateKeyword(Keyword keyword) {
+        this.keyword = keyword;
+    }
 }

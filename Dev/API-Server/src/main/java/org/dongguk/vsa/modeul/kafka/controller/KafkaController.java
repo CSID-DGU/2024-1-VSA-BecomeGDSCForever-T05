@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class KafkaController {
 
 
-    @KafkaListener(topics = "similarity-check", groupId = "main-server-consumer-group")
+    @KafkaListener(topics = "answer_topic", groupId = "main-server-consumer-group")
     public void consumeSimilarityResult(String message) {
 
         // TODO: 유사도 검사 값 결과 처리 로직 구현
