@@ -21,7 +21,7 @@ interface SvgButtonProps {
     position?: string;
 }
 
-export const SvgButton = styled.button<SvgButtonProps>`
+export const SvgButton = styled.img<SvgButtonProps>`
     background-image: url(${(props) => props.src});
     background-size: cover;
     width: ${(props) => props.width || "24px"};
