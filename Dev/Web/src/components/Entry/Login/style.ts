@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    height: 81vh;
+    height: 100vh;
     width: 100vw;
 
-    //min-width: 1920px;
-    //min-height: 1080px;
+    min-width: 1920px;
+    min-height: 1080px;
 
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     flex-direction: row;
 `;
