@@ -6,6 +6,7 @@ import org.dongguk.vsa.modeul.core.exception.type.CommonException;
 import org.dongguk.vsa.modeul.dialogue.domain.mysql.Dialogue;
 import org.dongguk.vsa.modeul.dialogue.domain.type.EDialogueStatus;
 import org.dongguk.vsa.modeul.dialogue.dto.response.DialogueSummaryListDto;
+import org.dongguk.vsa.modeul.dialogue.dto.response.DialogueTemporarySummaryListDto;
 import org.dongguk.vsa.modeul.dialogue.repository.mysql.DialogueRepository;
 import org.dongguk.vsa.modeul.dialogue.usecase.ReadDialogueTemporarySummaryListUseCase;
 import org.dongguk.vsa.modeul.modeullak.domain.mysql.Modeullak;
@@ -31,7 +32,7 @@ public class ReadDialogueTemporarySummaryListService implements ReadDialogueTemp
     private final DialogueRepository dialogueRepository;
 
     @Override
-    public DialogueSummaryListDto execute(UUID accountId, Long modeullakId) {
+    public DialogueTemporarySummaryListDto execute(UUID accountId, Long modeullakId) {
         // 1. 사용자 및 자원 조회
         User requestUser = userRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
@@ -49,11 +50,11 @@ public class ReadDialogueTemporarySummaryListService implements ReadDialogueTemp
         );
 
         // 4. 대화 간략 정보 DTO로 변환
-        return DialogueSummaryListDto.fromEntities(dialogues);
+        return DialogueTemporarySummaryListDto.fromEntities(dialogues);
     }
 
     @Override
-    public DialogueSummaryListDto execute(UUID accountId, UUID userId, Long modeullakId) {
+    public DialogueTemporarySummaryListDto execute(UUID accountId, UUID userId, Long modeullakId) {
         // 1. 사용자 및 자원 조회
         User requestUser = userRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
@@ -77,6 +78,6 @@ public class ReadDialogueTemporarySummaryListService implements ReadDialogueTemp
                 EDialogueStatus.PENDING
         );
 
-        return DialogueSummaryListDto.fromEntities(dialogues);
+        return DialogueTemporarySummaryListDto.fromEntities(dialogues);
     }
 }
