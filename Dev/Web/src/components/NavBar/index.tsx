@@ -23,7 +23,8 @@ const NavBar: React.FC = () => {
     }
 
     const onProfileCLick = (): void => {
-        alert("profile clicked!");
+        navigate(CONSTANT.ROUTER.ENTRY);
+        window.location.reload();
     }
 
     return (
