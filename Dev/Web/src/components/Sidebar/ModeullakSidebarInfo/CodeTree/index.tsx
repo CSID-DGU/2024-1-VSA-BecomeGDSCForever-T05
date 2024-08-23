@@ -22,6 +22,7 @@ const TreeContainer = styled.ul<{ level: number }>`
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    gap: 6px;
 `;
 
 const TreeItem = styled.li<{ isDirectory: boolean }>`
@@ -95,7 +96,8 @@ const FileTree: React.FC<FileTreeProps> = ({
                             }
                         </>
                     ) : (
-                        <span onClick={() => onFileClick(item.name)}>
+                        // <Sub2 text={item.name} onClick={() => onFileClick(item.name)} />
+                        <span onClick={() => onFileClick(item.name)} style={{fontSize: "18px"}}>
                              ㅤ {item.name}
                         </span>
                     )}

@@ -62,7 +62,7 @@ export const DirectoryList = styled.div<ContainerProps>`
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-
+    padding-top: 8px;
 `;
 
 export const AddFileInput = styled.input`
