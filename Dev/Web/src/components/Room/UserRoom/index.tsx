@@ -7,9 +7,10 @@ import {useState} from "react";
 import Row from "@/components/Common/Row";
 import Column from "@/components/Common/Column";
 import QuestionDetail from "@/components/Room/UserRoom/QuestionDetail";
-import AnswerInput from "@/components/Room/UserRoom/AnswerInput";
 import {useModeullakUserDialogueTemporarySummary} from "@/hooks/dialogue/useModeullakUserDialogueTemporarySummary.ts";
 import H4 from "@/components/Common/Font/Heading/H4";
+import {useDialogueDetail} from "@/hooks/dialogue/useDialogueDetail.ts";
+import AnswerDetail from "@/components/Room/UserRoom/AnswerDetail";
 
 interface props {
     modeullakId: number;
@@ -22,8 +23,15 @@ export default function UserRoom(props: props) {
     const [clickedQuestionId, setClickedQuestionId] = useState<number>(-1);
 
     const handleClick = (index: number) => () => {
-        setClickedQuestionId(index);
+
+        if (clickedQuestionId !== -1 && clickedQuestionId === index) {
+            setClickedQuestionId(-1);
+        } else {
+            setClickedQuestionId(index);
+        }
     }
+
+    const dialogueDetail = useDialogueDetail(clickedQuestionId);
 
     return (
         <Styled.Container>
@@ -47,21 +55,24 @@ export default function UserRoom(props: props) {
                                             index !== 0 && <SizedBox height={"20px"}/>
                                         }
                                         <QuestionBrief state={dialogue}
-                                                       isClicked={clickedQuestionId === index}
-                                                       onClick={handleClick(index)}/>
+                                                       isClicked={clickedQuestionId === dialogue.id}
+                                                       onClick={handleClick(dialogue.id)}/>
                                     </>
                                 )
                             })
                         }
                     </Column>
-                    <Column>
+                    <Column width={"1200px"}>
                         {
                             clickedQuestionId !== -1 && (
                                 <>
-                                    <QuestionDetail/>
+                                    <QuestionDetail dialogueDetail={dialogueDetail}/>
                                     <SizedBox height={"40px"}/>
-                                    {/*<AnswerDetail/>*/}
-                                    <AnswerInput/>
+                                    {
+                                        dialogueDetail.answer && (
+                                            <AnswerDetail dialogueDetail={dialogueDetail}/>
+                                        )
+                                    }
                                 </>
                             )
                         }
