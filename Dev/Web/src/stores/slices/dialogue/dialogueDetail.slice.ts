@@ -26,7 +26,9 @@ const initialState: DialogueDetailStatePayload = {
 export const dialogueDetailSlice = createSlice({
     name: "dialogueDetailState",
     initialState,
-    reducers: {},
+    reducers: {
+        resetDialogueDetailState: () => initialState
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchDialogueDetail.pending, (state) => {
@@ -49,4 +51,5 @@ export const dialogueDetailSlice = createSlice({
     }
 })
 
+export const {resetDialogueDetailState} = dialogueDetailSlice.actions;
 export default dialogueDetailSlice.reducer;
