@@ -55,7 +55,7 @@ export default function ModeullakSidebarUser(props: props) {
                         return (
                             <Styled.UserProfile key={user.id} onClick={() => handleUserProfileClick(user)}>
                                 <ProfileImage src={DefaultProfile} width={"56px"} height={"56px"}
-                                              alt={"Profile"} new={true}/>
+                                              alt={"Profile"}/>
                             </Styled.UserProfile>
                         )
                     })

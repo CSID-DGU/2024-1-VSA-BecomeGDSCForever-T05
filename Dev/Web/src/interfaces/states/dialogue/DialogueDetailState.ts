@@ -16,7 +16,7 @@ export interface DialogueDetailJson {
     question_content: string;
     asked_at: string;
     answer?: string;
-    answered_at?: string;
+    replied_at?: string;
     is_answered_llm?: boolean;
 }
 
@@ -44,7 +44,7 @@ export function fromJson(json: DialogueDetailJson): DialogueDetailState {
         questionContent: json.question_content,
         askedAt: json.asked_at,
         answer: json.answer,
-        answeredAt: json.answered_at,
+        answeredAt: json.replied_at,
         isAnsweredLlm: json.is_answered_llm
     }
 }
