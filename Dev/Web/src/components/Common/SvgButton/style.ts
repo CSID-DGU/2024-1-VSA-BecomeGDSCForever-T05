@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {SvgButtonProps} from "@/interfaces/props/SvgButtonProps.ts";
 
-export const SvgButton = styled.button<SvgButtonProps>`
+export const SvgButton = styled.img<SvgButtonProps>`
     background-image: url(${(props) => props.src});
     background-size: cover;
     width: ${(props) => props.width || "16px"};
