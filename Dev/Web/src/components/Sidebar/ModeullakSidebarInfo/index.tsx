@@ -7,7 +7,6 @@ import SizedBox from "@/components/Common/SizedBox";
 import exitIcon from "@/assets/icons/Sidebar/exitIcon.svg";
 import settingIcon from "@/assets/icons/Sidebar/settingIcon.svg";
 import questionIcon from "@/assets/icons/Sidebar/questionIcon.svg";
-import doubleLeftIcon from "@/assets/icons/Sidebar/doubleLeftIcon.svg";
 import doubleRightIcon from "@/assets/icons/Sidebar/doubleRightIcon.svg";
 import newFileIcon from "@/assets/icons/Sidebar/newFileIcon.svg";
 import refreshIcon from "@/assets/icons/Sidebar/refreshIcon.svg";
@@ -233,12 +232,12 @@ export default function ModeullakSidebarInfo(props: props) {
                         <Row width={"auto"}>
                             <ProfileImage src={settingIcon} width={"24px"} height={"24px"}
                                           onClick={handleSettingButtonClick}/>
-                            <ProfileImage
-                                src={doubleLeftIcon}
-                                width={"24px"}
-                                height={"24px"}
-                                onClick={toggleSidebar}
-                            />
+                            {/*<ProfileImage*/}
+                            {/*    src={doubleLeftIcon}*/}
+                            {/*    width={"24px"}*/}
+                            {/*    height={"24px"}*/}
+                            {/*    onClick={toggleSidebar}*/}
+                            {/*/>*/}
                         </Row>
                     </>
                 )}
@@ -265,7 +264,7 @@ export default function ModeullakSidebarInfo(props: props) {
                                     type="text"
                                     value={newItemName}
                                     onChange={(e) => setNewItemName(e.target.value)}
-                                    
+
                                 />
                                 {/* 여기도 스타일로 바꾸면 될듯?*/}
                                 <Styled.AddFileButton onClick={handleAddNewItem}>
