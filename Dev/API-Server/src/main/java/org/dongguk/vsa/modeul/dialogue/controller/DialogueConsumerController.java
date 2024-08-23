@@ -30,7 +30,7 @@ public class DialogueConsumerController {
 
         updateAnswerInDialogueUseCase.execute(
                 requestDialogId.longValue(),
-                similarDialogId.longValue(),
+                similarDialogId == null ? null : similarDialogId.longValue(),
                 answer,
                 keyword
         );
